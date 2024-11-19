@@ -16,15 +16,21 @@ Clone the repository:
    ```bash
    git clone https://github.com/yourusername/xml-parser.git
    ```
-Fetch the branch you're supposed to work on.
+Fetch all branches
    ```bash
-   git fetch <branch-name>
+   git fetch
    ```
+
+Then checkout to the branch you're supposed to work on.
+   ```bash
+   git checkout <branch-name>
+   ```
+
 ## Compilation
 
 ### For VS Code Users
 
-1. To build the project, press **`Ctrl` + `Shift` + `B`**.  
+1. To build the project, press **`Ctrl` + `Shift` + `B`**, then choose **`CMake: build`** from the popup window.
 2. To run the program, use the following commands based on your operating system:
 
 #### Windows:
