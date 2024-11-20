@@ -2,6 +2,9 @@
 #define FUNCTIONS_H
 
 #include <bits/stdc++.h>
+#include <string>
+#include <vector>
+#include <stack>
 using namespace std;
 
 string readXMLFile (string xml_file);// omar
