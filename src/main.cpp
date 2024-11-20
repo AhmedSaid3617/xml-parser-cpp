@@ -56,5 +56,4 @@ int main() {
     string xml = "<person><name>John Doe</name><age>30</age><address><street>Main St</street><city>Somewhere</city></address></person>";
     xml=xml_to_json(xml);
     cout << xml << endl;
-    return 0;
 }
