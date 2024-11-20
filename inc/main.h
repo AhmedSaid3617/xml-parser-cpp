@@ -3,7 +3,4 @@
 
 #define SOME_NUMBER 1024
 
-
-void display();
-
 #endif

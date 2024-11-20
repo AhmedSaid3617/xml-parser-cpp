@@ -3,7 +3,6 @@
 
 int main(){
     printf("Hello world. %d\n", SOME_NUMBER);
-    display();
     return 0;
 }
     
