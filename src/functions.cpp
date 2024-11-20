@@ -1,8 +1,7 @@
 #include "../inc/functions.h"
 
-vector<string> tokenizeXML (string XML_data){
-    vector <string> TokenizedXML;
-    string tag = 0;
+void tokenizeXML (string &XML_data,vector<string> &TokenizedXML){
+    string tag = "";
 
     for(int i = 0 ; i<XML_data.size();i++){
 
@@ -12,6 +11,7 @@ vector<string> tokenizeXML (string XML_data){
             while (XML_data[j]!='>')
             {
                 tag.push_back(XML_data[j]);
+                j++;
             }
             if(XML_data[j] == '>'){
                 tag.push_back(XML_data[j]);
@@ -21,5 +21,4 @@ vector<string> tokenizeXML (string XML_data){
            tag.clear();  
         }
     }
-    return TokenizedXML;
 }

@@ -6,9 +6,7 @@ using namespace std;
 
 string readXMLFile (string xml_file);// omar
 
-
-
-vector<string> tokenizeXML (string); //fares
+void tokenizeXML (string &XML_data,vector<string>& TokenizedXML); //fares
 
 
 bool IsOpening_closing(vector<string>); // fares
