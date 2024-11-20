@@ -15,7 +15,7 @@ bool IsOpening_closing(vector<string>); // fares
 vector<string> extract_tag_name(vector<string>) ;  //Fares
 
 
-vector<string> validateXML(vector<string>); //Omar
+int validateXML(vector<string>); //Omar
 
 void ReportErrors(vector<string>); 
 
