@@ -1,3 +1,7 @@
 build
 CMakeFiles
 .vscode
+Makefile
+CMakeCache.txt
+xml_parser.exe
+cmake_install.cmake
