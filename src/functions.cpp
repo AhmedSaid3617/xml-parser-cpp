@@ -1,7 +1,5 @@
 #include "../inc/functions.h"
 
-void stringToLines (string &XML, vector <string> &LinedXml);
-
 
 void tokenizeXML (string &XML_data,vector<string> &TokenizedXML){
     string tag = "";
@@ -54,13 +52,9 @@ int validateXML(vector<string> &tags) {
     else return 0;
 }
 
-
-
 void stringToLines (string &XML, vector <string> &LinedXml){
-
     int line_number = 0;
     for (int i =0;i<XML.size();i++){
-
         if(XML[i]!= '\n'){
             LinedXml[line_number].push_back(XML[i]);
         }
@@ -68,5 +62,4 @@ void stringToLines (string &XML, vector <string> &LinedXml){
             line_number++;
         }
     }
-
 }

@@ -7,7 +7,7 @@
 #include <stack>
 using namespace std;
 
-string readXMLFile (string xml_file);// omar
+void stringToLines (string &XML, vector <string> &LinedXml);
 
 void tokenizeXML (string &XML_data,vector<string>& TokenizedXML); //fares
 
