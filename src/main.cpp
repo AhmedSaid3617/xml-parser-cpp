@@ -2,6 +2,6 @@
 #include "main.h"
 
 int main(){
-    printf("Hello world. %d\n", SOME_NUMBER);
+    printf("Hello bat5a. %d\n", SOME_NUMBER);
     return 0;
 }
