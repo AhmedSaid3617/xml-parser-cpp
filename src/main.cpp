@@ -1,7 +1,9 @@
 #include <iostream>
+#include "compression.h"
 #include "main.h"
 
+using namespace std;
+
 int main(){
-    printf("Hello world. %d\n", SOME_NUMBER);
     return 0;
 }
