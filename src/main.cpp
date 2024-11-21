@@ -8,11 +8,11 @@ string XMLFile =
 int main(){
 
     string xml = "<t1>\n<t2>\nhi\n</t2>\n</t1>\n"; 
-    vector<string> linedXML;
+    vector<string> linedXML{100};
 
     stringToLines(xml, linedXML);
 
     for(int i=0;i<linedXML.size();i++) 
-    cout<< linedXML[i];
+    cout<< linedXML[i]<<endl;
     return 0;
 }
