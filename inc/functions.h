@@ -20,6 +20,6 @@ vector<string> extract_tag_name(vector<string>) ;  //Fares
 
 int validateXML(vector<string>); //Omar
 
-void ReportErrors(vector<string>); 
+int report_errors(vector <string> &lines, vector <string> &tags, int error_index); 
 
 #endif
