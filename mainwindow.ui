@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
     <width>1003</width>
     <height>728</height>
-   </rect>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -17,52 +29,44 @@
    <string notr="true">background-color: rgb(40, 40, 40);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="layoutWidget">
+   <widget class="QLabel" name="constOutputLabel">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>50</y>
-      <width>821</width>
-      <height>601</height>
+      <x>61</x>
+      <y>541</y>
+      <width>64</width>
+      <height>22</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0" colspan="4">
-      <widget class="QTextEdit" name="textEdit">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(154, 153, 150);</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="printButton">
-       <property name="text">
-        <string>Print</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>Convert to JSON</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <property name="text">
+     <string>Output:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="outputLabel">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>569</y>
+      <width>800</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>9</y>
+      <width>800</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(154, 153, 150);</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -71,7 +75,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1003</width>
+     <width>900</width>
      <height>27</height>
     </rect>
    </property>
@@ -83,7 +87,30 @@
     <addaction name="actionNew"/>
     <addaction name="actionSave"/>
    </widget>
+   <widget class="QMenu" name="menuCompression">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionCheck_for_errors"/>
+    <addaction name="actionConvert_to_JSON"/>
+    <addaction name="actionFormat"/>
+   </widget>
+   <widget class="QMenu" name="menuCompress">
+    <property name="title">
+     <string>Compress</string>
+    </property>
+    <addaction name="actionRemove_whitespaces"/>
+    <addaction name="actionCompress_file"/>
+   </widget>
+   <widget class="QMenu" name="menuVisualize">
+    <property name="title">
+     <string>Visualize</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuCompression"/>
+   <addaction name="menuCompress"/>
+   <addaction name="menuVisualize"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -98,6 +125,36 @@
   <action name="actionSave">
    <property name="text">
     <string>Save</string>
+   </property>
+  </action>
+  <action name="actionCompress_xml_file">
+   <property name="text">
+    <string>Compress xml file</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_errors">
+   <property name="text">
+    <string>Check for errors</string>
+   </property>
+  </action>
+  <action name="actionConvert_to_JSON">
+   <property name="text">
+    <string>Convert to JSON</string>
+   </property>
+  </action>
+  <action name="actionFormat">
+   <property name="text">
+    <string>Format</string>
+   </property>
+  </action>
+  <action name="actionRemove_whitespaces">
+   <property name="text">
+    <string>Remove whitespaces</string>
+   </property>
+  </action>
+  <action name="actionCompress_file">
+   <property name="text">
+    <string>Compress file</string>
    </property>
   </action>
  </widget>

@@ -28,13 +28,10 @@ private slots:
 
     void on_actionSave_triggered();
 
-    void on_printButton_clicked();
+    void on_actionCheck_for_errors_triggered();
 
 private:
     Ui::MainWindow *ui;
     QString currentFileName;
-    QFile* file;
-    QTextStream* inTextStream;
-    QString text;
 };
 #endif // MAINWINDOW_H
