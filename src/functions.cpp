@@ -52,6 +52,42 @@ int validateXML(vector<string> &tags) {
     else return 0;
 }
 
+int report_errors(vector <string> &lines, vector <string> &tags, int error_index) {
+    int j, occur = 0;
+    string tag;
+    string error = tags[error_index];
+    for (int s = 0; s < error_index; s++) {
+        if (tags[s] == error) occur++;
+    }
+    for (int i = 0; i < lines.size(); i++) {
+        if (lines[i][0] != '<') continue;
+        j = 0;
+        while (lines[i][j] != '>') {
+            tag.push_back(lines[i][j]);
+            j++;
+        }
+        tag.push_back('>');
+        if (tag == error && occur == 0) return i+1;
+        if (tag == error) occur--;
+        tag.clear();
+        if(j != lines[i].size() - 1) {
+            while (lines[i][j] != '<') {
+                j++;
+            }
+            while (lines[i][j] != '>') {
+                tag.push_back(lines[i][j]);
+                j++;
+            }
+            cout<<tag<<endl;
+            tag.push_back('>');
+            if (tag == error && occur == 0) return i+1;
+            if (tag == error) occur--;
+            tag.clear();
+        }
+    }
+    return -1;
+}
+
 void stringToLines (string &XML, vector <string> &LinedXml){
     int line_number = 0;
     for (int i =0;i<XML.size();i++){
