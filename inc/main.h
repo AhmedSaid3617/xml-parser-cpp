@@ -20,7 +20,7 @@ class TreeNode{
     TreeNode(string name,string value,TreeNode *parent);
     TreeNode(string name,string value,TreeNode *parent,vector<TreeNode *> children);
     void set_children(vector<TreeNode *> children);
-    bool children_same_type();
+    bool siblings_same_type();
     static TreeNode* Parse_XML(const string data);
 	static void Free_XML(TreeNode* root);
 };

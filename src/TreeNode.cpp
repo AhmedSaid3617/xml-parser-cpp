@@ -20,9 +20,10 @@
             (this->children).push_back(children[i]);
     }
     }
-    bool TreeNode::children_same_type(){
-        for (int i=0;i<children.size()-1;i++){
-           if ((children[i]->tag_name)!=(children[i+1]->tag_name)) return false;
+    bool TreeNode::siblings_same_type(){
+        if(!parent || parent->children.size()<2) return false;
+        for (int i=0;i<parent->children.size()-1;i++){
+           if ((parent->children[i]->tag_name)!=(parent->children[i+1]->tag_name)) return false;
     }
         return true;
     }
