@@ -1,0 +1,30 @@
+<users>
+    <user>
+        <id>
+            1
+        </id>
+        <name>
+            user1
+        </name>
+        <posts>
+            <post>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </post>
+            <post>
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>
+                    2
+                </id>
+            </follower>
+            <follower>
+                <id>
+                    4
+                </id>
+            </follower>
+        </followers>
+    </user>
+</users>
