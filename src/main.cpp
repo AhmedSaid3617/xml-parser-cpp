@@ -8,3 +8,4 @@ string xml = "<users><user><id>1</id><name>Ahmed Ali</name><posts><post><body>Lo
     cout << json << endl;
     return 0;
 }
+    
