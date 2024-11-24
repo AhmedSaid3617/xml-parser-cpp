@@ -19,7 +19,18 @@ include(CTest)
 add_executable(xml_consistency_check test/consistency.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME XML_CONSISTENCY_CHECK COMMAND xml_consistency_check)
 
-if ()
+if (1)
+    set (CMAKE_PREFIX_PATH /home/ahmed/Qt/6.7.2/gcc_64)
+
+    find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+    find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+
+    set(PROJECT_SOURCES
+        src/gui/gui_main.cpp
+        src/gui/mainwindow.cpp
+        src/gui/mainwindow.h
+        src/gui/mainwindow.ui)
+
     set(CMAKE_AUTOUIC ON)
     set(CMAKE_AUTOMOC ON)
     set(CMAKE_AUTORCC ON)
@@ -28,7 +39,7 @@ if ()
         qt_add_executable(qt_test
                 MANUAL_FINALIZATION
                 ${PROJECT_SOURCES}
-                ${xml_parser_SRC}
+                ${XML_PARSER_CORE_CPP}
 
         )
         # Define target properties for Android with Qt 6 as:
