@@ -1,4 +1,8 @@
-#include "main.h"
+#include "formatting.h"
+#include "tree/tree.h"
+
+using namespace std;
+
 string erase_unwanted_chars(string str, bool erase_white_space) {
     vector<char> sequences = { '\a','\b','\r','\n','\v','\t' };
     for (int i = 0; i < str.length(); ++i) {

@@ -1,4 +1,8 @@
-#include "main.h"
+#include "tree_to_json.h"
+#include "format/formatting.h"
+
+using namespace std;
+
 string convert_json(TreeNode* node, int level) {
     string json = "";
     // Opening square bracket or curly brace depending on the number of children

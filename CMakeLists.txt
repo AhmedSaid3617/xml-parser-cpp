@@ -19,7 +19,16 @@ include(CTest)
 add_executable(xml_consistency_check test/consistency.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME XML_CONSISTENCY_CHECK COMMAND xml_consistency_check)
 
-if (1)
+add_executable(xml_to_json test/xml_to_json.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME XML_TO_JSON_CHECK COMMAND xml_to_json)
+
+add_executable(xml_to_tree test/xml_to_tree.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME XML_TO_TREE_CHECK COMMAND xml_to_tree)
+
+add_executable(string_formatting test/string_formatting.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME STRING_FORMATTING_CHECK COMMAND string_formatting)
+
+if (${COMPILE_GUI})
     set (CMAKE_PREFIX_PATH /home/ahmed/Qt/6.7.2/gcc_64)
 
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)

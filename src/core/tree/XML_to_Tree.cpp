@@ -1,4 +1,7 @@
-#include "main.h"
+#include "tree.h"
+
+using namespace std;
+
 TreeNode* TreeNode::Parse_XML(const string data) {
 	// store the root node in order to delete all the nodes after parsing 
 	TreeNode* root = new TreeNode();

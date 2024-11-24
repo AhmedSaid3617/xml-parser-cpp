@@ -1,4 +1,7 @@
-    #include "main.h"
+    #include "tree.h"
+
+    using namespace std;
+
     TreeNode::TreeNode(){
         tag_name="";
         tag_value="";
