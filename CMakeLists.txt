@@ -16,7 +16,7 @@ add_executable(console ${XML_PARSER_CONSOLE_CPP} ${XML_PARSER_CORE_CPP})
 
 include(CTest)
 
-add_executable(xml_consistency_check test/consistency.cpp ${XML_PARSER_CORE_CPP})
+add_executable(xml_consistency_check test/xml_consistency.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME XML_CONSISTENCY_CHECK COMMAND xml_consistency_check)
 
 add_executable(xml_to_json test/xml_to_json.cpp ${XML_PARSER_CORE_CPP})

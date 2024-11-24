@@ -1,5 +1,9 @@
-#include "../inc/functions.h"
+#include <stack>
+#include <iostream>
 
+#include "consistency.h"
+
+using namespace std;
 
 void tokenizeXML (string &XML_data,vector<string> &TokenizedXML){
     string tag = "";
