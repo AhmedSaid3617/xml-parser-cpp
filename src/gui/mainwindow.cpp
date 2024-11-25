@@ -65,7 +65,14 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::on_actionCheck_for_errors_triggered()
 {
-    QString my_string = ui->textEdit->toPlainText();
-    ui->outputLabel->setText(my_string);
+    QString in_string = ui->textEdit->toPlainText();
+    //std::string output = 
+    ui->textEdit->setText(in_string);
+}
+
+
+void MainWindow::on_actionFormat_triggered()
+{
+
 }
 
