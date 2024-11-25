@@ -25,13 +25,13 @@ public:
         stack.emplace_back(root);
 
         std::string tag_name;
+        std::string tag_value;
         const char * ptr = xml.c_str();
         bool next = true;
         bool is_closing;
-
         while (next) {
             auto parent = stack.back();
-            ptr = traverse_xml(ptr, tag_name, is_closing);
+            ptr = traverse_xml(ptr, tag_name, tag_value, is_closing);
 
             if (is_closing) {
                 stack.pop_back();
@@ -41,16 +41,17 @@ public:
 
             auto tag_node = new TreeNode();
             tag_node->tag_name = tag_name;
+            tag_node->tag_value = tag_value;
+            tag_node->parent = parent;
 
             parent->add_child(tag_node);
 
             stack.push_back(tag_node);
         }
-
         return root;
     }
 
-    static const char * traverse_xml(const char * ptr, std::string& tag_name, bool& is_closing) {
+    static const char * traverse_xml(const char * ptr, std::string& tag_name, std::string& tag_value, bool& is_closing) {
         while (*ptr != '<')
             ptr++;
 
@@ -73,6 +74,17 @@ public:
         // tag ended
         std::string substring(start, ptr);
         tag_name = substring;
+
+        if (is_closing)
+            return ptr;
+
+        auto end = ptr;
+
+        while (*ptr != '<')
+            ptr++;
+
+        std::string substring2(end, ptr);
+        tag_value = substring2;
 
         return ptr;
     }
