@@ -4,7 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <sstream>
-
+#define SOME_NUMBER 1024
 using namespace std;
 
 class Node {
@@ -12,6 +12,7 @@ public:
     string name;                   // Tag name
     string content;                // Text content inside the tag
     vector<Node*> children;        // List of child nodes
+    int test=55;
 
     // Constructor
     Node(const string& nodeName) : name(nodeName), content("") {}
