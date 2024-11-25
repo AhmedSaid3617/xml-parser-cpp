@@ -111,7 +111,7 @@ public:
 
                 int i = 1;
                 for (TreeNode * child : node->children) {
-                    json += convert_json(child);
+                    json += convert_json(child, false); // List items should not show tag name
                     json += i++ == node->children.size() ? "" : ",";
                 }
 
