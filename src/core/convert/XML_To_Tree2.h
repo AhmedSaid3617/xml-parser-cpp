@@ -83,10 +83,64 @@ public:
         while (*ptr != '<')
             ptr++;
 
-        std::string substring2(end, ptr);
+        std::string substring2(end + 1, ptr);
         tag_value = substring2;
 
         return ptr;
+    }
+
+    static std::string convert_json(TreeNode * node, bool wrap = true) {
+        std::string json;
+
+        if (!node->children.empty()) {
+            // Multiple children either as properties or as an array
+            std::string children_tag = node->children[0]->tag_name;
+            bool same_children_tag = true;
+
+            for(TreeNode * child : node->children) {
+                same_children_tag = child->tag_name == children_tag;
+                if (!same_children_tag) break;
+            }
+
+            if (same_children_tag && node->children.size() > 1) {
+                // Children are arrays
+                json += wrap ? "{" : "";
+                json += wrap ? ("\"" + node->tag_name + "\": ") : "";
+
+                json += "[";
+
+                int i = 1;
+                for (TreeNode * child : node->children) {
+                    json += convert_json(child);
+                    json += i++ == node->children.size() ? "" : ",";
+                }
+
+                json += "]";
+
+                json += wrap ? "}" : "";
+            } else {
+                // Children are different tags, should be added as an object
+                json += wrap ? "{" : "";
+                json += wrap ? ("\"" + node->tag_name + "\": ") : "";
+                json += "{";
+                int i = 1;
+                for (TreeNode * child : node->children) {
+                    json += "\"" + child->tag_name + "\": ";
+                    json += convert_json(child, false);
+                    json += i++ == node->children.size() ? "" : ",";
+                }
+                json += "}";
+                json += wrap ? "}" : "";
+            }
+        } else {
+            // Simple value no children
+            json += wrap ? "{" : "";
+            json += wrap ? ("\"" + node->tag_name + "\": ") : "";
+            json += "\"" + node->tag_value + "\"";
+            json += wrap ? "}" : "";
+        }
+
+        return json;
     }
 };
 
