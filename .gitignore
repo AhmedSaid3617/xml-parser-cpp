@@ -3,10 +3,5 @@ CMakeFiles
 .vscode
 Makefile
 CMakeCache.txt
-xml_parser.exe
-cmake_install.cmake
-
-xml_parser.exe
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+*.cmake
+*.exe
