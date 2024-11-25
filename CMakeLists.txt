@@ -29,7 +29,7 @@ add_executable(string_formatting test/string_formatting.cpp ${XML_PARSER_CORE_CP
 add_test(NAME STRING_FORMATTING_CHECK COMMAND string_formatting)
 
 if (${COMPILE_GUI})
-    set (CMAKE_PREFIX_PATH /home/ahmed/Qt/6.7.2/gcc_64)
+    set (CMAKE_PREFIX_PATH ${COMPILE_GUI_QT_GCC_64_FOLDER})
 
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
     find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
