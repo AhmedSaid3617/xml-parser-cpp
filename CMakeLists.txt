@@ -12,7 +12,9 @@ include_directories(src/console)
 
 file(GLOB_RECURSE XML_PARSER_CONSOLE_CPP src/console/*.cpp)
 
-add_executable(console ${XML_PARSER_CONSOLE_CPP} ${XML_PARSER_CORE_CPP})
+add_executable(console ${XML_PARSER_CONSOLE_CPP} ${XML_PARSER_CORE_CPP}
+        src/core/convert/Conversion_Function.cpp
+)
 
 include(CTest)
 

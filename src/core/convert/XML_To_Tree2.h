@@ -89,7 +89,7 @@ public:
         return ptr;
     }
 
-    static std::string convert_json(TreeNode * node, bool wrap = true) {
+    static std::string convert_json(TreeNode * node, bool wrap = true,int level=0) {
         std::string json;
 
         if (!node->children.empty()) {
@@ -104,40 +104,40 @@ public:
 
             if (same_children_tag && node->children.size() > 1) {
                 // Children are arrays
-                json += wrap ? "{" : "";
-                json += wrap ? ("\"" + node->tag_name + "\": ") : "";
+                json += wrap ? "{\n" : "";
+                json += wrap ? (insert_taps(level+1)+"\"" + node->tag_name + "\": ") : "";
 
-                json += "[";
+                json += "{\n" + insert_taps(level+3) + "\""+node->children[0]->tag_name+ "\"" +": [\n";
 
                 int i = 1;
                 for (TreeNode * child : node->children) {
-                    json += convert_json(child, false); // List items should not show tag name
-                    json += i++ == node->children.size() ? "" : ",";
+                    json += insert_taps(level+4)+convert_json(child, false,level+1); // List items should not show tag name
+                    json += i++ == node->children.size() ? "" : ",\n";
                 }
 
-                json += "]";
+                json += "\n" + insert_taps(level+2)+ "]\n"+ insert_taps(level+1) + "}";
 
-                json += wrap ? "}" : "";
+                json += wrap ? "\n}" : "";
             } else {
                 // Children are different tags, should be added as an object
-                json += wrap ? "{" : "";
-                json += wrap ? ("\"" + node->tag_name + "\": ") : "";
-                json += "{";
+                json += wrap ? "{\n" : "";
+                json += wrap ? (insert_taps(level+1) +"\"" + node->tag_name + "\": ") : "";
+                json += "\n" +insert_taps(level+2) +"{\n";
                 int i = 1;
                 for (TreeNode * child : node->children) {
-                    json += "\"" + child->tag_name + "\": ";
-                    json += convert_json(child, false);
-                    json += i++ == node->children.size() ? "" : ",";
+                    json += insert_taps(level+3) + "\"" + child->tag_name + "\":";
+                    json += convert_json(child, false,level+1);
+                    json += i++ == node->children.size() ? "" : ",\n";
                 }
-                json += "}";
-                json += wrap ? "}" : "";
+                json += "\n" + insert_taps(level+2) + "}";
+                json += wrap ? "\n}" : "";
             }
         } else {
             // Simple value no children
-            json += wrap ? "{" : "";
+            json += wrap ? "{\n" : "";
             json += wrap ? ("\"" + node->tag_name + "\": ") : "";
             json += "\"" + node->tag_value + "\"";
-            json += wrap ? "}" : "";
+            json += wrap ? "\n}" : "";
         }
 
         return json;

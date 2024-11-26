@@ -23,6 +23,5 @@ public:
     static void Free_XML(TreeNode* root);
 };
 
-std::string insert_taps(int level);
 
 #endif //XML_PARSER_TREE_H
