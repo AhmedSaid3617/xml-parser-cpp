@@ -31,9 +31,11 @@ void tokenizeXML (string &XML_data,vector<string> &TokenizedXML){
 // to make sure every tag has opening and closing
 int validateXML(vector<string> &tags) {
     stack<string> s;
+    stack<int> index;
     string close = tags[0];
     if (close.at(1) == '/') return 0; // if the first tag in the array is closing return 0
     s.push(tags[0]);
+    index.push(0);
     for(int i = 1; i < tags.size(); i++) { // looping over the array and pushing the tags into a stack until we find its closing
         if (!s.empty()) {
             close = s.top();
@@ -44,16 +46,20 @@ int validateXML(vector<string> &tags) {
         }
         if(close == tags[i] && !s.empty()) {
             s.pop();
+            index.pop();
         }
         else {
             if (tags[i].at(1) == '/') {
-                return i;
+                if(index.empty()) return i;
+                if(tags[i] == tags[i+1]) return i;
+                return index.top();
             }
             s.push(tags[i]);
+            index.push(i);
         }
     }
     if(s.empty()) return -1;
-    else return 0;
+    else return index.top();
 }
 
 int report_errors(vector <string> &lines, vector <string> &tags, int error_index) {
@@ -82,7 +88,6 @@ int report_errors(vector <string> &lines, vector <string> &tags, int error_index
                 tag.push_back(lines[i][j]);
                 j++;
             }
-            cout<<tag<<endl;
             tag.push_back('>');
             if (tag == error && occur == 0) return i+1;
             if (tag == error) occur--;
@@ -94,12 +99,28 @@ int report_errors(vector <string> &lines, vector <string> &tags, int error_index
 
 void stringToLines (string &XML, vector <string> &LinedXml){
     int line_number = 0;
+    LinedXml = {""};
     for (int i =0;i<XML.size();i++){
         if(XML[i]!= '\n'){
             LinedXml[line_number].push_back(XML[i]);
         }
         else if(XML[i] == '\n') {
             line_number++;
+            LinedXml.push_back("");
         }
     }
+}
+
+int check_errors(string xml_data) {
+    int tag_index = 0;
+    vector <string> lines;
+    vector <string> tags;
+
+    tokenizeXML(xml_data, tags);
+    stringToLines(xml_data, lines);
+    tag_index = validateXML(tags);
+
+    if(tag_index == -1) return -1;
+
+    else return report_errors(lines, tags, tag_index);
 }
