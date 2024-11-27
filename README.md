@@ -50,3 +50,10 @@ build/xml_parser
 
 #### Option 2
 Find out a way to use CMake in your IDE.
+
+## GUI Compilation
+To compile GUI executables, make sure you meet `QT` library requirements and add following parameter to `CMake` using bash scripts or IDE tools.
+```shell
+-DCOMPILE_GUI=1
+```
+
