@@ -30,6 +30,9 @@ add_test(NAME XML_TO_TREE_CHECK COMMAND xml_to_tree)
 add_executable(string_formatting test/string_formatting.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME STRING_FORMATTING_CHECK COMMAND string_formatting)
 
+add_executable(xml_compression test/xml_compression.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME XML_COMPRESSION COMMAND xml_compression)
+
 if (${COMPILE_GUI})
     set (CMAKE_PREFIX_PATH ${COMPILE_GUI_QT_GCC_64_FOLDER})
 
