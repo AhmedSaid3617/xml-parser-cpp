@@ -3,25 +3,22 @@
 #include <vector>
 #include <iostream>
 
-#include "consistancy/consistency.h"
+#include "consistency/consistency.h"
 
 using namespace std;
 
 int main() {
     // Remove the following line, test your code features using assert(SOME BOOLEAN EXPRESSION)
-    // e.g. `assert(myAdder(1, 2) == (1 + 2));`
-    assert(false);
+    string XMLFile ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
+    string XMLFile1 ="<note>\n<to>Tove<to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
+    string XMLFile2 ="<note>\n</to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
+    string XMLFile3 ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<heading>loop<heading>\n<body>Don't forget me this weekend!</body>\n</note>";
+    string XMLFile4 ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<heading>loop</heading>\n<body>Don't forget me this weekend!</body>\n</note>\n</full>";
 
-    string xml = "<t1>\n<t2>\nhi\n</t2>\n</t1>\n";
-    vector<string> linedXML{100};
-
-    stringToLines(xml, linedXML);
-
-    // use assert to check output
-
-    for(int i=0;i<linedXML.size();i++)
-        cout<< linedXML[i]<<endl;
-
-
+    assert(check_errors(XMLFile) == -1);
+    assert(check_errors(XMLFile1) == 2);
+    assert(check_errors(XMLFile2) == 2);
+    assert(check_errors(XMLFile3) == 5);
+    assert(check_errors(XMLFile4) == 8);
     return 0;
 }

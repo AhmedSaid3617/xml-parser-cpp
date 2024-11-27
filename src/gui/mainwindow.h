@@ -30,6 +30,8 @@ private slots:
 
     void on_actionCheck_for_errors_triggered();
 
+    void on_actionFormat_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;
