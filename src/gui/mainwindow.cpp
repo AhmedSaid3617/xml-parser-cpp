@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "consistency/consistency.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -66,12 +67,31 @@ void MainWindow::on_actionSave_triggered()
 void MainWindow::on_actionCheck_for_errors_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
-    //std::string output = 
-    ui->textEdit->setText(in_string);
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+    if (err_line != -1)
+    {
+        out_string = QString("Error on line %1").arg(err_line);
+    }
+    else
+    {
+        out_string = "File is correct!";
+    }
+
+    // TODO: Remove whitespaces but not new lines.
+    
+    ui->outputLabel->setText(out_string);
+
 }
 
 
 void MainWindow::on_actionFormat_triggered()
+{
+
+}
+
+
+void MainWindow::on_actionConvert_to_JSON_triggered()
 {
 
 }
