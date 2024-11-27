@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 #include <cassert>
-#include "convert\tree_to_json.h"
+#include "convert/tree_to_json.h"
 using namespace std;
 
 int main(){
