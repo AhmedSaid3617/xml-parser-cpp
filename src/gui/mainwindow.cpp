@@ -90,9 +90,3 @@ void MainWindow::on_actionFormat_triggered()
 
 }
 
-
-void MainWindow::on_actionConvert_to_JSON_triggered()
-{
-
-}
-
