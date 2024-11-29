@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <cassert>
 using namespace std;
 
 string generateIndentation(const string& space, int level) {
@@ -110,27 +111,17 @@ void writeXMLToFile(const string& xmlContent, const string& filePath) {
 }
 
 int main() {
-    string xml_string =
-        "<users>"
-        "<user>"
-        "<id>1</id>"
-        "<name>user1</name>"
-        "<posts>"
-        "<post>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</post>"
-        "<post>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</post>"
-        "</posts>"
-        "<followers>"
-        "<follower><id>2</id></follower>"
-        "<follower><id>4</id></follower>"
-        "</followers>"
-        "</user>"
-        "</users>";
+    string xml_string = "<xml><v>hello</v></xml>";
+    
+
 
     string OUTXML = "New.xml";
 
     // Prettify the XML content and save it
     string formattedXML = processXML(xml_string, OUTXML);
 
-    cout << "Done" << endl;
+    assert(formattedXML == "<xml>\n    <v>\n        hello\n    </v>\n</xml>\n");
+    
+    cout << "Success!" << endl;
     return 0;
 }
