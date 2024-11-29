@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1003</width>
+    <height>728</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(40, 40, 40);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="constOutputLabel">
+    <property name="geometry">
+     <rect>
+      <x>61</x>
+      <y>541</y>
+      <width>64</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Output:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="outputLabel">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>569</y>
+      <width>800</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>9</y>
+      <width>800</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(154, 153, 150);</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuCompression">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionCheck_for_errors"/>
+    <addaction name="actionConvert_to_JSON"/>
+    <addaction name="actionFormat"/>
+   </widget>
+   <widget class="QMenu" name="menuCompress">
+    <property name="title">
+     <string>Compress</string>
+    </property>
+    <addaction name="actionRemove_whitespaces"/>
+    <addaction name="actionCompress_file"/>
+   </widget>
+   <widget class="QMenu" name="menuVisualize">
+    <property name="title">
+     <string>Visualize</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuCompression"/>
+   <addaction name="menuCompress"/>
+   <addaction name="menuVisualize"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="actionCompress_xml_file">
+   <property name="text">
+    <string>Compress xml file</string>
+   </property>
+  </action>
+  <action name="actionCheck_for_errors">
+   <property name="text">
+    <string>Check for errors</string>
+   </property>
+  </action>
+  <action name="actionConvert_to_JSON">
+   <property name="text">
+    <string>Convert to JSON</string>
+   </property>
+  </action>
+  <action name="actionFormat">
+   <property name="text">
+    <string>Format</string>
+   </property>
+  </action>
+  <action name="actionRemove_whitespaces">
+   <property name="text">
+    <string>Remove whitespaces</string>
+   </property>
+  </action>
+  <action name="actionCompress_file">
+   <property name="text">
+    <string>Compress file</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
