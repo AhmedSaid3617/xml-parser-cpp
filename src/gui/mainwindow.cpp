@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "consistency/consistency.h"
 #include "convert/tree_to_json.h"
+#include "fromat/format.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -88,6 +89,9 @@ void MainWindow::on_actionCheck_for_errors_triggered()
 
 void MainWindow::on_actionFormat_triggered()
 {
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string = QString(formatXML(in_string.toStdString()).c_str());
+    ui->textEdit->setPlainText(out_string);
 }
 
 void MainWindow::on_actionConvert_to_JSON_triggered()
