@@ -51,7 +51,7 @@ vector<string> tokenizeXML(const string& xmlContent) {
 }
 
 // Function to process XML content and generate formatted XML
-string processXML(const string& xmlContent, const string& outputFilePath) {
+string formatXML(const string& xmlContent, const string& outputFilePath) {
 
     vector<string> Output_XML;
     int depth = 0;
