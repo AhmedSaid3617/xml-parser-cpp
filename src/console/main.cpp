@@ -4,7 +4,7 @@
 
 int main() {
     std::string my_string = "<id><x></x></id>";
-    std::cout << processXML(my_string, "out.txt");
+    std::cout << formatXML(my_string);
 
     return 0;
 }

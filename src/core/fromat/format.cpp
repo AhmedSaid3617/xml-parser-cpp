@@ -51,7 +51,7 @@ vector<string> tokenizeXML(const string& xmlContent) {
 }
 
 // Function to process XML content and generate formatted XML
-string formatXML(const string& xmlContent, const string& outputFilePath) {
+string formatXML(const string& xmlContent) {
 
     vector<string> Output_XML;
     int depth = 0;
@@ -90,25 +90,5 @@ string formatXML(const string& xmlContent, const string& outputFilePath) {
 
     string formattedXMLString = formattedStream.str();
 
-    // Save the formatted XML to a file
-    ofstream fileStream(outputFilePath);
-    fileStream << formattedXMLString;
-    fileStream.close();
-
     return formattedXMLString;
-}
-
-// Function to read XML content from a file
-string readXMLFromFile(const string& filePath) {
-    ifstream file(filePath);
-    stringstream buffer;
-    buffer << file.rdbuf();
-    return buffer.str();
-}
-
-// Function to write XML content to a file
-void writeXMLToFile(const string& xmlContent, const string& filePath) {
-    ofstream file(filePath);
-    file << xmlContent;
-    file.close();
 }
