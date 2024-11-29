@@ -5,6 +5,9 @@
 #include <vector>
 #include <algorithm>
 #include <cassert>
+
+#include "format.h"
+
 using namespace std;
 
 string generateIndentation(const string& space, int level) {
@@ -108,20 +111,4 @@ void writeXMLToFile(const string& xmlContent, const string& filePath) {
     ofstream file(filePath);
     file << xmlContent;
     file.close();
-}
-
-int main() {
-    string xml_string = "<xml><v>hello</v></xml>";
-    
-
-
-    string OUTXML = "New.xml";
-
-    // Prettify the XML content and save it
-    string formattedXML = processXML(xml_string, OUTXML);
-
-    assert(formattedXML == "<xml>\n    <v>\n        hello\n    </v>\n</xml>\n");
-    
-    cout << "Success!" << endl;
-    return 0;
 }
