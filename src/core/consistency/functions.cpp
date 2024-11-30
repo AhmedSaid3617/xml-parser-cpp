@@ -70,8 +70,11 @@ int report_errors(vector <string> &lines, vector <string> &tags, int error_index
         if (tags[s] == error) occur++;
     }
     for (int i = 0; i < lines.size(); i++) {
-        if (lines[i][0] != '<') continue;
         j = 0;
+        while (lines[i][j] == ' ') {
+            j++;
+        }
+        if (lines[i][j] != '<') continue;
         while (lines[i][j] != '>') {
             tag.push_back(lines[i][j]);
             j++;
