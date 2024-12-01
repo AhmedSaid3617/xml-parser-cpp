@@ -1,6 +1,3 @@
-#include "compression/compression.h"
-
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,6 +7,7 @@
 #include <regex>
 #include <cassert>
 
+#define pairSize 2
 using namespace std;
 
 // Helper function to read a file into a string
@@ -40,8 +38,8 @@ string minifyXML(const string &xmlContent) {
 unordered_map<string, int> calculateFrequencies(const string &text) {
 
     unordered_map<string, int> frequencies;
-    for (size_t i = 0; i < text.size() - 4; ++i) {
-        string pair = text.substr(i, 3);
+    for (size_t i = 0; i < text.size() - pairSize +1; ++i) {
+        string pair = text.substr(i, pairSize);
         //string pair ="" + text[i]+text[i+1];
         frequencies[pair]++;
     }
@@ -82,7 +80,7 @@ pair<string, unordered_map<string, string>> compress(const string &text) {
     unordered_map<string, string> mapping;
     string compressedText = text;
 
-    int tokenCounter = 0;
+    int tokenCounter = 128;
 
 
     int couner=0;
@@ -106,9 +104,9 @@ pair<string, unordered_map<string, string>> compress(const string &text) {
         //cout<<token<<"\n";
         tokenCounter++;
         cout<<"tokenCounter   "<<tokenCounter<<"\n";
-        string token = "@";
+        string token = "";
         cout<<"token   "<<token<<"\n";
-        token+=to_string(tokenCounter);
+        token+=(tokenCounter);
         cout<<"token   "<<token<<"\n";
 
 
@@ -116,7 +114,8 @@ pair<string, unordered_map<string, string>> compress(const string &text) {
 
         // Replace the most frequent pair with a new token
         compressedText = replaceFrequentPairs(compressedText, pair, token);
-        if(couner==90){
+        if(couner==150 || tokenCounter==255){
+            cout<<" tokenCounter "<<tokenCounter<<"\n";
             break;
         }
         couner++;
@@ -192,7 +191,7 @@ string decompress(const string &compressedText, const unordered_map<string, stri
 
     return decompressedText;
 }
-void displayHashTable(unordered_map<string,auto> freq){
+void displayHashTable(unordered_map<string,int> freq){
     cout<<"{";
     for (const auto& pair : freq) {
         cout <<"("<< pair.first << ": " << pair.second <<"), ";
