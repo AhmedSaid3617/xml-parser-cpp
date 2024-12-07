@@ -174,40 +174,35 @@ void displayHashTable(unordered_map<string,auto> freq){
 }
 
 // Function to create a file with a string, unordered_map, and stack
-void createFile(const string& filename, const string& text, const unordered_map<string, string>& data, stack<string>& stackData) {
-    // Open the file in write mode
-    ofstream file(filename, ios::out);
-
-    if (!file.is_open()) {
-        cerr << "Error: Could not open file " << filename << endl;
-        return;
-    }
+string CompresedTosring(const string& text, const unordered_map<string, string>& data, stack<string>& stackData) {
+    string Compressed="";
 
     // Write the string
-    file << text << "\n";
+    Compressed+=text + "\n";
 
     // Write the unordered_map
 
     for (const auto& pair : data) {
-        file << pair.first<< pair.second;
+        Compressed+= pair.first+ pair.second;
     }
 
     // Write the stack
-    file << "\n";
+    Compressed+= "\n";
     stack<string> tempStack; // Temporary stack to preserve original stack order
     while (!stackData.empty()) {
         tempStack.push(stackData.top());
         stackData.pop();
     }
     while (!tempStack.empty()) {
-        file << tempStack.top();
+        Compressed+=tempStack.top();
         stackData.push(tempStack.top());
         tempStack.pop();
     }
-    file << "\n";
-    file.close(); // Close the file
-    cout << "Data saved successfully to " << filename << endl;
-}CompressionResult loadFile(const string& filename) {
+    Compressed+="\n";
+
+   return Compressed;
+}
+CompressionResult loadFile(const string& filename) {
     string loadedData=readFile(filename);
     CompressionResult result;
     int index=0;
@@ -270,16 +265,20 @@ int main() {
         auto [compressedXML, mapping,tokens] = compress(minifiedXML);
         cout << "\nCompressed XML:\n" << compressedXML << "\n";
 
-
         cout << "\nMapping (for decompression):\n";
-
-        auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadFile("output.txt");
-
         for (const auto &entry : mapping) {
             cout << entry.first << " -> " << entry.second << "\n";
         }
+
         writeStringToFile("testing the size of minifiedXML.txt" ,minifiedXML);
-        createFile("output.txt", compressedXML, mapping,tokens);
+        string Compressed=CompresedTosring(compressedXML, mapping,tokens);
+        cout<<Compressed<<'\n';
+        writeStringToFile("output.txt", Compressed);
+
+
+
+        auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadFile("output.txt");
+
         cout<<"\ntesting the loaded file\n";
 
         if (!compressedXML4LoadedFile.compare(compressedXML)){
