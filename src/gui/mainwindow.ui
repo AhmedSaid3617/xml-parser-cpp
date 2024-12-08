@@ -92,6 +92,7 @@
      <string>Edit</string>
     </property>
     <addaction name="actionCheck_for_errors"/>
+    <addaction name="actionFix_errors"/>
     <addaction name="actionConvert_to_JSON"/>
     <addaction name="actionFormat"/>
    </widget>
@@ -155,6 +156,11 @@
   <action name="actionCompress_file">
    <property name="text">
     <string>Compress file</string>
+   </property>
+  </action>
+  <action name="actionFix_errors">
+   <property name="text">
+    <string>Fix errors</string>
    </property>
   </action>
  </widget>

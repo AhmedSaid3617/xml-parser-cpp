@@ -34,6 +34,8 @@ private slots:
 
     void on_actionConvert_to_JSON_triggered();
 
+    void on_actionFix_errors_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;
