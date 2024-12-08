@@ -62,6 +62,41 @@ int validateXML(vector<string> &tags) {
     else return index.top();
 }
 
+int validateXML_fixing(vector<string> &tags) {
+    stack<string> s;
+    stack<int> index;
+    string corner;
+    string close = tags[0];
+    if (close.at(1) == '/') return 0; // if the first tag in the array is closing return 0
+    s.push(tags[0]);
+    index.push(0);
+    for(int i = 1; i < tags.size(); i++) { // looping over the array and pushing the tags into a stack until we find its closing
+        if (!s.empty()) {
+            close = s.top();
+            close.insert(close.begin()+1, '/');
+        }
+        else {
+            close = "";
+        }
+        if(close == tags[i] && !s.empty()) {
+            s.pop();
+            index.pop();
+        }
+        else {
+            if (tags[i].at(1) == '/') {
+                return i;
+            }
+            if(tags[i] == tags[i+1] && tags[i].at(1) != '/') {
+                return i+1;
+            }
+            s.push(tags[i]);
+            index.push(i);
+        }
+    }
+    if(s.empty()) return -1;
+    return index.top();
+}
+
 int report_errors(vector <string> &lines, vector <string> &tags, int error_index) {
     int j, occur = 0;
     string tag;
@@ -120,6 +155,19 @@ int find_errors(vector <string> &lines, vector <string> &tags, int error_index) 
     int starting = 0;
     bool duplicate = false;
     if(error_index == -1) return -1;
+    if(error_index == 0) {
+        tag = tags[0];
+        if(tag.at(1) == '/') {
+            tag.erase(tag.begin()+1);
+            lines[0] = tag;
+            return 0;
+        }
+        if(tag.at(1) != '/') {
+            tag.insert(tag.begin()+1, '/');
+            lines.push_back(tag);
+            return 0;
+        }
+    }
     string error = tags[error_index];
     if(tags[error_index] == tags[error_index+1] || tags[error_index] == tags[error_index - 1]) duplicate = true;
     for (int s = 0; s < error_index; s++) {
@@ -153,7 +201,7 @@ int find_errors(vector <string> &lines, vector <string> &tags, int error_index) 
             }
             else if(error.at(1) != '/') {
                 error.insert(error.begin()+1,'/');
-                // cout<<error<<endl;
+                cout<<error<<endl;
                 lines.insert(lines.begin()+ i+1, error);
             }
             return i+1;
@@ -221,7 +269,7 @@ string fix_errors(string xml_data) {
 
     tokenizeXML(xml_data, tags);
     stringToLines(xml_data, lines);
-    tag_index = validateXML(tags);
+    tag_index = validateXML_fixing(tags);
     error_index = find_errors(lines, tags, tag_index);
     if(error_index == -1) {
         return xml_data;
