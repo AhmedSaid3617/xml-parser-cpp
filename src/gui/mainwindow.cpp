@@ -90,12 +90,33 @@ void MainWindow::on_actionCheck_for_errors_triggered()
 void MainWindow::on_actionFormat_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
-    QString out_string = QString(formatXML(in_string.toStdString()).c_str());
-    ui->textEdit->setPlainText(out_string);
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+
+    if (err_line != -1)
+    {
+        out_string = QString("Error on line %1").arg(err_line);
+        ui->outputLabel->setText(out_string);
+        return;
+    }
+    
+    in_string = QString(formatXML(in_string.toStdString()).c_str());
+    ui->textEdit->setPlainText(in_string);
 }
 
 void MainWindow::on_actionConvert_to_JSON_triggered()
 {
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+
+    if (err_line != -1)
+    {
+        out_string = QString("Error on line %1").arg(err_line);
+        ui->outputLabel->setText(out_string);
+        return;
+    }
+    
     QString fileName;
     // If we don't have a filename from before, get one.
 
@@ -116,4 +137,29 @@ void MainWindow::on_actionConvert_to_JSON_triggered()
     text = xml_to_json(ui->textEdit->toPlainText().toStdString()).c_str();
     out << text;
     file.close();
+
+    out_string = "Converted successfully.";
+    ui->outputLabel->setText(out_string);
+
 }
+
+void MainWindow::on_actionFix_errors_triggered()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+    if (err_line != -1)
+    {
+        ui->textEdit->setText(QString(fix_errors(in_string.toStdString()).c_str()));
+        out_string = "Fixed the file.";
+    }
+    else
+    {
+        out_string = "File is correct.";
+    }
+
+    // TODO: Remove whitespaces but not new lines.
+
+    ui->outputLabel->setText(out_string);
+}
+
