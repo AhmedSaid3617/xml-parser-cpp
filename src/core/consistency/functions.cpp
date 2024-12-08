@@ -153,7 +153,7 @@ int find_errors(vector <string> &lines, vector <string> &tags, int error_index) 
             }
             else if(error.at(1) != '/') {
                 error.insert(error.begin()+1,'/');
-                cout<<error<<endl;
+                // cout<<error<<endl;
                 lines.insert(lines.begin()+ i+1, error);
             }
             return i+1;

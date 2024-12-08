@@ -20,5 +20,11 @@ int main() {
     assert(check_errors(XMLFile2) == 2);
     assert(check_errors(XMLFile3) == 5);
     assert(check_errors(XMLFile4) == 8);
+
+    assert(check_errors(fix_errors(XMLFile)) == -1);
+    assert(check_errors(fix_errors(XMLFile1)) ==-1);
+    assert(check_errors(fix_errors(XMLFile2)) ==-1);
+    assert(check_errors(fix_errors(XMLFile3)) ==-1);
+    assert(check_errors(fix_errors(XMLFile4)) ==-1);
     return 0;
 }
