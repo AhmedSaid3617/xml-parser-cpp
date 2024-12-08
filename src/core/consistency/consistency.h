@@ -10,6 +10,7 @@ int report_errors(std::vector <std::string> &lines, std::vector <std::string> &t
 void stringToLines (std::string &XML, std::vector <std::string> &LinedXml);
 int check_errors(std::string xml_file);
 int find_errors(std::vector <std::string> &lines, std::vector <std::string> &tags, int error_index);
+int validateXML_fixing(vector<string> &tags);
 std::string fix_errors(std::string xml_file);
 
 #endif //XML_PARSER_CONSISTENCY_H
