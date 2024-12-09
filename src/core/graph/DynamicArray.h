@@ -7,6 +7,36 @@
 
 #include <cstdint>
 
+#include <stdexcept>
+#include <algorithm>
+#include <string>
+#include <sstream>
+
+class ArrayIndexException : public std::exception {
+private:
+    std::string message;
+    size_t index;
+    size_t array_size;
+
+public:
+    // Constructor with detailed information
+    ArrayIndexException(size_t index, size_t array_size)
+            : index(index), array_size(array_size) {
+        std::ostringstream oss;
+        oss << "Index " << index << " is out of range. Array size is " << array_size;
+        message = oss.str();
+    }
+
+    // Override what() to provide custom error message
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+
+    // Additional methods to get specific error details
+    size_t get_index() const { return index; }
+    size_t get_array_size() const { return array_size; }
+};
+
 template<class K>
 class DynamicArray {
 private:
@@ -32,7 +62,10 @@ public:
 
 template<class K>
 K * DynamicArray<K>::get(uint32_t index) {
-    return list[index];
+    if (index < consumed)
+        return list[index];
+
+    throw ArrayIndexException(index, consumed);
 }
 
 template<class K>

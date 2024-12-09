@@ -38,6 +38,18 @@ private:
 public:
     explicit Vertex(T * data, uint32_t capacity = 100);
     void add_edge(Edge<T> * edge);
+
+    Edge<T> * get_edge(uint32_t index) {
+        return edges->get(index);
+    }
+
+    uint32_t get_edges_count() {
+        return edges->get_consumed();
+    }
+
+    T * get_data() {
+        return data;
+    }
 };
 
 
@@ -56,6 +68,11 @@ public:
     explicit Graph(uint32_t capacity = 100);
     uint32_t add_vertex(T * vertex);
     Vertex<T> * get_vertex(uint32_t index);
+
+    uint32_t get_vertices_count() {
+        return vertices->get_consumed();
+    }
+
     void add_edge(Edge<T> * edge);
 };
 
