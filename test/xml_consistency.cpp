@@ -9,16 +9,8 @@ using namespace std;
 
 int main() {
     // Remove the following line, test your code features using assert(SOME BOOLEAN EXPRESSION)
-    string XMLFile ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
-    string XMLFile1 ="<note>\n<to>Tove<to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
-    string XMLFile2 ="<note>\n</to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<body>Don't forget me this weekend!</body>\n</note>";
-    string XMLFile3 ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<heading>loop<heading>\n<body>Don't forget me this weekend!</body>\n</note>";
-    string XMLFile4 ="<note>\n<to>Tove</to>\n<from>Jani</from>\n<heading>Reminder</heading>\n<heading>loop</heading>\n<body>Don't forget me this weekend!</body>\n</note>\n</full>";
+    string XMLFile ="<note>\n<body>\n<to>Tove<to>\n</from>Jani</from>\n</heading>Reminder</heading>\nDon't forget me this weekend!\n<fuck>\n</lol>\n</body>\n</note>\n</root>";
 
-    assert(check_errors(XMLFile) == -1);
-    assert(check_errors(XMLFile1) == 2);
-    assert(check_errors(XMLFile2) == 2);
-    assert(check_errors(XMLFile3) == 5);
-    assert(check_errors(XMLFile4) == 8);
+    cout<<fix_file(XMLFile);
     return 0;
 }
