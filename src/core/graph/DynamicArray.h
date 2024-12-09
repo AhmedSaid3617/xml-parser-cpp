@@ -12,12 +12,18 @@ class DynamicArray {
 private:
     uint32_t consumed;
     uint32_t capacity;
-    K * list;
+    K ** list;
 
     void resize_list(uint32_t resized_capacity);
 
 public:
     explicit DynamicArray(uint32_t capacity = 100);
+    uint32_t get_capacity() {
+        return capacity;
+    }
+    uint32_t get_consumed() {
+        return consumed;
+    }
     K * get(uint32_t index);
     void remove(uint32_t index);
     uint32_t add(K * entry);
@@ -26,7 +32,7 @@ public:
 
 template<class K>
 K * DynamicArray<K>::get(uint32_t index) {
-    return list + index;
+    return list[index];
 }
 
 template<class K>
@@ -43,18 +49,18 @@ uint32_t DynamicArray<K>::add(K * entry) {
     if (capacity < consumed + 1)
         resize_list(2 * capacity);
 
-    list[consumed++] = *entry;
+    list[consumed++] = entry;
     return consumed - 1;
 }
 
 template<class K>
 DynamicArray<K>::DynamicArray(uint32_t capacity): capacity(capacity), consumed(0) {
-    list = new K[capacity];
+    list = new K*[capacity];
 }
 
 template<class K>
 void DynamicArray<K>::resize_list(uint32_t resized_capacity) {
-    K * resized_list = new K[resized_capacity];
+    K ** resized_list = new K*[resized_capacity];
 
     for (int i = 0; i < capacity; ++i) {
         resized_list[i] = list[i];
