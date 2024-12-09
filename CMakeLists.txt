@@ -33,6 +33,9 @@ add_test(NAME STRING_FORMATTING_CHECK COMMAND string_formatting)
 add_executable(graphs_and_dynamic_arrays test/graphs_and_dynamic_arrays.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME GRAPHS_AND_DYNAMIC_ARRAYS_CHECK COMMAND graphs_and_dynamic_arrays)
 
+add_executable(social_network test/social_network.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME SOCIAL_NETWORK_CHECK COMMAND social_network)
+
 if (${COMPILE_GUI})
     set (CMAKE_PREFIX_PATH ${COMPILE_GUI_QT_GCC_64_FOLDER})
 

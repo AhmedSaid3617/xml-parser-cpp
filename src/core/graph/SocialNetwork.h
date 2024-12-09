@@ -16,9 +16,13 @@ struct user_id_graph_key_t {
     }
 };
 
+/**
+ * @note Edge convention is that a is the user and b is the user followed (a is follower, b is followee)
+ */
 class SocialNetwork: public Graph<User>{
     DynamicArray<user_id_graph_key_t> users;
 
+public:
     SocialNetwork() {
     }
 
@@ -42,7 +46,7 @@ class SocialNetwork: public Graph<User>{
     }
 
     void add_follower(graph_key_t user, graph_key_t followee) {
-        add_edge(new Edge<User>(get_user(user), get_user(followee)));
+        add_edge(new Edge<User>(get_user(followee), get_user(user)));
     }
 
     void add_follower(User * user, User * followee) {
@@ -62,11 +66,21 @@ class SocialNetwork: public Graph<User>{
         throw std::exception();
     }
 
-    void print_followers(std::ostream os, uint32_t id) {
+    void print_following(std::ostream& os, uint32_t id) {
         Vertex<User> * user = get_user(id);
 
         for (int i = 0; i < user->get_edges_count(); ++i) {
-            os << user->get_edge(i)->a->get_data()->id << " ";
+            if (user->get_edge(i)->b != user)
+                os << user->get_edge(i)->b->get_data()->id << " ";
+        }
+    }
+
+    void print_followers(std::ostream& os, uint32_t id) {
+        Vertex<User> * user = get_user(id);
+
+        for (int i = 0; i < user->get_edges_count(); ++i) {
+            if (user->get_edge(i)->a != user)
+                os << user->get_edge(i)->a->get_data()->id << " ";
         }
     }
 };
