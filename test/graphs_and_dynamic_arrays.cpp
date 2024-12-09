@@ -44,20 +44,20 @@ int main() {
     (void) graph.add_vertex(new int (300));
     (void) graph.add_vertex(new int (400));
 
-    assert(*graph.get_vertex(0)->get_data() == 100);
-    assert(*graph.get_vertex(1)->get_data() == 200);
-    assert(*graph.get_vertex(2)->get_data() == 300);
-    assert(*graph.get_vertex(3)->get_data() == 400);
+    assert(*graph.get_vertex({0})->get_data() == 100);
+    assert(*graph.get_vertex({1})->get_data() == 200);
+    assert(*graph.get_vertex({2})->get_data() == 300);
+    assert(*graph.get_vertex({3})->get_data() == 400);
 
-    graph.add_edge(new Edge(graph.get_vertex(0), graph.get_vertex(1)));
-    graph.add_edge(new Edge(graph.get_vertex(0), graph.get_vertex(2)));
-    graph.add_edge(new Edge(graph.get_vertex(0), graph.get_vertex(3)));
-    graph.add_edge(new Edge(graph.get_vertex(2), graph.get_vertex(3)));
-    graph.add_edge(new Edge(graph.get_vertex(1), graph.get_vertex(3)));
+    graph.add_edge(new Edge(graph.get_vertex({0}), graph.get_vertex({1})));
+    graph.add_edge(new Edge(graph.get_vertex({0}), graph.get_vertex({2})));
+    graph.add_edge(new Edge(graph.get_vertex({0}), graph.get_vertex({3})));
+    graph.add_edge(new Edge(graph.get_vertex({2}), graph.get_vertex({3})));
+    graph.add_edge(new Edge(graph.get_vertex({1}), graph.get_vertex({3})));
 
-    assert(graph.get_vertex(0)->get_edge(0)->b == graph.get_vertex(1));
-    assert(graph.get_vertex(0)->get_edge(1)->b == graph.get_vertex(2));
-    assert(graph.get_vertex(0)->get_edge(2)->b == graph.get_vertex(3));
+    assert(graph.get_vertex({0})->get_edge(0)->b == graph.get_vertex({1}));
+    assert(graph.get_vertex({0})->get_edge(1)->b == graph.get_vertex({2}));
+    assert(graph.get_vertex({0})->get_edge(2)->b == graph.get_vertex({3}));
 
     cout << "Tests Finished Successfully";
 

@@ -53,6 +53,10 @@ public:
 };
 
 
+struct graph_key_t {
+    uint32_t index;
+};
+
 /**
  * @brief unweighted, undirected Graph using Adjacency List
  * @note uses DynamicArray to hold vertices, it should not inherit
@@ -66,8 +70,8 @@ private:
 
 public:
     explicit Graph(uint32_t capacity = 100);
-    uint32_t add_vertex(T * vertex);
-    Vertex<T> * get_vertex(uint32_t index);
+    graph_key_t add_vertex(T * vertex);
+    Vertex<T> * get_vertex(graph_key_t key);
 
     uint32_t get_vertices_count() {
         return vertices->get_consumed();
@@ -77,8 +81,8 @@ public:
 };
 
 template<class T>
-Vertex<T> * Graph<T>::get_vertex(uint32_t index) {
-    return vertices->get(index);
+Vertex<T> * Graph<T>::get_vertex(graph_key_t key) {
+    return vertices->get(key.index);
 }
 
 template<class T>
@@ -103,8 +107,8 @@ void Graph<T>::add_edge(Edge<T> * edge) {
 }
 
 template<class T>
-uint32_t Graph<T>::add_vertex(T * vertex) {
-    return vertices->add(new Vertex(vertex));
+graph_key_t Graph<T>::add_vertex(T * vertex) {
+    return { vertices->add(new Vertex(vertex)) };
 }
 
 #endif //XML_PARSER_GRAPH_H
