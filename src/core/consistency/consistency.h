@@ -7,15 +7,15 @@
 
 class Tag {
     public:
-    string name;               //store the tag name without '/'
-    string closing;            //store the closing tag for fixing errors
+    std::string name;               //store the tag name without '/'
+    std::string closing;            //store the closing tag for fixing errors
     int line;                  //the line the tag is in
     int index;                 //the index of the tag in the tags vector needed for validate function
     int line_to_be_fixed;      //used to identify the error as each value represents a case
     bool opening;              //stores whether the tag is opening or closing
 
     //constructor
-    Tag(string tag, int Line, int i){
+    Tag(std::string tag, int Line, int i){
         if(tag.at(1) == '/') {
             this->opening = false;
             this->closing = tag;
@@ -41,10 +41,10 @@ class Tag {
 
 };
 
-void tokenizeXML (string &XML_data,vector<Tag> &TokenizedXML);
-int validateXML(vector<Tag> &tags);
-void fix_error(vector<string> &lines, vector<Tag> &tags, int error_index);
-void stringToLines (string &XML, vector <string> &LinedXml);
-string fix_file(string &XML);
+void tokenizeXML (std::string &XML_data,std::vector<Tag> &TokenizedXML);
+int validateXML(std::vector<Tag> &tags);
+void fix_error(std::vector<std::string> &lines, std::vector<Tag> &tags, int error_index);
+void stringToLines (std::string &XML, std::vector <std::string> &LinedXml);
+std::string fix_file(std::string &XML);
 
 #endif //XML_PARSER_CONSISTENCY_H
