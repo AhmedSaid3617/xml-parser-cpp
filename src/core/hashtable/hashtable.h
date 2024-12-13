@@ -1,94 +1,108 @@
 #include <iostream>
+#include <list>
 using namespace std;
 
-template <typename T1, typename T2>
-class hash_table
- {
-private:
-    T1* arr; 
-    T2* arr2;
-    int size;            
-    int capacity;        
 
-    
-    void resize()
-    {
-        capacity *= 2;
-        T1* temp = new T1[capacity];
-        T2* temp2 = new T2[capacity];
-        for (int i = 0; i < size; ++i) {
-            temp[i] = arr[i];
-            temp2[i] = arr2[i];
-        }
-        delete[] arr;
-        delete[] arr2;
-        arr = temp;
-        arr2=temp2;
+
+template<typename T1,typename T2>
+class mypair { // the class used as collection of the key and value
+public: T1 key;
+    T2 value;
+    mypair(T1 k,T2 v) {
+        key=k;
+        value=v;
     }
+};
+
+unsigned long fnv1a_hash(const string& str) { // hashing algorithm for strings
+    const unsigned long FNV_PRIME = 16777619;
+    const unsigned long OFFSET_BASIS = 2166136261;
+
+    unsigned long hash = OFFSET_BASIS;
+    for (char c : str) {
+        hash ^= c;
+        hash *= FNV_PRIME;
+    }
+    return hash;
+}
+
+template <typename T2>
+class hash_table
+{
+private:
+    static const int capacity = 1000; // Fixed capacity
+    list<mypair<string, T2>> table[capacity]; // Array of linked lists to handle collisions
+    int size;
+
+
+
 
 public:
-    hash_table(int initial_capacity = 40) 
+    hash_table()
     {
-        size = 0;
-        capacity = initial_capacity;
-        arr = new T1[capacity];
-        arr2 = new T2[capacity];
+        size=0;
+
     }
 
-    ~hash_table() 
+    ~hash_table()
     {
-        delete[] arr;
-        delete[] arr2;
     }
 
-    void insert(T1 key, T2 value) 
+    void insert(string key, T2 value)
     {
-        if (size == capacity - 1) 
-        {
-            resize();
+        int hash=fnv1a_hash(key)%capacity; // make the hashing fit into the array size
+        for (auto& entry : table[hash]) {  // iterate to check if this key is already existing if yes then update its value
+            if (entry.key == key) {
+                entry.value = value; // Update the value if the key exists
+                return;
+            }
         }
-        arr[size] =  key;
-        arr2[size] =  value;
+        mypair<string, T2> new_entry(key, value); // if it doesnot exist then add a new onr
+        table[hash].push_back(new_entry);
+
+        size++; // increment size
+    }
+    void delete_key(string key)
+    {
+        int hash=fnv1a_hash(key)%capacity;// make the hashing fit into the array size
+        for (auto it = table[hash].begin(); it != table[hash].end(); ++it) {// iterating on the nodes of pairs to delete the one specified
+            if (it->key == key) {
+                table[hash].erase(it);
+                size--;
+                return;
+            }
+        }
+
+
+    }
+    // indexer
+    T2& operator[](string key)
+    {
+        int hash=fnv1a_hash(key)%capacity;// make the hashing fit into the array size
+        for (auto& entry : table[hash]) {//iterate on the nodes till get the value required
+            if (entry.key == key) {
+                return entry.value;
+            }
+        }
+        table[hash].push_back(mypair<string, T2>(key, T2()));// if didnot find the key existed then add a new one and pass it
         size++;
-    }
-    void delete_key(T1 key)
-    {
-        int index=-1;
-        for (int i = 0; i < size; i++) 
-        {
-            if (arr[i] == key) 
-            {
-                index=i;
-                break;
-            }
-        }
-        if (index==-1) return;
-       for (int i = index; i < size - 1; i++) 
-        {
-            arr[i] = arr[i + 1];
-            arr2[i] = arr2[i + 1];
-        }
-
-        size--; 
-
-    }
-// indexer
-    T2& operator[](T1 key) 
-    {
-        for (int i = 0; i < size; i++) 
-        {
-            if (arr[i] == key) 
-            {
-                return arr2[i];
+        for (auto& entry : table[hash]) {
+            if (entry.key == key) {
+                return entry.value; // return the newly inserted value
             }
         }
     }
 
-    void print() 
+    void print()
     {
-        for (int i = 0; i < size; ++i) 
+        for (int i = 0; i < capacity; ++i)
         {
-            cout << "Key: " << arr[i] << ", Value: " << arr2[i] << endl;
+            if (!table[i].empty()) {
+                for (auto& entry : table[i]) {
+                    cout<<"the Key ="<<entry.key<<"\tthe value ="<<entry.value<<endl;
+                }
+            }
+
         }
     }
 };
