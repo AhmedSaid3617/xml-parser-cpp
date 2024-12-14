@@ -1,6 +1,7 @@
 #ifndef XML_PARSER_SOCIALNETWORK_H
 #define XML_PARSER_SOCIALNETWORK_H
 
+#include <vector>
 #include "Graph.h"
 #include "data/User.h"
 #include <iostream>
@@ -62,6 +63,30 @@ public:
         }
 
         throw std::exception();
+    }
+
+    std::vector<User *> get_followers(uint32_t id) {
+        Vertex<User> * user = get_user(id);
+        std::vector<User *> result;
+
+        for (int i = 0; i < user->get_edges_count(); ++i) {
+            if (user->get_edge(i)->a != user)
+                result.push_back(user->get_edge(i)->b->get_data());
+        }
+
+        return result;
+    }
+
+    std::vector<User *> get_following(uint32_t id) {
+        Vertex<User> * user = get_user(id);
+        std::vector<User *> result;
+
+        for (int i = 0; i < user->get_edges_count(); ++i) {
+            if (user->get_edge(i)->b != user)
+                result.push_back(user->get_edge(i)->b->get_data());
+        }
+
+        return result;
     }
 
     void print_following(std::ostream& os, uint32_t id) {
