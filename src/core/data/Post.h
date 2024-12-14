@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include "User.h"
 
 class Post {
 

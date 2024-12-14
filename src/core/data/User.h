@@ -12,20 +12,18 @@ private:
     int id;
     std::string name;
     std::vector<Post> post_list;
-    std::vector<int> followers;
 
     // Private setters
     // TODO: might remove the setters.
     void setId(int newId);
     void setName(const std::string& newName);
     void setPostList(const std::vector<Post>& newPostList);
-    void setFollowers(const std::vector<int>& newFollowers);
 
 public:
     // Empty constructor
     User();
 
-    User(int id, std::string name, const std::vector<int> &followers);;
+    User(int id, std::string name);
 
     // Getter for id
     int getId() const;
@@ -35,9 +33,6 @@ public:
 
     // Getter for post_list
     const std::vector<Post>& getPostList() const;
-
-    // Getter for followers
-    const std::vector<int>& getFollowers() const;
 
     void testInitUser();
 };

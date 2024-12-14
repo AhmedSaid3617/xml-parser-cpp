@@ -58,8 +58,8 @@ struct graph_key_t {
 };
 
 /**
- * @brief unweighted, undirected Graph using Adjacency List
- * @note uses DynamicArray to hold vertices, it should not inherit
+ * @brief Unweighted, directed Graph using Adjacency List
+ * @note Uses DynamicArray to hold vertices, it should not inherit
  * as this will be array inside array problem
  * @tparam T
  */

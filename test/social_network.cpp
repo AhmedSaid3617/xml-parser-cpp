@@ -5,10 +5,10 @@
 int main() {
     SocialNetwork network;
 
-    User shams = {1};
-    User saeed = {2};
-    User karim = {3};
-    User fares = {4};
+    User shams = User(1, "Ahmed Said");
+    User saeed = User(2, "Shams");
+    User karim = User(3, "Kareem");
+    User fares = User(4, "Farse");
 
     network.add_user(&shams);
     network.add_user(&saeed);
