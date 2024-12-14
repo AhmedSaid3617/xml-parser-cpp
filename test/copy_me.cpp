@@ -1,5 +1,5 @@
 /**
- * Template test file, copy and add to CMakeLists as rest
+ * Template test file, copy and add to CMakeLists as test
  */
 
 #include <cassert>
