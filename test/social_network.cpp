@@ -1,29 +1,61 @@
 #include <cassert>
+
+#include "data/User.h"
 #include "graph/SocialNetwork.h"
-#include <iostream>
 
-int main() {
-    SocialNetwork network;
+using namespace std;
 
-    User shams = User(1, "Ahmed Said");
-    User saeed = User(2, "Shams");
-    User karim = User(3, "Kareem");
-    User fares = User(4, "Farse");
+int main()
+{
+    // Create users like this.
+    User user_said = User(1, "Said");
+    User user_fares = User(2, "Fares");
+    User user_hussein = User(3, "Hussein");
+    User user_shams = User(4, "Shams");
+    User user_abdo = User(5, "Abdo");
+    User user_kareem = User(6, "Kareem");
+    User user_omar = User(7, "Omar");
+    User user_youssef = User(8, "Youssef");
 
-    network.add_user(&shams);
-    network.add_user(&saeed);
-    network.add_user(&karim);
-    network.add_user(&fares);
+    SocialNetwork social_network = SocialNetwork();
 
-    network.add_follower(&shams, &saeed);
-    network.add_follower(&karim, &saeed);
-    network.add_follower(&fares, &saeed);
-    network.add_follower(&saeed, &shams);
+    social_network.add_user(&user_said);
+    social_network.add_user(&user_fares);
+    social_network.add_user(&user_hussein);
+    social_network.add_user(&user_shams);
+    social_network.add_user(&user_abdo);
+    social_network.add_user(&user_kareem);
+    social_network.add_user(&user_omar);
+    social_network.add_user(&user_youssef);
 
-    network.print_followers(std::cout, 2); // Print saeed followers {1, 3, 4}
-    std::cout << std::endl;
-    network.print_following(std::cout, 2); // Print saeed following whom {1}
+    social_network.add_follower(&user_said, &user_fares);
+    social_network.add_follower(&user_fares, &user_shams);
+    social_network.add_follower(&user_said, &user_shams);
+    social_network.add_follower(&user_fares, &user_kareem);
+    social_network.add_follower(&user_shams, &user_fares);
+    social_network.add_follower(&user_hussein, &user_fares);
+    social_network.add_follower(&user_abdo, &user_fares);
+    social_network.add_follower(&user_kareem, &user_abdo);
+    social_network.add_follower(&user_kareem, &user_youssef);
+    social_network.add_follower(&user_youssef, &user_kareem);
+    social_network.add_follower(&user_youssef, &user_shams);
+    social_network.add_follower(&user_shams, &user_omar);
+    social_network.add_follower(&user_omar, &user_youssef);
+    social_network.add_follower(&user_kareem, &user_hussein);
 
+    vector<User> fares_followers = social_network.get_followers(user_fares.getId());
+    cout << "Fares's followers:" << endl;
+    for (int i = 0; i < fares_followers.size(); i++)
+    {
+        cout << fares_followers[i].getName() << endl;
+    }
+
+    vector<User> kareem_following = social_network.get_following(user_kareem.getId());
+    cout << endl << "Kareem's following:" << endl;
+    for (int i = 0; i < kareem_following.size(); i++)
+    {
+        cout << kareem_following[i].getName() << endl;
+    }
 
     return 0;
 }
