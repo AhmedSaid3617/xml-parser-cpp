@@ -120,6 +120,37 @@ public:
 
         return result;
     }
+
+    const User* get_most_active_user() {
+        std::vector<const User *> searchable_users=get_users();
+        uint32_t max=0,size_of_followees_list;
+        const User* most_active_user=NULL;
+
+        for (auto searchable_user: searchable_users) {
+            std::vector<User> user_followees= get_following(searchable_user->getId());
+            size_of_followees_list=user_followees.size();
+            if (max<size_of_followees_list) {
+                max=size_of_followees_list;
+                most_active_user = searchable_user;
+            }
+        }
+        return most_active_user;
+    }
+    const User* get_most_influencer_user() {
+        std::vector<const User *> searchable_users=get_users();
+        uint32_t max=0,size_of_followers_list;
+        const User* most_influencer_user=NULL;
+
+        for (auto searchable_user: searchable_users) {
+            std::vector<User> user_followers= get_followers(searchable_user->getId());
+            size_of_followers_list=user_followers.size();
+            if (max<size_of_followers_list) {
+                max=size_of_followers_list;
+                most_influencer_user = searchable_user;
+            }
+        }
+        return most_influencer_user;
+    }
 };
 
 

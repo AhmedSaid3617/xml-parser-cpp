@@ -57,5 +57,12 @@ int main()
         cout << kareem_following[i].getName() << endl;
     }
 
+    const User* mostactive=social_network.get_most_active_user();
+
+    cout<<"most active     "<<mostactive->getId()<<endl<<mostactive->getName()<<endl;
+    const User* mostinfluincer=social_network.get_most_influencer_user();
+
+    cout<<"most active     "<<mostinfluincer->getId()<<endl<<mostinfluincer->getName()<<endl;
+
     return 0;
 }
