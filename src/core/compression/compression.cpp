@@ -226,6 +226,30 @@ CompressionResult loadFile(const string& filename) {
 
     return result;
 }
+CompressionResult loadData(string loadedData) {
+    
+    CompressionResult result;
+    int index=0;
+    while(loadedData[index]!='\n'){
+        result.compressedText+=loadedData[index];
+        index++;
+    }
+    index++;
+    while(loadedData[index]!='\n'){
+        result.mapping[loadedData.substr(index,1)]=loadedData.substr(index+1,2);
+        index+=3;
+    }
+    index++;
+    while(loadedData[index]!='\n'){
+        result.tokens.push(loadedData.substr(index++,1));
+
+    }
+
+
+
+
+    return result;
+}
 
 void writeStringToFile(const string& filename, const string& text) {
     // Open the file in write mode
@@ -245,6 +269,15 @@ void writeStringToFile(const string& filename, const string& text) {
 
     cout << "String successfully written to " << filename << "\n";
 }
+string Compress(string text){
+    auto [compressedXML, mapping,tokens] = compress(text);
+    return CompresedTosring(compressedXML, mapping,tokens);
+}
+string Decompress(string text){
+    auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadData(text);
+    return decompressing(compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile);
+
+}
 int main() {
     try {
         // Load the XML file
@@ -262,85 +295,85 @@ int main() {
 
 
             // Compress the XML content
-        auto [compressedXML, mapping,tokens] = compress(minifiedXML);
-        cout << "\nCompressed XML:\n" << compressedXML << "\n";
+        // auto [compressedXML, mapping,tokens] = compress(minifiedXML);
+        // cout << "\nCompressed XML:\n" << compressedXML << "\n";
 
-        cout << "\nMapping (for decompression):\n";
-        for (const auto &entry : mapping) {
-            cout << entry.first << " -> " << entry.second << "\n";
-        }
+        // cout << "\nMapping (for decompression):\n";
+        // for (const auto &entry : mapping) {
+        //     cout << entry.first << " -> " << entry.second << "\n";
+        // }
 
-        writeStringToFile("testing the size of minifiedXML.txt" ,minifiedXML);
-        string Compressed=CompresedTosring(compressedXML, mapping,tokens);
-        cout<<Compressed<<'\n';
-        writeStringToFile("output.txt", Compressed);
-
-
-
-        auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadFile("output.txt");
-
-        cout<<"\ntesting the loaded file\n";
-
-        if (!compressedXML4LoadedFile.compare(compressedXML)){
-            cout<<"the compressed text equal\n";
-        }else{
-            cout<<"not equal compressed text\n";
-        }
-        stack<string> tempStack;
-        bool EqualStack=true;
-        if (tokens.size()!=tokens4LoadedFile.size()){
-            cout << "The tokens stack are not equal in size.\n";
-        }else{
-            while(!tokens.empty()){
-                if (tokens.top()!=tokens4LoadedFile.top()){
-                    cout<<"not equal stacks\n";
-                    EqualStack=false;
-                    break;
-                }
-                tempStack.push(tokens.top());
-                tokens.pop();
-                tokens4LoadedFile.pop();
-
-            }
-            if(EqualStack){
-                cout<<"they are equal stacks\n";
-            }
-            while(!tempStack.empty()){
-
-                tokens.push(tempStack.top());
-                tokens4LoadedFile.push(tempStack.top());
-                tempStack.pop();
+        // writeStringToFile("testing the size of minifiedXML.txt" ,minifiedXML);
+       // string Compressed=CompresedTosring(compressedXML, mapping,tokens);
+        cout<<Compress(minifiedXML)<<'\n';
+    //     writeStringToFile("output.txt", Compressed);
 
 
-            }
-        }
+        cout<<Decompress(Compress(minifiedXML))<<'\n';
+    //     auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadFile("output.txt");
 
-        // Ensure the maps are of the same size
-        if (mapping.size() != mappings4LoadedFile.size()) {
-            cout << "The mappings are not equal in size.\n";
-        } else {
-            bool EqualsMap=true;
-            for (const auto &entry : mapping) {
-                if(mappings4LoadedFile[entry.first]!=entry.second){
-                    cout<<"not equal maps\n";
-                    EqualsMap=false;
-                    break;
-                }
-            }
-            if (EqualsMap){
-                cout<<"they are equal maps\n";
-            }}
+    //     cout<<"\ntesting the loaded file\n";
+
+    //     if (!compressedXML4LoadedFile.compare(compressedXML)){
+    //         cout<<"the compressed text equal\n";
+    //     }else{
+    //         cout<<"not equal compressed text\n";
+    //     }
+    //     stack<string> tempStack;
+    //     bool EqualStack=true;
+    //     if (tokens.size()!=tokens4LoadedFile.size()){
+    //         cout << "The tokens stack are not equal in size.\n";
+    //     }else{
+    //         while(!tokens.empty()){
+    //             if (tokens.top()!=tokens4LoadedFile.top()){
+    //                 cout<<"not equal stacks\n";
+    //                 EqualStack=false;
+    //                 break;
+    //             }
+    //             tempStack.push(tokens.top());
+    //             tokens.pop();
+    //             tokens4LoadedFile.pop();
+
+    //         }
+    //         if(EqualStack){
+    //             cout<<"they are equal stacks\n";
+    //         }
+    //         while(!tempStack.empty()){
+
+    //             tokens.push(tempStack.top());
+    //             tokens4LoadedFile.push(tempStack.top());
+    //             tempStack.pop();
+
+
+    //         }
+    //     }
+
+    //     // Ensure the maps are of the same size
+    //     if (mapping.size() != mappings4LoadedFile.size()) {
+    //         cout << "The mappings are not equal in size.\n";
+    //     } else {
+    //         bool EqualsMap=true;
+    //         for (const auto &entry : mapping) {
+    //             if(mappings4LoadedFile[entry.first]!=entry.second){
+    //                 cout<<"not equal maps\n";
+    //                 EqualsMap=false;
+    //                 break;
+    //             }
+    //         }
+    //         if (EqualsMap){
+    //             cout<<"they are equal maps\n";
+    //         }}
 
 
 
-        // Decompress the XML content
-        string decompressedXML = decompressing(compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile);
-        cout << "\nDecompressed XML:\n" << decompressedXML << "\n";
-        cout<<"mapping "<<mapping.size()<<"\n";
-        // Verify correctness
-        assert(decompressedXML == minifiedXML && "Decompression failed!");
-        cout << "\nDecompression successful!\n";
-        cout<<"decompressedXML "<<minifiedXML.length()<<" compressedXML "<<compressedXML.length()<<"\n";
+    //     // Decompress the XML content
+    //     string decompressedXML = decompressing(compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile);
+    //     cout << "\nDecompressed XML:\n" << decompressedXML << "\n";
+    //     cout<<"mapping "<<mapping.size()<<"\n";
+    //     // Verify correctness
+    //     assert(decompressedXML == minifiedXML && "Decompression failed!");
+    //     cout << "\nDecompression successful!\n";
+    //     cout<<"decompressedXML "<<minifiedXML.length()<<" compressedXML "<<compressedXML.length()<<"\n";
 
 
 
@@ -348,5 +381,5 @@ int main() {
         cerr << "Error: " << e.what() << "\n";
     }
 
-    return 0;
+    // return 0;
 }

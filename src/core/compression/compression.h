@@ -13,5 +13,6 @@ void displayHashTable(unordered_map<string,auto> freq);void createFile(const str
 CompressionResult loadFile(const string& filename);
 void writeStringToFile(const std::string& filename, const std::string& text);
 CompressionResult loadFile(const string& filename) ;
-
+string Decompress(string text);
+string Compress(string text);
 #endif
