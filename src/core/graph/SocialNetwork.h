@@ -21,6 +21,11 @@ class SocialNetwork: public Graph<User>{
     DynamicArray<user_id_graph_key_t> users;
 
 private:
+    using Graph<User>::get_vertex;
+    using Graph<User>::get_vertices_count;
+    using Graph<User>::add_vertex;
+    using Graph<User>::add_edge;
+
     Vertex<User> * get_user(uint32_t id) {
         return this->get_vertex(get_key(id));
     }
@@ -43,8 +48,7 @@ private:
     }
 
 public:
-    SocialNetwork() {
-    }
+    SocialNetwork() = default;
 
     graph_key_t add_user(User * user) {
         graph_key_t key = this->add_vertex(user);
@@ -105,6 +109,16 @@ public:
             if (user->get_edge(i)->a != user)
                 os << user->get_edge(i)->a->get_data()->getId() << " ";
         }
+    }
+
+    std::vector<const User *> get_users() {
+        std::vector<const User *> result;
+
+        for (graph_key_t key = {0}; key.index < get_users_count(); ++key.index) {
+            result.push_back(get_user(key)->get_data());
+        }
+
+        return result;
     }
 };
 

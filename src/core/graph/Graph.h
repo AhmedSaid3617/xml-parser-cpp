@@ -69,14 +69,38 @@ private:
     DynamicArray<Vertex<T>> * vertices;
 
 public:
+    /**
+     * @brief Creates a new graph with optional starting capacity
+     * @param capacity
+     */
     explicit Graph(uint32_t capacity = 100);
+
+    /**
+     * @brief Add a new vertex and return graph node key
+     * @param vertex
+     * @return graph_key_t
+     */
     graph_key_t add_vertex(T * vertex);
+
+    /**
+     * @brief Gets a vertex with a graph node key
+     * @param key
+     * @return Vertex
+     */
     Vertex<T> * get_vertex(graph_key_t key);
 
+    /**
+     * @brief Get graph vertices count
+     * @return
+     */
     uint32_t get_vertices_count() {
         return vertices->get_consumed();
     }
 
+    /**
+     * @brief Adds an edge to the graph
+     * @param edge
+     */
     void add_edge(Edge<T> * edge);
 };
 
