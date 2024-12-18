@@ -125,6 +125,53 @@ public:
     void extract_data(std::string &xml){
         XML_To_Tree2 xml_conv_obj = XML_To_Tree2(xml);
         TreeNode* xml_tree = xml_conv_obj.convert();
+        std::vector<TreeNode *> users_nodes = xml_tree->children[0]->children;
+        
+        for(TreeNode* user_node: users_nodes){
+            User* user = new User();
+            std::vector<Post>* user_posts = new std::vector<Post>();
+
+            // Loop over user tags.
+            for (TreeNode* info_tag : user_node->children)
+            {
+                // Handle each info tag.
+                if (info_tag->tag_name == "name")
+                {
+                    user->name = info_tag->tag_value;
+                }
+                else if (info_tag->tag_name == "id")
+                {
+                    user->id = std::stoi(info_tag->tag_value);
+                }
+                // Get all posts.
+                else if(info_tag->tag_name == "posts")
+                {
+                    Post* post;
+                    for(TreeNode* post_tag : info_tag->children){
+                        post = new Post();
+                        post->body = post_tag->children[0]->tag_value;
+
+                        for (TreeNode* topic_tag : post_tag->children[1]->children)
+                        {
+                            post->topics.push_back(topic_tag->tag_value);
+                        }
+                        user_posts->push_back(*post);
+                    }
+                    user->post_list = *user_posts;
+                }
+            }
+
+            // Add the user to the network.
+            this->add_user(user);
+        }
+
+        // Loop again to add followers.
+        for(TreeNode* user_node: users_nodes){
+            // Get user followers and add them to the network.
+            for(TreeNode* follower_tag: user_node->children[3]->children){
+                // TODO: add follower to graph.
+            }
+        }
     }
 };
 

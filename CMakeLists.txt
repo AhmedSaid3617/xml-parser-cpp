@@ -36,6 +36,9 @@ add_test(NAME GRAPHS_AND_DYNAMIC_ARRAYS_CHECK COMMAND graphs_and_dynamic_arrays)
 add_executable(social_network test/social_network.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME SOCIAL_NETWORK_CHECK COMMAND social_network)
 
+add_executable(data_extraction test/data_extraction.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME DATA_EXTRACTION_CHECK COMMAND data_extraction)
+
 if (${COMPILE_GUI})
     set (CMAKE_PREFIX_PATH ${COMPILE_GUI_QT_GCC_64_FOLDER})
 
