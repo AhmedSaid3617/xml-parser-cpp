@@ -4,6 +4,7 @@
 #include <vector>
 #include "Graph.h"
 #include "data/User.h"
+#include "convert/XML_To_Tree2.h"
 #include <iostream>
 
 struct user_id_graph_key_t {
@@ -119,6 +120,11 @@ public:
         }
 
         return result;
+    }
+
+    void extract_data(std::string &xml){
+        XML_To_Tree2 xml_conv_obj = XML_To_Tree2(xml);
+        TreeNode* xml_tree = xml_conv_obj.convert();
     }
 };
 

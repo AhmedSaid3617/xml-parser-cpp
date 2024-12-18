@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Post.h"
+#include "graph/Graph.h"
 
 class User {
 
@@ -35,6 +36,8 @@ public:
     const std::vector<Post>& getPostList() const;
 
     void testInitUser();
+
+    friend class SocialNetwork;
 };
 
 #endif
