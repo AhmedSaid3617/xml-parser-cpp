@@ -66,8 +66,12 @@ public:
         this->add_edge(new Edge<User>(get_user(followee), get_user(user)));
     }
 
-    void add_follower(User * follower, User * followed) {
-        this->add_edge(new Edge<User>(get_user(get_key(follower)), get_user(get_key(followed))));
+    void add_follower(User * follower, User * followee) {
+        this->add_edge(new Edge<User>(get_user(get_key(follower)), get_user(get_key(followee))));
+    }
+
+    void add_follower(uint32_t follower, uint32_t followee) {
+        this->add_edge(new Edge<User>(get_user(get_key(follower)), get_user(get_key(followee))));
     }
 
     std::vector<User> get_followers(uint32_t id) {
