@@ -4,6 +4,7 @@
 #include <vector>
 #include "Graph.h"
 #include "data/User.h"
+#include "hashtable.h"
 #include <iostream>
 
 struct user_id_graph_key_t {
@@ -150,6 +151,24 @@ public:
             }
         }
         return most_influencer_user;
+    }
+
+    std::vector<User *> who_does_n_users_follow(std::vector<User > users) {
+        std::vector<User *> common_followees;
+        uint32_t size_of_users_list=users.size();
+        users_hash_table hash_t;
+
+        for (auto searchable_user: users) {
+            std::vector<User> user_followers= get_following(searchable_user.getId());
+            for (auto followee: user_followers) {
+                hash_t[followee.getId()]++;
+            }
+        }
+        std::vector<int> common_ids=hash_t.get_the_keys_with_same_value(size_of_users_list);
+        for (auto id: common_ids) {
+            common_followees.push_back(get_user(id)->get_data());
+        }
+        return common_followees;
     }
 };
 

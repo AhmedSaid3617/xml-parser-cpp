@@ -15,14 +15,12 @@ public: T1 key;
     }
 };
 
-unsigned long hash_function(int key) {
-    return key % 1000; // Modulo operation to fit within table capacity
-}
+
 
 template <typename T2>
 class hash_table
 {
-private:
+protected:
     static const int capacity = 1000; // Fixed capacity
     list<mypair<int, T2>> table[capacity]; // Array of linked lists to handle collisions
     int size;
@@ -31,6 +29,10 @@ private:
 
 
 public:
+    unsigned long hash_function(int key) {
+        return key % 1000; // Modulo operation to fit within table capacity
+    }
+
     hash_table()
     {
         size=0;
@@ -97,6 +99,26 @@ public:
             }
 
         }
+    }
+};
+
+class users_hash_table : public hash_table<int> {
+public:
+
+    vector<int > get_the_keys_with_same_value(int value) {
+        vector<int > common_keys;
+        for (int i = 0; i < capacity; ++i)
+        {
+            if (!table[i].empty()) {
+                for (auto& entry : table[i]) {
+                    if (entry.value==value) {
+                        common_keys.push_back(entry.key);
+                    }
+                }
+            }
+
+        }
+        return common_keys;
     }
 };
 #endif
