@@ -63,11 +63,14 @@ int main()
     const User* mostinfluincer=social_network.get_most_influencer_user();
 
     cout<<"most active     "<<mostinfluincer->getId()<<endl<<mostinfluincer->getName()<<endl;
-    std::vector<User> Abdo_following= social_network.get_followers(user_abdo.getId());
-    vector<User *> common=social_network.who_does_n_users_follow(Abdo_following);
+    std::vector<User> my_users;
+    my_users.push_back(user_abdo);
+    my_users.push_back(user_said);
+    my_users.push_back(user_hussein);
+    vector<User *> common=social_network.who_does_n_users_follow(my_users);
     for (int i = 0; i < common.size(); i++)
     {
-        cout << "common in abdo follwees    "<<common[i]->getName() << endl;
+        cout << "common with said, abdo ,hussein follwers    "<<common[i]->getName() << endl;
     }
 
     return 0;
