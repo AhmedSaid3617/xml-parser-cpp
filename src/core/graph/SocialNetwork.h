@@ -32,11 +32,11 @@ private:
 
     std::vector<Post*> posts;
 
-    Vertex<User> * get_user(uint32_t id) {
+    Vertex<User> * get_user_vertex(uint32_t id) {
         return this->get_vertex(get_key(id));
     }
 
-    Vertex<User> * get_user(graph_key_t key) {
+    Vertex<User> * get_user_vertex(graph_key_t key) {
         return this->get_vertex(key);
     }
 
@@ -46,7 +46,7 @@ private:
 
     graph_key_t get_key(uint32_t id) {
         for (graph_key_t i = { 0 }; i.index < get_users_count(); ++i.index) {
-            if (get_user(i)->get_data()->getId() == id)
+            if (get_user_vertex(i)->get_data()->getId() == id)
                 return i;
         }
 
@@ -55,6 +55,10 @@ private:
 
 public:
     SocialNetwork() = default;
+
+    User* get_user(int id){
+        return this->get_vertex(get_key(id))->get_data();
+    }
 
     graph_key_t add_user(User * user) {
         graph_key_t key = this->add_vertex(user);
@@ -68,19 +72,19 @@ public:
     }
 
     void add_follower(graph_key_t user, graph_key_t followee) {
-        this->add_edge(new Edge<User>(get_user(followee), get_user(user)));
+        this->add_edge(new Edge<User>(get_user_vertex(followee), get_user_vertex(user)));
     }
 
     void add_follower(User * follower, User * followee) {
-        this->add_edge(new Edge<User>(get_user(get_key(follower)), get_user(get_key(followee))));
+        this->add_edge(new Edge<User>(get_user_vertex(get_key(follower)), get_user_vertex(get_key(followee))));
     }
 
     void add_follower(uint32_t follower, uint32_t followee) {
-        this->add_edge(new Edge<User>(get_user(get_key(follower)), get_user(get_key(followee))));
+        this->add_edge(new Edge<User>(get_user_vertex(get_key(follower)), get_user_vertex(get_key(followee))));
     }
 
     std::vector<User> get_followers(uint32_t id) {
-        Vertex<User> * user = get_user(id);
+        Vertex<User> * user = get_user_vertex(id);
         std::vector<User> result;
 
         for (int i = 0; i < user->get_edges_count(); ++i) {
@@ -92,7 +96,7 @@ public:
     }
 
     std::vector<User> get_following(uint32_t id) {
-        Vertex<User> * user = get_user(id);
+        Vertex<User> * user = get_user_vertex(id);
         std::vector<User> result;
 
         for (int i = 0; i < user->get_edges_count(); ++i) {
@@ -104,7 +108,7 @@ public:
     }
 
     void print_following(std::ostream& os, uint32_t id) {
-        Vertex<User> * user = get_user(id);
+        Vertex<User> * user = get_user_vertex(id);
 
         for (int i = 0; i < user->get_edges_count(); ++i) {
             if (user->get_edge(i)->b != user)
@@ -113,7 +117,7 @@ public:
     }
 
     void print_followers(std::ostream& os, uint32_t id) {
-        Vertex<User> * user = get_user(id);
+        Vertex<User> * user = get_user_vertex(id);
 
         for (int i = 0; i < user->get_edges_count(); ++i) {
             if (user->get_edge(i)->a != user)
@@ -125,7 +129,7 @@ public:
         std::vector<const User *> result;
 
         for (graph_key_t key = {0}; key.index < get_users_count(); ++key.index) {
-            result.push_back(get_user(key)->get_data());
+            result.push_back(get_user_vertex(key)->get_data());
         }
 
         return result;
@@ -234,7 +238,12 @@ public:
         return most_influencer_user;
     }
 
-    std::vector<User *> who_does_n_users_follow(std::vector<User > users) {
+    std::vector<User *> who_does_n_users_follow(std::vector<int> users_id) {
+        std::vector<User > users;
+        for(int id : users_id){
+            users.push_back(*this->get_user(id));
+        }
+
         std::vector<User *> common_followees;
         uint32_t size_of_users_list=users.size();
         users_hash_table hash_t;
@@ -247,12 +256,12 @@ public:
         }
         std::vector<int> common_ids=hash_t.get_the_keys_with_same_value(size_of_users_list);
         for (auto id: common_ids) {
-            common_followees.push_back(get_user(id)->get_data());
+            common_followees.push_back(get_user_vertex(id)->get_data());
         }
         return common_followees;
     }
 
-  std::vector<User*> suggest_users_to_follow(User* current_user) {
+    std::vector<User*> suggest_users_to_follow(User* current_user) {
     std::vector<User*> suggestions; 
     std::unordered_set<int> following_set; 
 
@@ -273,7 +282,7 @@ public:
         for (const User& potential_suggestion : second_degree_following) {
             if (following_set.find(potential_suggestion.getId()) == following_set.end()) {
                 
-                suggestions.push_back(this->get_user(potential_suggestion.getId())->get_data());
+                suggestions.push_back(this->get_user_vertex(potential_suggestion.getId())->get_data());
                 following_set.insert(potential_suggestion.getId()); 
             }
         }

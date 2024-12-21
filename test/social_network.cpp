@@ -69,7 +69,10 @@ int main()
     my_users.push_back(user_abdo);
     my_users.push_back(user_said);
     my_users.push_back(user_hussein);
-    vector<User *> common=social_network.who_does_n_users_follow(my_users);
+
+    std::vector<int> my_users_ids = {5, 1, 3};
+
+    vector<User *> common=social_network.who_does_n_users_follow(my_users_ids);
     for (int i = 0; i < common.size(); i++)
     {
         cout<< "common with said, abdo ,hussein follwers    "<<common[i]->getName() << endl;
