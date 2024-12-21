@@ -173,20 +173,36 @@ public:
         return common_followees;
     }
 
-    std::vector<User*> suggest_users_to_follow(User* current_user) {
+  std::vector<User*> suggest_users_to_follow(User* current_user) {
+    std::vector<User*> suggestions; 
+    std::unordered_set<int> following_set; 
 
-        std::unordered_set<User*> following_set(this->get_following(current_user->getId).begin(), current_user->get_following().end());
+    std::vector<User> following_list = this->get_following(current_user->getId());
 
-        std::unordered_set<User*> suggestions;
+    
+    for (const User& user : following_list) {
+        following_set.insert(user.getId());
+    }
 
-        for (User* followed_user : current_user->get_following()) {
+    
+    following_set.insert(current_user->getId());
 
-            for (User* potential_suggestion : followed_user->get_following()) {
-                if (potential_suggestion != current_user && following_set.find(potential_suggestion) == following_set.end()) {
-                    suggestions.insert(potential_suggestion);
-                }
+    for (const User& followed_user : following_list) {
+        std::vector<User> second_degree_following = this->get_following(followed_user.getId());
+
+        
+        for (const User& potential_suggestion : second_degree_following) {
+            if (following_set.find(potential_suggestion.getId()) == following_set.end()) {
+                
+                suggestions.push_back(this->get_user(potential_suggestion.getId())->get_data());
+                following_set.insert(potential_suggestion.getId()); 
             }
         }
+    }
+
+    return suggestions;
+}
+
 };
 
 
