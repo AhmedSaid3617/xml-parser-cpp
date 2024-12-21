@@ -6,6 +6,8 @@
 #include "data/User.h"
 #include "hashtable.h"
 #include <iostream>
+#include <unordered_set>
+#include <unordered_map>
 
 struct user_id_graph_key_t {
     uint32_t id;
@@ -170,6 +172,21 @@ public:
         }
         return common_followees;
     }
+
+    std::vector<User*> suggest_users_to_follow(User* current_user) {
+
+        std::unordered_set<User*> following_set(current_user->get_following().begin(), current_user->get_following().end());
+
+        std::unordered_set<User*> suggestions;
+
+        for (User* followed_user : current_user->get_following()) {
+
+            for (User* potential_suggestion : followed_user->get_following()) {
+                if (potential_suggestion != current_user && following_set.find(potential_suggestion) == following_set.end()) {
+                    suggestions.insert(potential_suggestion);
+                }
+            }
+        }
 };
 
 

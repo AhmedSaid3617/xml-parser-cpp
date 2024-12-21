@@ -44,17 +44,17 @@ int main()
     social_network.add_follower(&user_kareem, &user_hussein);
 
     vector<User> fares_followers = social_network.get_followers(user_fares.getId());
-    cout << "Fares's followers:" << endl;
+    cout<< "Fares's followers:" << endl;
     for (int i = 0; i < fares_followers.size(); i++)
     {
-        cout << fares_followers[i].getName() << endl;
+        cout<< fares_followers[i].getName() << endl;
     }
 
     vector<User> kareem_following = social_network.get_following(user_kareem.getId());
-    cout << endl << "Kareem's following:" << endl;
+    cout<< endl << "Kareem's following:" << endl;
     for (int i = 0; i < kareem_following.size(); i++)
     {
-        cout << kareem_following[i].getName() << endl;
+        cout<< kareem_following[i].getName() << endl;
     }
 
     const User* mostactive=social_network.get_most_active_user();
@@ -70,8 +70,21 @@ int main()
     vector<User *> common=social_network.who_does_n_users_follow(my_users);
     for (int i = 0; i < common.size(); i++)
     {
-        cout << "common with said, abdo ,hussein follwers    "<<common[i]->getName() << endl;
+        cout<< "common with said, abdo ,hussein follwers    "<<common[i]->getName() << endl;
     }
 
-    return 0;
+    // Test suggest_users_to_follow for Said
+
+    std::vector<User*> suggestions = social_network.suggest_users_to_follow(&user_said);
+
+    // Print the suggestions
+    cout<<"Suggested users for " << user_said.getName() << " to follow: ";
+    
+    for (User* user : suggestions)
+    {
+        std::cout << user->getName() << " ";
+    }
+    cout<<endl;
+
+return 0;
 }
