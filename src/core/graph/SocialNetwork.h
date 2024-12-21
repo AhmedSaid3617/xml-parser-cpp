@@ -175,7 +175,7 @@ public:
 
     std::vector<User*> suggest_users_to_follow(User* current_user) {
 
-        std::unordered_set<User*> following_set(current_user->get_following().begin(), current_user->get_following().end());
+        std::unordered_set<User*> following_set(this->get_following(current_user->getId).begin(), current_user->get_following().end());
 
         std::unordered_set<User*> suggestions;
 
