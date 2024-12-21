@@ -82,8 +82,6 @@ void MainWindow::on_actionCheck_for_errors_triggered()
         out_string = "File is correct!";
     }
 
-    // TODO: Remove whitespaces but not new lines.
-
     ui->outputLabel->setText(out_string);
 }
 
