@@ -5,7 +5,10 @@
 #include "Graph.h"
 #include "data/User.h"
 #include "convert/XML_To_Tree2.h"
+#include "hashtable.h"
 #include <iostream>
+#include <unordered_set>
+#include <unordered_map>
 
 struct user_id_graph_key_t {
     uint32_t id;
@@ -199,6 +202,86 @@ public:
             }
         }
     }
+
+    const User* get_most_active_user() {
+        std::vector<const User *> searchable_users=get_users();
+        uint32_t max=0,size_of_followees_list;
+        const User* most_active_user=NULL;
+
+        for (auto searchable_user: searchable_users) {
+            std::vector<User> user_followees= get_following(searchable_user->getId());
+            size_of_followees_list=user_followees.size();
+            if (max<size_of_followees_list) {
+                max=size_of_followees_list;
+                most_active_user = searchable_user;
+            }
+        }
+        return most_active_user;
+    }
+    const User* get_most_influencer_user() {
+        std::vector<const User *> searchable_users=get_users();
+        uint32_t max=0,size_of_followers_list;
+        const User* most_influencer_user=NULL;
+
+        for (auto searchable_user: searchable_users) {
+            std::vector<User> user_followers= get_followers(searchable_user->getId());
+            size_of_followers_list=user_followers.size();
+            if (max<size_of_followers_list) {
+                max=size_of_followers_list;
+                most_influencer_user = searchable_user;
+            }
+        }
+        return most_influencer_user;
+    }
+
+    std::vector<User *> who_does_n_users_follow(std::vector<User > users) {
+        std::vector<User *> common_followees;
+        uint32_t size_of_users_list=users.size();
+        users_hash_table hash_t;
+
+        for (auto searchable_user: users) {
+            std::vector<User> user_followers= get_following(searchable_user.getId());
+            for (auto followee: user_followers) {
+                hash_t[followee.getId()]++;
+            }
+        }
+        std::vector<int> common_ids=hash_t.get_the_keys_with_same_value(size_of_users_list);
+        for (auto id: common_ids) {
+            common_followees.push_back(get_user(id)->get_data());
+        }
+        return common_followees;
+    }
+
+  std::vector<User*> suggest_users_to_follow(User* current_user) {
+    std::vector<User*> suggestions; 
+    std::unordered_set<int> following_set; 
+
+    std::vector<User> following_list = this->get_following(current_user->getId());
+
+    
+    for (const User& user : following_list) {
+        following_set.insert(user.getId());
+    }
+
+    
+    following_set.insert(current_user->getId());
+
+    for (const User& followed_user : following_list) {
+        std::vector<User> second_degree_following = this->get_following(followed_user.getId());
+
+        
+        for (const User& potential_suggestion : second_degree_following) {
+            if (following_set.find(potential_suggestion.getId()) == following_set.end()) {
+                
+                suggestions.push_back(this->get_user(potential_suggestion.getId())->get_data());
+                following_set.insert(potential_suggestion.getId()); 
+            }
+        }
+    }
+
+    return suggestions;
+}
+
 };
 
 
