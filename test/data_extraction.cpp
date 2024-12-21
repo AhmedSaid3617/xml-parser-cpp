@@ -92,11 +92,87 @@ int main() {
             </follower>
         </followers>
     </user>
+    <user>
+        <id>4</id>
+        <name>Salma Hussein</name>
+        <posts>
+            <post>
+                <body>
+                    Salma's 1st post.
+                </body>
+                <topics>
+                    <topic>
+                        technology
+                    </topic>
+                </topics>
+            </post>
+            <post>
+                <body>
+                    Salma's 2nd post.
+                </body>
+                <topics>
+                    <topic>
+                        salma_topic.
+                    </topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>1</id>
+            </follower>
+            <follower>
+                <id>3</id>
+            </follower>
+        </followers>
+    </user>
+    <user>
+        <id>5</id>
+        <name>Omar Khaled</name>
+        <posts>
+            <post>
+                <body>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </body>
+                <topics>
+                    <topic>
+                        travel
+                    </topic>
+                    <topic>
+                        photography
+                    </topic>
+                </topics>
+            </post>
+        </posts>
+        <followers>
+            <follower>
+                <id>4</id>
+            </follower>
+        </followers>
+    </user>
 </users>)";
 
     social_network.extract_data(xml);
-    /* for(const User* user: social_network.get_users()){
-        std::cout << user->getPostList()[0].getTopics()[0];
-    } */
+    
+    // Followers of Ahmed Ali.
+    std::vector<User> user_1_followers = social_network.get_followers(1);
+    assert(user_1_followers[0].getName() == "Yasser Ahmed");
+    assert(user_1_followers[1].getName() == "Mohamed Sherif");
+
+    // Following of Salma Hussein.
+    std::vector<User> user_4_following = social_network.get_following(4);
+    assert(user_4_following[0].getName() == "Omar Khaled");
+
+    //std::vector<Post> user_4_posts = social_network.ge
+
+    
+    
+    for (int i = 0; i < user_4_following.size(); i++)
+    {
+        std::cout << user_4_following[i].getName() << std::endl;
+    }
+    
+    
+
     return 0;
 }

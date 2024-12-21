@@ -27,6 +27,9 @@ private:
     using Graph<User>::add_vertex;
     using Graph<User>::add_edge;
 
+    // TODO: remove?
+    std::vector<Post*> posts;
+
     Vertex<User> * get_user(uint32_t id) {
         return this->get_vertex(get_key(id));
     }
@@ -160,6 +163,7 @@ public:
                             post->topics.push_back(topic_tag->tag_value);
                         }
                         user_posts->push_back(*post);
+                        // TODO: Add to list of posts?
                     }
                     user->post_list = *user_posts;
                 }
@@ -173,7 +177,9 @@ public:
         for(TreeNode* user_node: users_nodes){
             // Get user followers and add them to the network.
             for(TreeNode* follower_tag: user_node->children[3]->children){
-                // TODO: add follower to graph.
+                int follower_id = std::stoi(follower_tag->children[0]->tag_value);
+                int followee_id = std::stoi(user_node->children[0]->tag_value);
+                this->add_follower(follower_id, followee_id);
             }
         }
     }
