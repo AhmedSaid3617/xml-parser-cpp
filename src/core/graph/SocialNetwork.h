@@ -27,7 +27,6 @@ private:
     using Graph<User>::add_vertex;
     using Graph<User>::add_edge;
 
-    // TODO: remove?
     std::vector<Post*> posts;
 
     Vertex<User> * get_user(uint32_t id) {
@@ -129,6 +128,23 @@ public:
         return result;
     }
 
+    std::vector<Post*> get_posts() const{
+        return this->posts;
+    }
+
+    std::vector<Post*> search_posts(std::string search_str) const{
+        std::vector<Post*> postitive_posts;
+
+        for(Post* post : this->posts){
+            if (post->contains(search_str))
+            {
+                postitive_posts.push_back(post);
+            }
+        }
+        
+        return postitive_posts;
+    }
+
     void extract_data(std::string &xml){
         XML_To_Tree2 xml_conv_obj = XML_To_Tree2(xml);
         TreeNode* xml_tree = xml_conv_obj.convert();
@@ -163,7 +179,7 @@ public:
                             post->topics.push_back(topic_tag->tag_value);
                         }
                         user_posts->push_back(*post);
-                        // TODO: Add to list of posts?
+                        posts.push_back(post);
                     }
                     user->post_list = *user_posts;
                 }

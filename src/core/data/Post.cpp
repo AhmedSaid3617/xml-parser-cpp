@@ -14,6 +14,23 @@ const std::vector<std::string>& Post::getTopics() const {
     return topics;
 }
 
+bool Post::contains(std::string search_str)
+{   
+    if (this->body.find(search_str) != std::string::npos)
+    {
+        return true;
+    }
+
+    for (std::string topic : topics){
+        if (topic.find(search_str) != std::string::npos)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 Post::~Post()
 {
 }

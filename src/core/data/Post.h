@@ -15,6 +15,7 @@ public:
     // Getters
     std::string getBody() const;
     const std::vector<std::string>& getTopics() const;
+    bool contains(std::string search_str);
 
     ~Post();
     friend class User;

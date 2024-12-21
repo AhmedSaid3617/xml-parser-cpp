@@ -163,16 +163,13 @@ int main() {
     std::vector<User> user_4_following = social_network.get_following(4);
     assert(user_4_following[0].getName() == "Omar Khaled");
 
-    //std::vector<Post> user_4_posts = social_network.ge
+    // Search in one post.
+    std::vector<Post*> posts = social_network.get_posts();
+    assert(posts[0]->contains("economy"));
 
-    
-    
-    for (int i = 0; i < user_4_following.size(); i++)
-    {
-        std::cout << user_4_following[i].getName() << std::endl;
-    }
-    
-    
+    // Search in all posts.
+    std::vector<Post*> salma_posts = social_network.search_posts("Salma");
+    assert(salma_posts[0]->contains("technology"));
 
     return 0;
 }
