@@ -58,11 +58,13 @@ int main()
     }
 
     const User* mostactive=social_network.get_most_active_user();
-
     cout<<"most active     "<<mostactive->getId()<<endl<<mostactive->getName()<<endl;
-    const User* mostinfluincer=social_network.get_most_influencer_user();
+    assert(mostactive == &user_kareem);
 
-    cout<<"most active     "<<mostinfluincer->getId()<<endl<<mostinfluincer->getName()<<endl;
+    const User* mostinfluincer=social_network.get_most_influencer_user();
+    cout<<"most influencer     "<<mostinfluincer->getId()<<endl<<mostinfluincer->getName()<<endl;
+    assert(mostinfluincer == &user_fares);
+
     std::vector<User> my_users;
     my_users.push_back(user_abdo);
     my_users.push_back(user_said);
@@ -72,6 +74,7 @@ int main()
     {
         cout<< "common with said, abdo ,hussein follwers    "<<common[i]->getName() << endl;
     }
+    assert(common[0] == &user_fares);
 
     // Test suggest_users_to_follow for Said
 
@@ -79,6 +82,7 @@ int main()
 
     // Print the suggestions
     cout<<"Suggested users for " << user_said.getName() << " to follow: ";
+    assert(suggestions[1] == &user_omar);
     
     for (User* user : suggestions)
     {
