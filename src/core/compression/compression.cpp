@@ -34,23 +34,9 @@ string readFile(const string &filename) {
 string minifyXML(const string &xmlContent) {
     string minified;
     int i=0;
-    string tagCheck;
     while(i<xmlContent.size()) {
-        if (xmlContent[i]=='<') {
-            tagCheck=xmlContent.substr(i, 6);
 
-            if(tagCheck=="<name>" || tagCheck=="<body>"){
-                minified+=tagCheck;
-                i+=6;
-               while(xmlContent[i]!='<') {
-                minified+=xmlContent[i];
-                i++;
-               }
-            }
-        }
-        
-
-        if (!isspace(xmlContent[i])) {
+        if (xmlContent[i]!='\n' && xmlContent[i]!='\t') {
             minified += xmlContent[i];
         }
         i++;
@@ -308,7 +294,7 @@ int main() {
         //string text ="aaabdaaabac"; // used for test
         //minifiedXML=text;
         //unordered_map<string,int> freq=calculateFrequencies(text);
-             writeStringToFile("minifiedXML.txt",minifiedXML);
+        //     writeStringToFile("minifiedXML.txt",minifiedXML);
 
 
             // Compress the XML content
@@ -323,7 +309,7 @@ int main() {
         // writeStringToFile("testing the size of minifiedXML.txt" ,minifiedXML);
        // string Compressed=CompresedTosring(compressedXML, mapping,tokens);
         cout<<Compress(minifiedXML)<<'\n';
-         writeStringToFile("Compress.txt", Compress(minifiedXML));
+       //  writeStringToFile("Compress.txt", Compress(minifiedXML));
 
 
         cout<<Decompress(Compress(minifiedXML))<<'\n';
