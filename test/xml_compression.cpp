@@ -1,5 +1,10 @@
 #include "compression/compression.h"
 #include <cassert>
+#include <iostream>
+
+
+
 int main(){
-    assert(true);
+    auto result = Compress("f\ng");
+    std::cout << Decompress(result);
 }
