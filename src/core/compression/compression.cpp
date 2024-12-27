@@ -33,10 +33,27 @@ string readFile(const string &filename) {
 // Helper function to remove spaces and newlines (Minification)
 string minifyXML(const string &xmlContent) {
     string minified;
-    for (char c : xmlContent) {
-        if (!isspace(c)) {
-            minified += c;
+    int i=0;
+    string tagCheck;
+    while(i<xmlContent.size()) {
+        if (xmlContent[i]=='<') {
+            tagCheck=xmlContent.substr(i, 6);
+
+            if(tagCheck=="<name>" || tagCheck=="<body>"){
+                minified+=tagCheck;
+                i+=6;
+               while(xmlContent[i]!='<') {
+                minified+=xmlContent[i];
+                i++;
+               }
+            }
         }
+        
+
+        if (!isspace(xmlContent[i])) {
+            minified += xmlContent[i];
+        }
+        i++;
     }
     return minified;
 }
@@ -227,7 +244,7 @@ CompressionResult loadFile(const string& filename) {
     return result;
 }
 CompressionResult loadData(string loadedData) {
-    
+
     CompressionResult result;
     int index=0;
     while(loadedData[index]!='\n'){
@@ -288,10 +305,10 @@ int main() {
         string minifiedXML = minifyXML(xmlContent);
 
         cout << "Minified XML:\n" << minifiedXML << "\n";
-        string text ="aaabdaaabac"; // used for test
+        //string text ="aaabdaaabac"; // used for test
         //minifiedXML=text;
-        unordered_map<string,int> freq=calculateFrequencies(text);
-
+        //unordered_map<string,int> freq=calculateFrequencies(text);
+             writeStringToFile("minifiedXML.txt",minifiedXML);
 
 
             // Compress the XML content
@@ -306,7 +323,7 @@ int main() {
         // writeStringToFile("testing the size of minifiedXML.txt" ,minifiedXML);
        // string Compressed=CompresedTosring(compressedXML, mapping,tokens);
         cout<<Compress(minifiedXML)<<'\n';
-    //     writeStringToFile("output.txt", Compressed);
+         writeStringToFile("Compress.txt", Compress(minifiedXML));
 
 
         cout<<Decompress(Compress(minifiedXML))<<'\n';
@@ -371,8 +388,8 @@ int main() {
     //     cout << "\nDecompressed XML:\n" << decompressedXML << "\n";
     //     cout<<"mapping "<<mapping.size()<<"\n";
     //     // Verify correctness
-    //     assert(decompressedXML == minifiedXML && "Decompression failed!");
-    //     cout << "\nDecompression successful!\n";
+         assert(Decompress(Compress(minifiedXML)) == minifiedXML && "Decompression failed!");
+         cout << "\nDecompression successful!\n";
     //     cout<<"decompressedXML "<<minifiedXML.length()<<" compressedXML "<<compressedXML.length()<<"\n";
 
 
