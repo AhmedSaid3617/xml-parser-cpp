@@ -30,10 +30,13 @@ string readFile(const string &filename) {
 // Helper function to remove spaces and newlines (Minification)
 string minifyXML(const string &xmlContent) {
     string minified;
-    for (char c : xmlContent) {
-        if (!isspace(c)) {
-            minified += c;
+    int i=0;
+    while(i<xmlContent.size()) {
+
+        if (xmlContent[i]!='\n' && xmlContent[i]!='\t') {
+            minified += xmlContent[i];
         }
+        i++;
     }
     return minified;
 }
@@ -267,11 +270,13 @@ void writeStringToFile(const string& filename, const string& text) {
     cout << "String successfully written to " << filename << "\n";
 }
 string Compress(string text){
+    //for tex replace \n with *''
     auto [compressedXML, mapping,tokens] = compress(text);
     return CompresedTosring(compressedXML, mapping,tokens);
 }
 string Decompress(string text){
     auto[compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile]=loadData(text);
+    //replace * with \n
     return decompressing(compressedXML4LoadedFile, mappings4LoadedFile,tokens4LoadedFile);
 
 }

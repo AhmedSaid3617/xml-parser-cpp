@@ -5,6 +5,10 @@
 
 
 int main(){
-    auto result = Compress("f\ng");
+    auto result = Compress(minifyXML("<html>\t"
+                                     ""
+                                     ""
+                                     ""
+                                     "<pot>test test test</pot></html>"));
     std::cout << Decompress(result);
 }
