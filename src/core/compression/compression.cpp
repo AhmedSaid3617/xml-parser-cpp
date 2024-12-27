@@ -20,10 +20,13 @@ string readFile(const string &filename) {
 // Helper function to remove spaces and newlines (Minification)
 string minifyXML(const string &xmlContent) {
     string minified;
-    for (char c : xmlContent) {
-        if (!isspace(c)) {
-            minified += c;
+    int i=0;
+    while(i<xmlContent.size()) {
+
+        if (xmlContent[i]!='\n' && xmlContent[i]!='\t') {
+            minified += xmlContent[i];
         }
+        i++;
     }
     return minified;
 }
@@ -214,7 +217,7 @@ CompressionResult loadFile(const string& filename) {
     return result;
 }
 CompressionResult loadData(string loadedData) {
-    
+
     CompressionResult result;
     int index=0;
     while(loadedData[index]!='\n'){
