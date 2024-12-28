@@ -4,11 +4,13 @@
 #include "convert/tree_to_json.h"
 #include "fromat/format.h"
 #include "compression/compression.h"
+#include <QPixmap>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    extracted = false;
 }
 
 MainWindow::~MainWindow()
@@ -185,6 +187,10 @@ void MainWindow::on_actionVisualize_triggered()
 
     out_string = QString("Most Active User: %1\nMost influential user: %2").arg(most_active_qs, most_influential_qs);
     ui->outputLabel->setText(out_string);
+
+    QPixmap pix;
+    
+    ui->label_pic->setPixmap(pix);
 }
 
 

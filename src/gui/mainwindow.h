@@ -54,6 +54,6 @@ private:
     Ui::MainWindow *ui;
     QString currentFileName;
     SocialNetwork social_network;
-    bool extracted = false;
+    bool extracted;
 };
 #endif // MAINWINDOW_H
