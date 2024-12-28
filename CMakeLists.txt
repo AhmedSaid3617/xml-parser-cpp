@@ -30,6 +30,9 @@ add_test(NAME XML_TO_TREE_CHECK COMMAND xml_to_tree)
 add_executable(string_formatting test/string_formatting.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME STRING_FORMATTING_CHECK COMMAND string_formatting)
 
+add_executable(xml_compression test/xml_compression.cpp ${XML_PARSER_CORE_CPP})
+add_test(NAME XML_COMPRESSION COMMAND xml_compression)
+
 add_executable(graphs_and_dynamic_arrays test/graphs_and_dynamic_arrays.cpp ${XML_PARSER_CORE_CPP})
 add_test(NAME GRAPHS_AND_DYNAMIC_ARRAYS_CHECK COMMAND graphs_and_dynamic_arrays)
 
