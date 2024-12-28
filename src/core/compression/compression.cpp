@@ -31,9 +31,22 @@ string readFile(const string &filename) {
 string minifyXML(const string &xmlContent) {
     string minified;
     int i=0;
-    while(i<xmlContent.size()) {
 
-        if (xmlContent[i]!='\n' && xmlContent[i]!='\t') {
+    while(i<xmlContent.size()) {
+        if (xmlContent[i]==' '){
+            string checkTwoSpaces=xmlContent.substr(i,2);
+            if (checkTwoSpaces=="  "){
+                i+=2;
+                continue;
+            }else{
+
+                minified += xmlContent[i];
+
+            }
+        }
+
+
+        else if(xmlContent[i]!='\n' && xmlContent[i]!='\t') {
             minified += xmlContent[i];
         }
         i++;
