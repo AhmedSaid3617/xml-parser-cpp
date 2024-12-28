@@ -44,6 +44,8 @@ private slots:
 
     void on_actionSuggested_followers_triggered();
 
+    void on_actionRemove_whitespaces_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;

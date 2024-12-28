@@ -3,6 +3,7 @@
 #include "consistency/consistency.h"
 #include "convert/tree_to_json.h"
 #include "fromat/format.h"
+#include "compression/compression.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -235,6 +236,64 @@ void MainWindow::on_actionMutual_followers_triggered()
 
 void MainWindow::on_actionSuggested_followers_triggered()
 {
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    QStringList user_names;
+
+    if (in_string.isEmpty())
+    {
+        return;
+    }
     
+    if (!extracted)
+    {
+        social_network.extract_data(in_string.toStdString());
+        extracted = true;
+    }
+
+    string users_string = ui->user_text_edit->toPlainText().toStdString();
+
+    std::istringstream iss(users_string);
+    std::vector<int> user_ids;
+    vector<User *> suggested;
+    int id;
+
+    while (iss >> id)
+    {
+        user_ids.push_back(id);
+    }
+    
+    try
+    {
+        suggested = social_network.suggest_users_to_follow(social_network.get_user(user_ids[0]));
+
+        for(User* user: suggested){
+            user_names.append(user->getName().c_str());
+        }
+        out_string = user_names.join("\n");
+        ui->outputLabel->setText(out_string);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+
+void MainWindow::on_actionRemove_whitespaces_triggered()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+
+    if (err_line != -1)
+    {
+        out_string = QString("Error on line %1").arg(err_line);
+        ui->outputLabel->setText(out_string);
+        return;
+    }
+
+    in_string = QString(minifyXML(in_string.toStdString()).c_str());
+    ui->textEdit->setPlainText(in_string);
 }
 
