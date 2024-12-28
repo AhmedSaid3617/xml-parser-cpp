@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "graph/SocialNetwork.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -36,8 +38,16 @@ private slots:
 
     void on_actionFix_errors_triggered();
 
+    void on_actionVisualize_triggered();
+
+    void on_actionMutual_followers_triggered();
+
+    void on_actionSuggested_followers_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;
+    SocialNetwork social_network;
+    bool extracted = false;
 };
 #endif // MAINWINDOW_H

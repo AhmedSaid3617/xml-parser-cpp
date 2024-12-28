@@ -18,6 +18,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionOpen_triggered()
 {
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    extracted = false;
     if (fileName.isEmpty())
         return;
     QFile file(fileName);
@@ -38,6 +39,7 @@ void MainWindow::on_actionNew_triggered()
 {
     currentFileName.clear();
     ui->textEdit->setText(QString());
+    extracted = false;
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -97,7 +99,7 @@ void MainWindow::on_actionFormat_triggered()
         ui->outputLabel->setText(out_string);
         return;
     }
-    
+
     in_string = QString(formatXML(in_string.toStdString()).c_str());
     ui->textEdit->setPlainText(in_string);
 }
@@ -114,7 +116,7 @@ void MainWindow::on_actionConvert_to_JSON_triggered()
         ui->outputLabel->setText(out_string);
         return;
     }
-    
+
     QString fileName;
     // If we don't have a filename from before, get one.
 
@@ -138,7 +140,6 @@ void MainWindow::on_actionConvert_to_JSON_triggered()
 
     out_string = "Converted successfully.";
     ui->outputLabel->setText(out_string);
-
 }
 
 void MainWindow::on_actionFix_errors_triggered()
@@ -159,5 +160,81 @@ void MainWindow::on_actionFix_errors_triggered()
     // TODO: Remove whitespaces but not new lines.
 
     ui->outputLabel->setText(out_string);
+}
+
+void MainWindow::on_actionVisualize_triggered()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    if (in_string.isEmpty())
+    {
+        return;
+    }
+    
+    if (!extracted)
+    {
+        social_network.extract_data(in_string.toStdString());
+        extracted = true;
+    }
+
+    QString out_string;
+    const string most_active = social_network.get_most_active_user()->getName();
+    const string most_influential = social_network.get_most_influencer_user()->getName();
+    QString most_active_qs = QString(most_active.c_str());
+    QString most_influential_qs = QString(most_influential.c_str());
+
+    out_string = QString("Most Active User: %1\nMost influential user: %2").arg(most_active_qs, most_influential_qs);
+    ui->outputLabel->setText(out_string);
+}
+
+
+void MainWindow::on_actionMutual_followers_triggered()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    QStringList user_names;
+
+    if (in_string.isEmpty())
+    {
+        return;
+    }
+    
+    if (!extracted)
+    {
+        social_network.extract_data(in_string.toStdString());
+        extracted = true;
+    }
+
+    string users_string = ui->user_text_edit->toPlainText().toStdString();
+
+    std::istringstream iss(users_string);
+    std::vector<int> user_ids;
+    vector<User *> mutuals;
+    int id;
+
+    while (iss >> id)
+    {
+        user_ids.push_back(id);
+    }
+    
+    try
+    {
+        mutuals = social_network.who_does_n_users_follow(user_ids);
+
+        for(User* user: mutuals){
+            user_names.append(user->getName().c_str());
+        }
+        out_string = user_names.join("\n");
+        ui->outputLabel->setText(out_string);
+    }
+    catch (const std::exception &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+}
+
+
+void MainWindow::on_actionSuggested_followers_triggered()
+{
+    
 }
 

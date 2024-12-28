@@ -152,7 +152,7 @@ public:
         return postitive_posts;
     }
 
-    void extract_data(std::string &xml){
+    void extract_data(std::string xml){
         XML_To_Tree2 xml_conv_obj = XML_To_Tree2(xml);
         TreeNode* xml_tree = xml_conv_obj.convert();
         std::vector<TreeNode *> users_nodes = xml_tree->children[0]->children;

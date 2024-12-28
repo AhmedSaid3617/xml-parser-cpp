@@ -171,5 +171,15 @@ int main() {
     std::vector<Post*> salma_posts = social_network.search_posts("Salma");
     assert(salma_posts[0]->contains("technology"));
 
+    std::vector<int> my_users_ids = {2, 3};
+    vector<User*> mutuals = social_network.who_does_n_users_follow(my_users_ids);
+    for(User* user : mutuals){
+        cout << user->getId() << endl;
+    }
+    mutuals = social_network.who_does_n_users_follow(my_users_ids);
+    for(User* user : mutuals){
+        cout << user->getId() << endl;
+    }
+
     return 0;
 }
