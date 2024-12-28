@@ -10,7 +10,7 @@ class GraphVisualizationSocialNetworkVisitor : public SocialNetworkVisitor {
 protected:
     void add_node(Agraph_t *g, const User * user) {
         // const_cast is illegal but the only way to interface with old C code
-        Agnode_t *n = agnode(g, const_cast<char *>(user->getName().c_str()), 1);
+        Agnode_t *n = agnode(g, const_cast<char *>(user->getName().append("(").append(to_string(user->getId())).append(")").c_str()), 1);
 
         nodes.insert(user->getId(), n);
     }
