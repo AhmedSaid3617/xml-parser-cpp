@@ -4,6 +4,7 @@
 #include "convert/tree_to_json.h"
 #include "fromat/format.h"
 #include "compression/compression.h"
+#include "QImageGraphVisualization.h"
 #include <QPixmap>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -189,7 +190,9 @@ void MainWindow::on_actionVisualize_triggered()
     ui->outputLabel->setText(out_string);
 
     QPixmap pix;
-    
+    auto visitor = new QImageGraphVisualization();
+    QImage image = any_cast<QImage>(social_network.accept(visitor));
+    pix.convertFromImage(image);
     ui->label_pic->setPixmap(pix);
 }
 
