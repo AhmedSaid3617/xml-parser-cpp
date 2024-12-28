@@ -78,7 +78,7 @@ void MainWindow::on_actionCheck_for_errors_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
     if (err_line != -1)
     {
         out_string = QString("Error on line %1").arg(err_line);
@@ -95,7 +95,7 @@ void MainWindow::on_actionFormat_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
 
     if (err_line != -1)
     {
@@ -112,7 +112,7 @@ void MainWindow::on_actionConvert_to_JSON_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
 
     if (err_line != -1)
     {
@@ -149,11 +149,12 @@ void MainWindow::on_actionConvert_to_JSON_triggered()
 void MainWindow::on_actionFix_errors_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
+    string in_string_std = in_string.toStdString();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
     if (err_line != -1)
     {
-        ui->textEdit->setText(QString(fix_errors(in_string.toStdString()).c_str()));
+        ui->textEdit->setText(QString(fix_file(in_string_std).c_str()));
         out_string = "Fixed the file.";
     }
     else
@@ -293,7 +294,7 @@ void MainWindow::on_actionRemove_whitespaces_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
 
     if (err_line != -1)
     {
@@ -311,7 +312,7 @@ void MainWindow::on_actionCompress_file_triggered()
 {
     QString in_string = ui->textEdit->toPlainText();
     QString out_string;
-    int err_line = check_errors(in_string.toStdString());
+    int err_line = verify(in_string.toStdString());
 
     if (err_line != -1)
     {

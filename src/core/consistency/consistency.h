@@ -43,9 +43,9 @@ public:
 
 void tokenizeXML (std::string &XML_data,std::vector<Tag> &TokenizedXML);
 int validateXML(std::vector<Tag> &tags);
-int verify(std::string &XML);
+int verify(std::string XML);
 void fix_error(std::vector<std::string> &lines, std::vector<Tag> &tags, int error_index);
 void stringToLines (std::string &XML, std::vector <std::string> &LinedXml);
-std::string fix_file(std::string &XML);
+std::string fix_file(std::string XML);
 
 #endif //XML_PARSER_CONSISTENCY_H

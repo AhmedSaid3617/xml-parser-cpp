@@ -158,7 +158,7 @@ void stringToLines (string &XML, vector <string> &LinedXml){
     }
 }
 
-int verify(string &XML) {
+int verify(string XML) {
     vector<Tag> tokens;
     string data = "";
     int index;
@@ -169,7 +169,7 @@ int verify(string &XML) {
 }
 
 //fixes all errors by calling itself
-string fix_file(string &XML) {
+string fix_file(string XML) {
     vector <string> lines;
     vector<Tag> tokens;
     string data = "";
