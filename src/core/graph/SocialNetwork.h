@@ -6,9 +6,11 @@
 #include "data/User.h"
 #include "convert/XML_To_Tree2.h"
 #include "hashtable.h"
+#include "SocialNetworkVisitor.h"
 #include <iostream>
 #include <unordered_set>
 #include <unordered_map>
+#include <any>
 
 struct user_id_graph_key_t {
     uint32_t id;
@@ -291,6 +293,10 @@ public:
     return suggestions;
 }
 
+
+    std::any accept(SocialNetworkVisitor * visitor) {
+        return visitor->visit(this);
+    }
 };
 
 
