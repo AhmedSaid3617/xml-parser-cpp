@@ -1,6 +1,7 @@
 #include "main.h"
 #include "fromat/format.h"
 #include "consistency/consistency.h"
+#include "compression/compression.h"
 #include "convert/tree_to_json.h"
 #include "graph/SocialNetwork.h"
 #include "data/User.h"
@@ -57,6 +58,28 @@ int main(int argc, char *argv[]) {
         string json_file = xml_to_json(XML_file);
         string output_file_path = argv[5];
         write_to_output_file(output_file_path,json_file);
+        return 0;
+    }
+
+    if(operation == "mini") {
+        string minified_XML = minifyXML(XML_file);
+        string output_file_path = argv[5];
+        write_to_output_file(output_file_path,minified_XML);
+        return 0;
+    }
+
+    if(operation == "compress") {
+        string minified_XML = minifyXML(XML_file);
+        string compressed_XML = Compress(minified_XML);
+        string output_file_path = argv[5];
+        write_to_output_file(output_file_path,compressed_XML);
+        return 0;
+    }
+
+    if(operation == "decompress") {
+        string decompressed_XML = Decompress(XML_file);
+        string output_file_path = argv[5];
+        write_to_output_file(output_file_path,decompressed_XML);
         return 0;
     }
 
