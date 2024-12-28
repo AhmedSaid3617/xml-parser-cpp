@@ -46,6 +46,10 @@ private slots:
 
     void on_actionRemove_whitespaces_triggered();
 
+    void on_actionCompress_file_triggered();
+
+    void on_actionDecompress_file_triggered();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;

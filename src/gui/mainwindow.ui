@@ -125,6 +125,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     </property>
     <addaction name="actionRemove_whitespaces"/>
     <addaction name="actionCompress_file"/>
+    <addaction name="actionDecompress_file"/>
    </widget>
    <widget class="QMenu" name="menuVisualize">
     <property name="title">
@@ -207,6 +208,11 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <action name="actionSuggested_followers">
    <property name="text">
     <string>Suggest followers</string>
+   </property>
+  </action>
+  <action name="actionDecompress_file">
+   <property name="text">
+    <string>Decompress file</string>
    </property>
   </action>
  </widget>

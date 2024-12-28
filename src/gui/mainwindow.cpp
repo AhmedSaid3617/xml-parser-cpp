@@ -297,3 +297,65 @@ void MainWindow::on_actionRemove_whitespaces_triggered()
     ui->textEdit->setPlainText(in_string);
 }
 
+
+void MainWindow::on_actionCompress_file_triggered()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    int err_line = check_errors(in_string.toStdString());
+
+    if (err_line != -1)
+    {
+        out_string = QString("Error on line %1").arg(err_line);
+        ui->outputLabel->setText(out_string);
+        return;
+    }
+
+    QString fileName;
+    // If we don't have a filename from before, get one.
+
+    fileName = QFileDialog::getSaveFileName(this, "Save");
+    if (fileName.isEmpty())
+        return;
+    currentFileName = fileName;
+
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        return;
+    }
+    setWindowTitle(fileName);
+    QTextStream out(&file);
+    QString text;
+    text = Compress(minifyXML(ui->textEdit->toPlainText().toStdString())).c_str();
+    out << text;
+    file.close();
+
+    out_string = "Compressed successfully.";
+    ui->outputLabel->setText(out_string);
+}
+
+
+void MainWindow::on_actionDecompress_file_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    extracted = false;
+    if (fileName.isEmpty())
+        return;
+    QFile file(fileName);
+    currentFileName = fileName;
+    if (!file.open(QIODevice::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+        return;
+    }
+    setWindowTitle(fileName);
+    QTextStream in(&file);
+    QString compressed_text = in.readAll();
+    file.close();
+
+    QString decompressed = QString(Decompress(compressed_text.toStdString()).c_str());
+    ui->textEdit->setText(decompressed);
+}
+

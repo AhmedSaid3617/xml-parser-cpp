@@ -22,7 +22,7 @@ int main()
     assert(decompressed == minifyXML(xml1));
 
     // Read from file.
-    std::ifstream file("test/sample.txt");
+    std::ifstream file("sample.txt");
     std::ostringstream buffer;
     buffer << file.rdbuf();
     file.close();
