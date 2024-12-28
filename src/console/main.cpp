@@ -108,6 +108,37 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+    if(operation == "suggest") {
+        int user_id = atoi(argv[5]);
+        User* user_to_the_passed_id = social_network->get_user(user_id);
+        vector<User*> suggested_users = social_network->suggest_users_to_follow(user_to_the_passed_id);
+
+        for(int i = 0; i < suggested_users.size(); i++)
+            cout<<"Name:"<<suggested_users[i]->getName()<<" id:"<<suggested_users[i]->getId()<<endl;
+        
+        return 0;
+    }
+
+    if(operation == "search") {
+        string argument = argv[2];
+        if(argument == "-w") {
+            string wanted_word = argv[3];
+            vector<Post*> posts_containing_word = social_network->search_posts(wanted_word);
+            for(int i = 0; i < posts_containing_word.size(); i++)
+                cout<<posts_containing_word[i]->getBody();
+            return 0;
+        }
+        if(argument == "-t") {
+            string wanted_topic = argv[3];
+            vector<Post*> posts_with_the_topic = social_network->search_topics(wanted_topic);
+            for(int i = 0; i < posts_with_the_topic.size(); i++)
+                cout<<posts_with_the_topic[i]->getBody();
+            return 0;
+        }
+        cout<<"Invalid Arguments";
+        return 0;
+    }
+
     if(operation == "most_active") {
         auto* most_active_user = social_network->get_most_active_user();
         cout<<most_active_user->getName()<<" "<<most_active_user->getId();
