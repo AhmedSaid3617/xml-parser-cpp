@@ -1,5 +1,14 @@
 #include "compression/compression.h"
 #include <cassert>
+#include <iostream>
+
+
+
 int main(){
-    assert(true);
+    auto result = Compress(minifyXML("<html>\t"
+                                     ""
+                                     ""
+                                     ""
+                                     "<pot>test test test</pot></html>"));
+    std::cout << Decompress(result);
 }
