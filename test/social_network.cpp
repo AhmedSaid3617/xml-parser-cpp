@@ -1,7 +1,15 @@
 #include <cassert>
 
+// uncomment if you have graphviz libraries and added
+// parameters to CMake
+//#define TEST_VISUALIZATION
+
 #include "data/User.h"
 #include "graph/SocialNetwork.h"
+
+#ifdef TEST_VISUALIZATION
+    #include "graph/FileExportGraphVisualization.h"
+#endif
 
 using namespace std;
 
@@ -92,6 +100,11 @@ int main()
         std::cout << user->getName() << " ";
     }
     cout<<endl;
+
+#ifdef TEST_VISUALIZATION
+    auto visitor = new FileExportGraphVisualization("here.png");
+    social_network.accept(visitor);
+#endif
 
 return 0;
 }

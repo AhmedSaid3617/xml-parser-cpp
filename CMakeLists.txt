@@ -52,6 +52,7 @@ if (${COMPILE_GUI})
         src/gui/gui_main.cpp
         src/gui/mainwindow.cpp
         src/gui/mainwindow.h
+        src/gui/QImageGraphVisualization.h
         src/gui/mainwindow.ui)
 
     set(CMAKE_AUTOUIC ON)
@@ -110,4 +111,17 @@ if (${COMPILE_GUI})
         qt_finalize_executable(qt_test)
     endif()
 
+endif ()
+
+if (${COMPILE_GVC})
+    if (${COMPILE_GUI})
+        target_link_libraries(qt_test PRIVATE ${GRAPHVIZ_LIBRARIES})
+        target_include_directories(qt_test PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
+    endif ()
+
+    target_link_libraries(console PRIVATE ${GRAPHVIZ_LIBRARIES})
+    target_include_directories(console PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
+
+    target_link_libraries(social_network PRIVATE ${GRAPHVIZ_LIBRARIES})
+    target_include_directories(social_network PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
 endif ()
