@@ -154,6 +154,21 @@ public:
         return postitive_posts;
     }
 
+    std::vector<Post*> search_topics(std::string search_str) const{
+        std::vector<Post*> postitive_posts;
+
+        for(Post* post : this->posts){
+            for(string topic: post->getTopics()){
+                if (topic.find(search_str) != std::string::npos)
+                {
+                    postitive_posts.push_back(post);
+                }
+            }
+        }
+        
+        return postitive_posts;
+    }
+
     void extract_data(std::string xml){
         XML_To_Tree2 xml_conv_obj = XML_To_Tree2(xml);
         TreeNode* xml_tree = xml_conv_obj.convert();
