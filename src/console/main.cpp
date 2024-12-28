@@ -5,8 +5,9 @@
 #include "convert/tree_to_json.h"
 #include "graph/SocialNetwork.h"
 #include "data/User.h"
+#ifdef GRAPH_VIZ
 #include "graph/FileExportGraphVisualization.h"
-
+#endif
 using namespace std;
 
 int main(int argc, char *argv[]) {
@@ -119,11 +120,13 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
+#ifdef GRPAH_VIZ
     if(operation == "draw"){
         string output_file_path = argv[5];
         auto visitor = new FileExportGraphVisualization(output_file_path);
         social_network->accept(visitor);
         return 0;
     }
+#endif
     return 0;
 }

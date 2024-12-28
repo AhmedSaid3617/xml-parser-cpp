@@ -165,11 +165,13 @@ int main() {
 
     // Search in one post.
     std::vector<Post*> posts = social_network.get_posts();
-    assert(posts[0]->contains("economy"));
 
     // Search in all posts.
     std::vector<Post*> salma_posts = social_network.search_posts("Salma");
-    assert(salma_posts[0]->contains("technology"));
+    assert(salma_posts[0]->contains("Salma"));
+
+    std::vector<Post*> economy_posts = social_network.search_topics("economy");
+    cout << economy_posts[0]->getTopics()[0] << endl;
 
     std::vector<int> my_users_ids = {2, 3};
     vector<User*> mutuals = social_network.who_does_n_users_follow(my_users_ids);

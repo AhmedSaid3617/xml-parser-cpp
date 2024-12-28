@@ -20,13 +20,6 @@ bool Post::contains(std::string search_str)
     {
         return true;
     }
-
-    for (std::string topic : topics){
-        if (topic.find(search_str) != std::string::npos)
-        {
-            return true;
-        }
-    }
     
     return false;
 }
