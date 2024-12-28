@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1538</width>
-    <height>863</height>
+    <width>1920</width>
+    <height>1080</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,7 +47,7 @@
      <rect>
       <x>50</x>
       <y>569</y>
-      <width>791</width>
+      <width>341</width>
       <height>161</height>
      </rect>
     </property>
@@ -71,8 +71,8 @@
    <widget class="QTextEdit" name="user_text_edit">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>580</y>
+      <x>1000</x>
+      <y>10</y>
       <width>201</width>
       <height>31</height>
      </rect>
@@ -94,14 +94,99 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QLabel" name="label_pic">
     <property name="geometry">
      <rect>
-      <x>1040</x>
-      <y>80</y>
-      <width>241</width>
-      <height>221</height>
+      <x>910</x>
+      <y>60</y>
+      <width>571</width>
+      <height>461</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="post_list_widget">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>600</y>
+      <width>941</width>
+      <height>411</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>910</x>
+      <y>20</y>
+      <width>79</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>User ids:</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="search_text_edit">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>560</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(154, 153, 150);</string>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu Sans'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>560</y>
+      <width>171</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Enter a search word</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="post_search_button">
+    <property name="geometry">
+     <rect>
+      <x>950</x>
+      <y>560</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search Posts</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="topic_search_button">
+    <property name="geometry">
+     <rect>
+      <x>1084</x>
+      <y>560</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search Topics</string>
     </property>
    </widget>
   </widget>
@@ -111,7 +196,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1538</width>
+     <width>1920</width>
      <height>27</height>
     </rect>
    </property>

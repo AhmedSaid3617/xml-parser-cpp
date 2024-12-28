@@ -6,6 +6,9 @@
 #include "compression/compression.h"
 #include "QImageGraphVisualization.h"
 #include <QPixmap>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
@@ -162,8 +165,6 @@ void MainWindow::on_actionFix_errors_triggered()
         out_string = "File is correct.";
     }
 
-    // TODO: Remove whitespaces but not new lines.
-
     ui->outputLabel->setText(out_string);
 }
 
@@ -177,6 +178,7 @@ void MainWindow::on_actionVisualize_triggered()
     
     if (!extracted)
     {
+        // TODO: check if correct.
         social_network.extract_data(in_string.toStdString());
         extracted = true;
     }
@@ -194,7 +196,8 @@ void MainWindow::on_actionVisualize_triggered()
     auto visitor = new QImageGraphVisualization();
     QImage image = any_cast<QImage>(social_network.accept(visitor));
     pix.convertFromImage(image);
-    ui->label_pic->setPixmap(pix);
+    ui->label_pic->setPixmap(pix.scaled(ui->label_pic->width(), ui->label_pic->height(), Qt::KeepAspectRatio));
+
 }
 
 
@@ -211,6 +214,7 @@ void MainWindow::on_actionMutual_followers_triggered()
     
     if (!extracted)
     {
+        // TODO: check if correct.
         social_network.extract_data(in_string.toStdString());
         extracted = true;
     }
@@ -257,6 +261,7 @@ void MainWindow::on_actionSuggested_followers_triggered()
     
     if (!extracted)
     {
+        // TODO: check if correct.
         social_network.extract_data(in_string.toStdString());
         extracted = true;
     }
@@ -288,6 +293,67 @@ void MainWindow::on_actionSuggested_followers_triggered()
         std::cerr << e.what() << '\n';
     }
 }
+
+void MainWindow::on_post_search_button_clicked()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    QString search_phrase;
+    QStringList posts_strings;
+    vector<Post*> posts;
+
+    if (in_string.isEmpty())
+    {
+        return;
+    }
+    
+    if (!extracted)
+    {
+        // TODO: check if correct.
+        social_network.extract_data(in_string.toStdString());
+        extracted = true;
+    }
+
+    search_phrase = ui->search_text_edit->toPlainText();
+    posts = social_network.search_posts(search_phrase.toStdString());
+    ui->post_list_widget->clear();
+
+    for(Post* post : posts){
+        ui->post_list_widget->addItem(QString(post->getBody().c_str()));
+    }
+
+}
+
+
+void MainWindow::on_topic_search_button_clicked()
+{
+    QString in_string = ui->textEdit->toPlainText();
+    QString out_string;
+    QString search_phrase;
+    QStringList posts_strings;
+    vector<Post*> posts;
+
+    if (in_string.isEmpty())
+    {
+        return;
+    }
+    
+    if (!extracted)
+    {
+        // TODO: check if correct.
+        social_network.extract_data(in_string.toStdString());
+        extracted = true;
+    }
+
+    search_phrase = ui->search_text_edit->toPlainText();
+    posts = social_network.search_topics(search_phrase.toStdString());
+    ui->post_list_widget->clear();
+
+    for(Post* post : posts){
+        ui->post_list_widget->addItem(QString(post->getBody().c_str()));
+    }
+}
+
 
 
 void MainWindow::on_actionRemove_whitespaces_triggered()
@@ -329,18 +395,11 @@ void MainWindow::on_actionCompress_file_triggered()
         return;
     currentFileName = fileName;
 
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
-        return;
-    }
     setWindowTitle(fileName);
-    QTextStream out(&file);
-    QString text;
-    text = Compress(minifyXML(ui->textEdit->toPlainText().toStdString())).c_str();
-    out << text;
-    file.close();
+
+    std::ofstream file_out(fileName.toStdString());
+    file_out << Compress(minifyXML(ui->textEdit->toPlainText().toStdString())).c_str();
+    file_out.close();
 
     out_string = "Compressed successfully.";
     ui->outputLabel->setText(out_string);
@@ -353,19 +412,14 @@ void MainWindow::on_actionDecompress_file_triggered()
     extracted = false;
     if (fileName.isEmpty())
         return;
-    QFile file(fileName);
-    currentFileName = fileName;
-    if (!file.open(QIODevice::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
-        return;
-    }
+    std::ifstream file_in(fileName.toStdString());
+    std::ostringstream buffer1;
+    buffer1 << file_in.rdbuf();
+    file_in.close();
+
+    string compressed_str = buffer1.str();
     setWindowTitle(fileName);
-    QTextStream in(&file);
-    QString compressed_text = in.readAll();
-    file.close();
 
-    QString decompressed = QString(Decompress(compressed_text.toStdString()).c_str());
-    ui->textEdit->setText(decompressed);
+    QString decompressed = QString(formatXML(Decompress(compressed_str)).c_str());
+    ui->textEdit->setText((decompressed));
 }
-

@@ -185,6 +185,8 @@ public:
                 if (info_tag->tag_name == "name")
                 {
                     user->name = info_tag->tag_value;
+                    user->name.erase(std::remove(user->name.begin(), user->name.end(), '\n'), user->name.end());
+                    user->name.erase(0, user->name.find_first_not_of(' '));
                 }
                 else if (info_tag->tag_name == "id")
                 {

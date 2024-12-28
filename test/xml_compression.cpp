@@ -22,15 +22,16 @@ int main()
     assert(decompressed == minifyXML(xml1));
 
     // IMPORTANT: file path depends on where you're running the bin/exe from.
-    std::ifstream file("./test/sample.txt");
+    std::ifstream file("sample.txt");
     std::ostringstream buffer;
     buffer << file.rdbuf();
     file.close();
 
     // Compress into out.txt
     string xml2 = buffer.str();
+    string xml2_min = minifyXML(xml2);
     std::ofstream file_out("out.txt");
-    file_out << Compress(minifyXML(xml2));
+    file_out << Compress(xml2_min);
     file_out.close();
 
     // Decompress from out.txt
@@ -39,10 +40,10 @@ int main()
     buffer1 << file_in.rdbuf();
     file_in.close();
 
-    decompressed = Decompress(buffer1.str());
-    //cout << xml2 << endl;
+    string compressed_str = buffer1.str();
+    decompressed = Decompress(compressed_str);
     cout << decompressed;
-    assert(decompressed == minifyXML(xml2));
+    assert(decompressed == xml2_min);
 
     return 0;
 }

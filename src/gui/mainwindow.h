@@ -50,6 +50,10 @@ private slots:
 
     void on_actionDecompress_file_triggered();
 
+    void on_post_search_button_clicked();
+
+    void on_topic_search_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString currentFileName;

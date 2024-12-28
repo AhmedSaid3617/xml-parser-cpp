@@ -11,6 +11,16 @@
         <id>2</id>
         <name>Fares</name>
         <posts>
+            <post>
+                <body>
+                    This post is by fares.
+                </body>
+                <topics>
+                    <topic>
+                        data structures
+                    </topic>
+                </topics>
+            </post>
         </posts>
         <followers>
             <follower>
@@ -42,6 +52,16 @@
         <id>4</id>
         <name>Shams</name>
         <posts>
+            <post>
+                <body>
+                    This is by shams.
+                </body>
+                <topics>
+                    <topic>
+                        data structures
+                    </topic>
+                </topics>
+            </post>
         </posts>
         <followers>
             <follower>
@@ -59,6 +79,16 @@
         <id>5</id>
         <name>Abdo</name>
         <posts>
+            <post>
+                <body>
+                    This post is by abdo.
+                </body>
+                <topics>
+                    <topic>
+                        economy
+                    </topic>
+                </topics>
+            </post>
         </posts>
         <followers>
             <follower>
