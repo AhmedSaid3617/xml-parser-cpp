@@ -12,7 +12,7 @@
 #define MINUMUM_ARGUMENTS_COUNT 2
 
 
-std::vector<std::string> options = {"format", "compress","verify","json","mutual","most_active","most_influencer", "-help"};
+std::vector<std::string> options = {"format", "compress","verify","json","mutual","most_active","most_influencer", "-help", "draw"};
 
 inline void printUsage() {
     std::cout << "Usage: xml_editor <option> -i <input_file> -o <output_file>\n";

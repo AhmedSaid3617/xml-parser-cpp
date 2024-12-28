@@ -4,6 +4,7 @@
 #include "convert/tree_to_json.h"
 #include "graph/SocialNetwork.h"
 #include "data/User.h"
+#include "graph/FileExportGraphVisualization.h"
 
 using namespace std;
 
@@ -92,6 +93,13 @@ int main(int argc, char *argv[]) {
     if(operation == "most_influencer") {
         auto* most_influencer_user = social_network->get_most_influencer_user();
         cout<<most_influencer_user->getName()<<" "<<most_influencer_user->getId();
+        return 0;
+    }
+
+    if(operation == "draw"){
+        string output_file_path = argv[5];
+        auto visitor = new FileExportGraphVisualization(output_file_path);
+        social_network->accept(visitor);
         return 0;
     }
     return 0;
