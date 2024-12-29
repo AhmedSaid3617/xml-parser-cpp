@@ -24,12 +24,12 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    string file_path = argv[3];
+    string file_path = get_input_path(argc,argv);
     string XML_file = File_to_string(file_path);
 
     if(XML_file.empty()) {
         printWrongArgument();
-        return 1;
+        return 0;
     }
 
     if(operation == "verify") {
@@ -80,7 +80,8 @@ int main(int argc, char *argv[]) {
     if(operation == "decompress") {
         string decompressed_XML = Decompress(XML_file);
         string output_file_path = argv[5];
-        write_to_output_file(output_file_path,decompressed_XML);
+        string formated_file = formatXML(decompressed_XML);
+        write_to_output_file(output_file_path,formated_file);
         return 0;
     }
 
@@ -99,11 +100,12 @@ int main(int argc, char *argv[]) {
                 return 0;
             }
 
-            ids.push_back(id);
+            int user_id = id - '0';
+            ids.push_back(user_id);
         }
         vector<User*> mutual_users = social_network->who_does_n_users_follow(ids);
 
-        for(int i = 0; i < mutual_users.size(); i++) cout<<mutual_users[i]->getName()<<endl;
+        for(int i = 0; i < mutual_users.size(); i++) cout<<"Name:"<<mutual_users[i]->getName()<<endl;
 
         return 0;
     }
@@ -112,6 +114,11 @@ int main(int argc, char *argv[]) {
         int user_id = atoi(argv[5]);
         User* user_to_the_passed_id = social_network->get_user(user_id);
         vector<User*> suggested_users = social_network->suggest_users_to_follow(user_to_the_passed_id);
+
+        if(suggested_users.empty()) {
+            cout<<"There is no suggested user to follow"<<endl;
+            return 0;
+        }
 
         for(int i = 0; i < suggested_users.size(); i++)
             cout<<"Name:"<<suggested_users[i]->getName()<<" id:"<<suggested_users[i]->getId()<<endl;
@@ -124,6 +131,12 @@ int main(int argc, char *argv[]) {
         if(argument == "-w") {
             string wanted_word = argv[3];
             vector<Post*> posts_containing_word = social_network->search_posts(wanted_word);
+
+            if(posts_containing_word.empty()) {
+                cout<<"There are no posts containing "<<wanted_word<<endl;
+                return 0;
+            }
+
             for(int i = 0; i < posts_containing_word.size(); i++)
                 cout<<posts_containing_word[i]->getBody();
             return 0;
@@ -131,6 +144,12 @@ int main(int argc, char *argv[]) {
         if(argument == "-t") {
             string wanted_topic = argv[3];
             vector<Post*> posts_with_the_topic = social_network->search_topics(wanted_topic);
+
+            if(posts_with_the_topic.empty()) {
+                cout<<"There are no posts on "<<wanted_topic<<" topic"<<endl;
+                return 0;
+            }
+            
             for(int i = 0; i < posts_with_the_topic.size(); i++)
                 cout<<posts_with_the_topic[i]->getBody();
             return 0;
@@ -141,13 +160,13 @@ int main(int argc, char *argv[]) {
 
     if(operation == "most_active") {
         auto* most_active_user = social_network->get_most_active_user();
-        cout<<most_active_user->getName()<<" "<<most_active_user->getId();
+        cout<<"Name:"<<most_active_user->getName()<<" id:"<<most_active_user->getId();
         return 0;
     }
 
     if(operation == "most_influencer") {
         auto* most_influencer_user = social_network->get_most_influencer_user();
-        cout<<most_influencer_user->getName()<<" "<<most_influencer_user->getId();
+        cout<<"Name:"<<most_influencer_user->getName()<<" id:"<<most_influencer_user->getId();
         return 0;
     }
 
