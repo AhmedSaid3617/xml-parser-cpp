@@ -12,7 +12,8 @@
 #define MINUMUM_ARGUMENTS_COUNT 2
 
 
-std::vector<std::string> options = {"format", "compress","verify","json","mutual","most_active","most_influencer", "-help", "draw"};
+std::vector<std::string> options = {"format", "compress","verify","json","mutual","most_active",
+    "most_influencer", "-help", "draw", "decompress", "mini", "suggest", "search"};
 
 inline void printUsage() {
     std::cout << "Usage: xml_editor <option> -i <input_file> -o <output_file>\n";
@@ -79,6 +80,15 @@ void write_to_output_file(const std::string &file_path, const std::string &outpu
     }
     outputFile << output_file;
     outputFile.close();
+}
+
+std::string get_input_path(int argumentcount, char* argument[]) {
+    for(int i = 0; i < argumentcount; i++) {
+        if(std::string(argument[i]) == "-i") {
+            return argument[i+1];
+        }
+    }
+    return "";
 }
 
 void print_all_commands() {
