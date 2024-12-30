@@ -16,11 +16,11 @@ fontsize: 12pt
 linestretch: 1.5
 header-includes:
   - \usepackage{float}
-abstract: |
-  This report showcases our development in various parts of the project, and how it all stitched altogether.
 ---
 
-\vspace{24pt}
+---
+
+\newpage
 
 | **Student**                    | **Contribution**                                    |
 |--------------------------------|-----------------------------------------------------|
@@ -33,11 +33,13 @@ abstract: |
 | **Abdel-Rahman Sherif**        | Hashtable Data structure, Social Network Algorithms |
 | **Ahmed Said**                 | GUI Front-end, User and Post encapsulated classes   |
 
+---
 
 \newpage
 
 \tableofcontents
 
+\newpage
 
 # Abstract
 ## XML Parser and Social Network analyzer
@@ -59,8 +61,12 @@ Also, a fully functional `CMakeLists.txt` is maintained and is used for debuggun
 Variables are needed in the `CMakeLists.txt` to be able to run everything
 
 ```shell
--DCOMPILE_GUI_QT_GCC_64_FOLDER=/home/path/to/Qt/6.8.0/gcc_64 -DCOMPILE_GUI=1 -DCOMPILE_GVC=1 -DGRAPHVIZ_INCLUDE_DIR=/usr/include/graphviz -DGRAPHVIZ_LIBRARIES=/usr/lib64/libgvc.so;/usr/lib64/libcgraph.so
+-DCOMPILE_GUI_QT_GCC_64_FOLDER=/home/path/to/Qt/6.8.0/gcc_64
+-DCOMPILE_GUI=1 -DCOMPILE_GVC=1 -DGRAPHVIZ_INCLUDE_DIR=/usr/include/graphviz
+-DGRAPHVIZ_LIBRARIES=/usr/lib64/libgvc.so;/usr/lib64/libcgraph.so
 ```
+
+\newpage
 
 # Core
 
@@ -83,20 +89,20 @@ This function tokenizes an XML string by identifying and extracting tags (enclos
 
 ##### Iterate Through `XML_data`:
 1. For every character:
-   - If it is a newline (`'\n'`), increment the `line` counter.
-   - If it is a `<`, start extracting the tag:
-     - Continue until the closing `>` is found.
-     - Append all characters to `name` during this process.
+    - If it is a newline (`'\n'`), increment the `line` counter.
+    - If it is a `<`, start extracting the tag:
+        - Continue until the closing `>` is found.
+        - Append all characters to `name` during this process.
 2. Once a complete tag is formed:
-   - Create a `Tag` object with the tag name, current line number, and tag index.
-   - Add it to the `TokenizedXML` vector.
-   - Clear the `name` variable for the next tag.
+    - Create a `Tag` object with the tag name, current line number, and tag index.
+    - Add it to the `TokenizedXML` vector.
+    - Clear the `name` variable for the next tag.
 
 #### Return Value:
 The tokenized tags are stored in `TokenizedXML`.
 
 
-- **Time complexity:** \(O(n)\), where \(n\) is the size of `XML_data`.
+- **Time complexity:** (O(n)), where (n) is the size of `XML_data`.
 
 
 ---
@@ -117,15 +123,15 @@ This function splits an XML string into separate lines, storing each line as an 
 
 ##### Iterate Through `XML`:
 1. For every character:
-   - If it is not a newline (`'\n'`), append it to the current line.
-   - If it is a newline:
-     - Increment the `line_number`.
-     - Start a new line in `LinedXml`.
+    - If it is not a newline (`'\n'`), append it to the current line.
+    - If it is a newline:
+        - Increment the `line_number`.
+        - Start a new line in `LinedXml`.
 
 #### Return Value:
 The split lines are stored in `LinedXml`.
 
-- **Time complexity:** \(O(n)\), where \(n\) is the size of `XML`.
+- **Time complexity:** (O(n)), where (n) is the size of `XML`.
 - Processes each character once.
 
 #### Notes:
@@ -133,7 +139,7 @@ The split lines are stored in `LinedXml`.
 
 ---
 
-## XML Formatting 
+## XML Formatting
 
 ### **generateIndentation**
 
@@ -147,15 +153,15 @@ Generates a string containing repeated spaces based on the specified indentation
 #### **Process:**
 1. Initialize an empty string `result`.
 2. Use a `for` loop that iterates from 0 to `level - 1`.
-   - Append the `space` string to `result` in each iteration.
+    - Append the `space` string to `result` in each iteration.
 3. Return the concatenated string.
 
 #### **Return Value:**
 - A string containing `level` repetitions of the `space` string.
 
 #### **Complexity:**
-- **Time complexity:** \(O(m . n)\), where \(m\) is the size of `space` and \(n\) is the `level`.
-- **Space complexity:** \(O(m . n)\), for storing the resulting string.
+- **Time complexity:** (O(m . n)), where (m) is the size of `space` and (n) is the `level`.
+- **Space complexity:** (O(m . n)), for storing the resulting string.
 
 
 ---
@@ -171,8 +177,8 @@ The `TreeNode` class represents the core data structure for storing hierarchical
 
 1.  **Attributes**:
 
-    -   `std::string tag_name`: Name of the XML tag (e.g., `<tag_name>`).
-    -   `std::string tag_value`: Content inside the tag (e.g., `<tag_name>tag_value</tag_name>`).
+    -   `std::string tag_name`: Name of the XML tag
+    -   `std::string tag_value`: Content inside the tag
     -   `TreeNode* parent`: Pointer to the parent node.
     -   `std::vector<TreeNode*> children`: A list of pointers to child nodes.
 2.  **Constructors**:
@@ -212,7 +218,7 @@ The `TreeNode` class represents the core data structure for storing hierarchical
 
 * * * * *
 
-### **Tree to JSON Conversion**
+#### **Tree to JSON Conversion**
 
 The functionality to convert a `TreeNode` structure into JSON provides a seamless way to represent hierarchical XML data in a widely-used text-based format.
 
@@ -266,10 +272,10 @@ The functionality to convert a `TreeNode` structure into JSON provides a seamles
     -   **Time Complexity**: O(n+m) , where nnn is the length of the XML string (parsing time) and mmm is the number of nodes (JSON conversion time).
     -   **Space Complexity**: O(m) , for tree storage and JSON string.
 3. **Json Formatting (`insert_taps`)**:
+    -   **Time Complexity**: O(level) , where `level` is the number of indentation levels. This is because the function concatenates `level` number of tab characters (`\t`).
+    -   **Space Complexity**: O(level) , for storing the resulting string of tabs.
+    -   **Note**: This function's impact on overall JSON conversion complexity is minimal, as it's called once per indentation level.
 
-   -   **Time Complexity**: O(level) , where `level` is the number of indentation levels. This is because the function concatenates `level` number of tab characters (`\t`).
-   -   **Space Complexity**: O(level) , for storing the resulting string of tabs.
-   -   **Note**: This function's impact on overall JSON conversion complexity is minimal, as it's called once per indentation level.
 ---
 
 ## Hashtable
@@ -332,6 +338,7 @@ Represents a post made by a user, with a `body` and associated `topics`. It incl
 3. **Separation of Concerns**: Clear distinction between user data (`User`) and post data (`Post`), ensuring modularity.
 
 ---
+
 ## Graph
 ### Brief
 
@@ -374,6 +381,7 @@ This way we can access all followers and all followee's of any user in `O(N)` ti
 To differentiate graph node id, and user normal id, a "pair" like struct was used called `user_id_graph_key_t` to make sure a compile error is thrown if someone tries to use user id in an operation that needs graph id.
 
 ---
+
 ## Social Network
 
 The SocialNetwork class, inheriting from Graph<User>, is designed to represent and manage data extracted from social network XML files. As a specialized graph, it encapsulates the relationships and interactions between User objects as nodes and edges. The class provides functionality to:
@@ -389,19 +397,19 @@ This design ensures that the SocialNetwork class is both versatile and efficient
 The `extract_data` function processes XML input to populate the social network with users and their relationships. It works as follows:
 
 1. **Parse XML into a Tree Structure**:
-   - An `XML_To_Tree2` object converts the XML string into a tree structure with `TreeNode` objects.
-   - The `children` of the root node are accessed to retrieve nodes corresponding to individual users.
+    - An `XML_To_Tree2` object converts the XML string into a tree structure with `TreeNode` objects.
+    - The `children` of the root node are accessed to retrieve nodes corresponding to individual users.
 
 2. **Extract User Information**:
-   - For each user node:
-     - A `User` object is created and populated with attributes like `name` and `id` by iterating through its children tags.
-     - Posts are extracted from the `posts` tag, with each post containing a body and associated topics. These posts are stored in the user's post list and the global list of posts.
+    - For each user node:
+        - A `User` object is created and populated with attributes like `name` and `id` by iterating through its children tags.
+        - Posts are extracted from the `posts` tag, with each post containing a body and associated topics. These posts are stored in the user's post list and the global list of posts.
 
 3. **Add Users to the Network**:
-   - Each `User` object is added to the social network graph.
+    - Each `User` object is added to the social network graph.
 
 4. **Add Followers to the Network**:
-   - The function loops through the user nodes again to extract and add follower-followee relationships. This is achieved by retrieving follower IDs and associating them with the corresponding followee IDs.
+    - The function loops through the user nodes again to extract and add follower-followee relationships. This is achieved by retrieving follower IDs and associating them with the corresponding followee IDs.
 
 This method ensures that the social network is populated with complete user data and connections derived from the provided XML.
 
@@ -419,21 +427,21 @@ This function works in O(N) where N is the number of users + posts + topics + ta
 1. **Step 1:** Fetch the list of users that the `current_user` is directly following and add their IDs to a set (`following_set`) to track whom the `current_user` already follows.
 2. **Step 2:** Add the `current_user`'s own ID to `following_set` to avoid self-suggestions.
 3. **Step 3:** For each user that the `current_user` follows (first-degree connections):
-   - Fetch their followings (second-degree connections).
-   - Check if these second-degree connections are already in the `following_set`.
-   - If not, add them to the `suggestions` list and `following_set` to prevent duplicates.
+    - Fetch their followings (second-degree connections).
+    - Check if these second-degree connections are already in the `following_set`.
+    - If not, add them to the `suggestions` list and `following_set` to prevent duplicates.
 4. **Return:** The `suggestions` list contains all second-degree connections not already followed by `current_user`.
 
 ---
 
-- **Time complexity:** \(O(n \cdot m)\), where:
-  - \(n\): Number of first-degree connections.
-  - \(m\): Average number of second-degree connections for each user.
-- The `unordered_set` ensures \(O(1)\) lookup for checking duplicate IDs.
+- **Time complexity:** (O(n . m)), where:
+    - (n): Number of first-degree connections.
+    - (m): Average number of second-degree connections for each user.
+- The `unordered_set` ensures (O(1)) lookup for checking duplicate IDs.
 
 ---
 
-
+\newpage
 # Console Front-end
 ## `main` Function
 ### Purpose:
@@ -443,30 +451,30 @@ The `main` function serves as the entry point for the program, which processes X
 
 ### Parameters:
 - **`int argc`**:
-  - The number of command-line arguments passed to the program.
+    - The number of command-line arguments passed to the program.
 - **`char *argv[]`**:
-  - An array of strings representing the command-line arguments.
+    - An array of strings representing the command-line arguments.
 
 ---
 
 ### Process:
 
 1. **Validate Command-Line Arguments**:
-   - The program checks if the command-line arguments are valid using the `validCommand()` function. If the arguments are invalid, it prints the usage instructions and exits.
+    - The program checks if the command-line arguments are valid using the `validCommand()` function. If the arguments are invalid, it prints the usage instructions and exits.
 
 2. **Help Command**:
-   - If the operation is `-help`, the program displays a list of all available commands using the `print_all_commands()` function and exits.
+    - If the operation is `-help`, the program displays a list of all available commands using the `print_all_commands()` function and exits.
 
 3. **Read XML File**:
-   - The program retrieves the XML file path from the command-line arguments using `get_input_path()`.
-   - The file contents are then read into a string using `File_to_string()`.
+    - The program retrieves the XML file path from the command-line arguments using `get_input_path()`.
+    - The file contents are then read into a string using `File_to_string()`.
 
 4. **Error Handling**:
-   - If the XML file is empty, the program prints an error message (`printWrongArgument()`) and exits.
+    - If the XML file is empty, the program prints an error message (`printWrongArgument()`) and exits.
 
 5. **Operations**:
-   - Based on the selected operation (e.g., `verify`, `format`, `json`, `mini`, `compress`, etc.), the program performs the corresponding task.
-   - By calling the corresponding function
+    - Based on the selected operation (e.g., `verify`, `format`, `json`, `mini`, `compress`, etc.), the program performs the corresponding task.
+    - By calling the corresponding function
 
 ---
 
@@ -475,6 +483,7 @@ The `main` function serves as the entry point for the program, which processes X
 
 ---
 
+\newpage
 # GUI using QT
 
 The XML editor built with Qt enables users to analyze and visualize data related to social networks. It provides tools to parse and edit XML files, extract relevant social network data, and generate visual representations such as graphs or charts. These visualizations help users interpret relationships, connections, and trends within the data. The application combines XML manipulation with an intuitive user interface and powerful visualization features.
@@ -483,6 +492,7 @@ It contains an editor text box and buttons that call the various functions devel
 
 Each of the buttons has a slot that corresponds to a function that calls one of the back-end functions.
 
+\newpage
 # Visualization using Graphviz
 
 Graphviz library was used to visualize graph, it is simple had documentation and examples available easily.
