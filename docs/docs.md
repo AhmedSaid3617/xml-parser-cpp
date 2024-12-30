@@ -327,8 +327,33 @@ The `fix_file` function attempts to correct structural errors in an XML string r
 
 ---
 ## Format
+Yousef Mahmoud 
 
-Kareem : Formatted json
+### Consistency
+
+# **generateIndentation**
+
+## **Purpose:**
+Generates a string containing repeated spaces based on the specified indentation level.
+
+## **Parameters:**
+- **`const string& space`**: A reference to a string representing the unit of indentation (e.g., "    " for 4 spaces).
+- **`int level`**: The number of indentation levels.
+
+## **Process:**
+1. Initialize an empty string `result`.
+2. Use a `for` loop that iterates from 0 to `level - 1`.
+   - Append the `space` string to `result` in each iteration.
+3. Return the concatenated string.
+
+## **Return Value:**
+- A string containing `level` repetitions of the `space` string.
+
+## **Complexity:**
+- **Time complexity:** \(O(m \cdot n)\), where \(m\) is the size of `space` and \(n\) is the `level`.
+- **Space complexity:** \(O(m \cdot n)\), for storing the resulting string.
+
+
 
 ---
 ## Tree
