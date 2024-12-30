@@ -138,14 +138,6 @@ This function validates a sequence of XML tags provided in a vector. It ensures 
 
 ---
 
-### Edge Cases:
-1. The first tag is a closing tag.
-2. Multiple unmatched tags.
-3. A closing tag mismatches the tag on top of the stack but matches one later in the vector.
-4. An opening tag without a corresponding closing tag.
-
----
-
 ### Time Complexity:
 - **`O(n^2)`** in the worst case:
   - The inner loop for searching mismatched tags makes this quadratic.
@@ -519,21 +511,6 @@ The `main` function serves as the entry point for the program, which processes X
 ### Return Value:
 - **`int`**:
   - The return value of the program is typically `0`, indicating successful execution. If errors occur during the processing of the XML file or social network operations, appropriate messages are displayed to the user.
-
----
-
-### Edge Cases:
-1. **Invalid Command-Line Arguments**:
-   - If the arguments are invalid or missing, the program prints usage instructions and exits.
-   
-2. **Empty XML File**:
-   - If the XML file cannot be read or is empty, the program prints an error message and exits.
-
-3. **Unsupported Operations**:
-   - If an unsupported operation is passed, the program prints an error message.
-
-4. **Social Network Operation Errors**:
-   - If there are invalid user IDs or no matching results for searches or suggestions, the program prints an appropriate error message.
 
 ---
 
