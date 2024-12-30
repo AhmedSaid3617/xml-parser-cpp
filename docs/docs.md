@@ -388,11 +388,36 @@ write here
 ---
 ## Social Network
 
-write here
+The SocialNetwork class, inheriting from Graph<User>, is designed to represent and manage data extracted from social network XML files. As a specialized graph, it encapsulates the relationships and interactions between User objects as nodes and edges. The class provides functionality to:
 
-### function1
+1. Store Users and Relationships: Each User represents an individual with relevant attributes (e.g., ID, name, metadata), and edges define their connections (e.g., friendships or interactions).
+2. Support Visualizations: By integrating seamlessly with visualization modules, the class enables generating clear graphical representations of the social network.
+3. Dynamic Updates: The class supports adding, removing, and updating users and relationships dynamically based on the extracted XML data.
 
-write here
+This design ensures that the SocialNetwork class is both versatile and efficient for analyzing and visualizing social network data.
+
+### extract_data
+
+The `extract_data` function processes XML input to populate the social network with users and their relationships. It works as follows:
+
+1. **Parse XML into a Tree Structure**:
+   - An `XML_To_Tree2` object converts the XML string into a tree structure with `TreeNode` objects.
+   - The `children` of the root node are accessed to retrieve nodes corresponding to individual users.
+
+2. **Extract User Information**:
+   - For each user node:
+     - A `User` object is created and populated with attributes like `name` and `id` by iterating through its children tags.
+     - Posts are extracted from the `posts` tag, with each post containing a body and associated topics. These posts are stored in the user's post list and the global list of posts.
+
+3. **Add Users to the Network**:
+   - Each `User` object is added to the social network graph.
+
+4. **Add Followers to the Network**:
+   - The function loops through the user nodes again to extract and add follower-followee relationships. This is achieved by retrieving follower IDs and associating them with the corresponding followee IDs.
+
+This method ensures that the social network is populated with complete user data and connections derived from the provided XML.
+
+This function works in O(N) where N is the number of users + posts + topics + tags  + followers for this xml file.
 
 ### function2
 
@@ -470,4 +495,8 @@ The `main` function serves as the entry point for the program, which processes X
 
 # GUI using QT
 
-write here
+The XML editor built with Qt enables users to analyze and visualize data related to social networks. It provides tools to parse and edit XML files, extract relevant social network data, and generate visual representations such as graphs or charts. These visualizations help users interpret relationships, connections, and trends within the data. The application combines XML manipulation with an intuitive user interface and powerful visualization features.
+
+It contains an editor text box and buttons that call the various functions developed throughout this project. It can also handle file read write operations in a visually intuitive way.
+
+Each of the buttons has a slot that corresponds to a function that calls one of the back-end functions.
