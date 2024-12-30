@@ -368,7 +368,34 @@ Kareem - abdo - shams
 ---
 ## Hashtable
 
-write here
+This implementation is a generic hash table using string keys and values of type T2. It handles collisions with separate chaining (linked lists) and uses the FNV-1a hash function for hashing.
+
+Template Class: mypair
+- Represents a key-value pair.
+- Members: key (T1), value (T2).
+- Constructor: Initializes key and value.
+
+Function: fnv1a_hash
+- Computes hash for a string using the FNV-1a algorithm.
+- Time: O(n). Space: O(1).
+
+Template Class: hash_table
+- Fixed capacity (1000). Stores data as an array of linked lists.
+
+Methods:
+1. Constructor: Initializes an empty table.
+2. Destructor: Cleans up resources.
+3. insert(key, value): Adds or updates a key-value pair. Time: O(1) (avg).
+4. delete_key(key): Removes a key-value pair. Time: O(1) (avg).
+5. operator[]: Accesses/creates value for a key. Time: O(1) (avg).
+6. print(): Displays all key-value pairs. Time: O(n).
+
+Time Complexity Summary:
+- Insert/Delete/Access: O(1) (average), O(n) (worst).
+- Print: O(n).
+
+Space Complexity: O(n) (linked list storage).
+
 
 ---
 ## Compression
