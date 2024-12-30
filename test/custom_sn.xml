@@ -1,138 +1,138 @@
 <users>
-    <user>
-        <id>1</id>
-        <name>Said</name>
-        <posts>
-        </posts>
-        <followers>
-        </followers>
-    </user>
-    <user>
-        <id>2</id>
-        <name>Fares</name>
-        <posts>
-            <post>
-                <body>
-                    This post is by fares.
-                </body>
-                <topics>
-                    <topic>
-                        data structures
-                    </topic>
-                </topics>
-            </post>
-        </posts>
-        <followers>
-            <follower>
-                <id>1</id>
-            </follower>
-            <follower>
-                <id>4</id>
-            </follower>
-            <follower>
-                <id>5</id>
-            </follower>
-            <follower>
-                <id>3</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>3</id>
-        <name>Hussein</name>
-        <posts>
-        </posts>
-        <followers>
-            <follower>
-                <id>6</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>4</id>
-        <name>Shams</name>
-        <posts>
-            <post>
-                <body>
-                    This is by shams.
-                </body>
-                <topics>
-                    <topic>
-                        data structures
-                    </topic>
-                </topics>
-            </post>
-        </posts>
-        <followers>
-            <follower>
-                <id>1</id>
-            </follower>
-            <follower>
-                <id>8</id>
-            </follower>
-            <follower>
-                <id>2</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>5</id>
-        <name>Abdo</name>
-        <posts>
-            <post>
-                <body>
-                    This post is by abdo.
-                </body>
-                <topics>
-                    <topic>
-                        economy
-                    </topic>
-                </topics>
-            </post>
-        </posts>
-        <followers>
-            <follower>
-                <id>6</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>6</id>
-        <name>Kareem</name>
-        <posts>
-        </posts>
-        <followers>
-            <follower>
-                <id>2</id>
-            </follower>
-            <follower>
-                <id>8</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>7</id>
-        <name>Omar</name>
-        <posts>
-        </posts>
-        <followers>
-            <follower>
-                <id>4</id>
-            </follower>
-        </followers>
-    </user>
-    <user>
-        <id>8</id>
-        <name>Youssef</name>
-        <posts>
-        </posts>
-        <followers>
-            <follower>
-                <id>7</id>
-            </follower>
-            <follower>
-                <id>6</id>
-            </follower>
-        </followers>
-    </user>
+<user>
+<id>1</id>
+<name>Said</name>
+<posts>
+</posts>
+<followers>
+</followers>
+</user>
+<user>
+<id>2</id>
+<name>Fares</name>
+<posts>
+<post>
+<body>
+This post is by fares.
+</body>
+<topics>
+<topic>
+data structures
+</topic>
+</topics>
+</post>
+</posts>
+<followers>
+<follower>
+<id>1</id>
+</follower>
+<follower>
+<id>4</id>
+</follower>
+<follower>
+<id>5</id>
+</follower>
+<follower>
+<id>3</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>3</id>
+<name>Hussein</name>
+<posts>
+</posts>
+<followers>
+<follower>
+<id>6</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>4</id>
+<name>Shams</name>
+<posts>
+<post>
+<body>
+This is by shams.
+</body>
+<topics>
+<topic>
+data structures
+</topic>
+</topics>
+</post>
+</posts>
+<followers>
+<follower>
+<id>1</id>
+</follower>
+<follower>
+<id>8</id>
+</follower>
+<follower>
+<id>2</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>5</id>
+<name>Abdo</name>
+<posts>
+<post>
+<body>
+This post is by abdo.
+</body>
+<topics>
+<topic>
+economy
+</topic>
+</topics>
+</post>
+</posts>
+<followers>
+<follower>
+<id>6</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>6</id>
+<name>Kareem</name>
+<posts>
+</posts>
+<followers>
+<follower>
+<id>2</id>
+</follower>
+<follower>
+<id>8</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>7</id>
+<name>Omar</name>
+<posts>
+</posts>
+<followers>
+<follower>
+<id>4</id>
+</follower>
+</followers>
+</user>
+<user>
+<id>8</id>
+<name>Youssef</name>
+<posts>
+</posts>
+<followers>
+<follower>
+<id>7</id>
+</follower>
+<follower>
+<id>6</id>
+</follower>
+</followers>
+</user>
 </users>

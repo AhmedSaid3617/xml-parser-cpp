@@ -5,6 +5,7 @@
 #include "convert/tree_to_json.h"
 #include "graph/SocialNetwork.h"
 #include "data/User.h"
+#define GRAPH_VIZ
 #ifdef GRAPH_VIZ
 #include "graph/FileExportGraphVisualization.h"
 #endif
@@ -170,7 +171,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-#ifdef GRPAH_VIZ
+#ifdef GRAPH_VIZ
     if(operation == "draw"){
         string output_file_path = argv[5];
         auto visitor = new FileExportGraphVisualization(output_file_path);

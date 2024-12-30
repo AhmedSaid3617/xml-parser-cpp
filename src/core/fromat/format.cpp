@@ -90,6 +90,6 @@ string formatXML(const string& xmlContent) {
 
     string formattedXMLString = formattedStream.str();
     formattedXMLString.pop_back();
-    formattedXMLString.pop_back();
+    //formattedXMLString.pop_back();
     return formattedXMLString;
 }

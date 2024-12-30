@@ -12,7 +12,7 @@ include_directories(src/console)
 
 file(GLOB_RECURSE XML_PARSER_CONSOLE_CPP src/console/*.cpp)
 
-add_executable(console ${XML_PARSER_CONSOLE_CPP} ${XML_PARSER_CORE_CPP}
+add_executable(xml_editor ${XML_PARSER_CONSOLE_CPP} ${XML_PARSER_CORE_CPP}
         src/core/convert/Conversion_Function.cpp
 )
 
@@ -113,14 +113,15 @@ if (${COMPILE_GUI})
 
 endif ()
 
+
 if (${COMPILE_GVC})
     if (${COMPILE_GUI})
         target_link_libraries(qt_test PRIVATE ${GRAPHVIZ_LIBRARIES})
         target_include_directories(qt_test PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
     endif ()
 
-    target_link_libraries(console PRIVATE ${GRAPHVIZ_LIBRARIES})
-    target_include_directories(console PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
+    target_link_libraries(xml_editor PRIVATE ${GRAPHVIZ_LIBRARIES})
+    target_include_directories(xml_editor PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
 
     target_link_libraries(social_network PRIVATE ${GRAPHVIZ_LIBRARIES})
     target_include_directories(social_network PRIVATE ${GRAPHVIZ_INCLUDE_DIR})
