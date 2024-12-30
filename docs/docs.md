@@ -1,28 +1,87 @@
+---
+title: "CSE331s -- Data Structures and Algorithms"
+subtitle: "Project Report"
+author:
+  - "Yousef Mahmoud Mohamed -- 2100994"
+  - "Kareem Gaber El Halaby -- 2101545"
+  - "Omar Tamer Mohamed -- 2100528"
+  - "Mohamed Hussien Mansour -- 2100919"
+  - "Fares Khalaf Salman Sultan -- 2101371"
+  - "Shams El-Din Mohamed Abdel-Monem -- CSE 2101442"
+  - "Abdel-Rahman Sherif -- CSE 2100735"
+  - "Ahmed Said Sayed -- CSE 2101546"
+date: "January 1, 2025"
+geometry: a4paper
+fontsize: 12pt
+linestretch: 1.5
+header-includes:
+  - \usepackage{float}
+abstract: |
+  This report showcases our development in various parts of the project, and how it all stitched altogether.
+---
+
+\vspace{24pt}
+
+| **Student**                    | **Contribution**                                    |
+|--------------------------------|-----------------------------------------------------|
+| **Yousef Mahmoud Mohamed**     | Formatting XML                                      |
+| **Kareem Gaber El Halaby**     | Tree Data Structure and JSON Formatting             |
+| **Omar Tamer Mohamed**         | Console Front-end and XML Consistency               |
+| **Mohamed Hussien Mansour**    | Compression, XML Minify                             |
+| **Fares Khalaf Salman Sultan** | XML Check, Social Network Algorithms                |
+| **Shams El-Din Mohamed**       | XML Tree to JSON, Graph, Graph Visualization        |
+| **Abdel-Rahman Sherif**        | Hashtable Data structure, Social Network Algorithms |
+| **Ahmed Said**                 | GUI Front-end, User and Post encapsulated classes   |
+
+
+\newpage
+
+\tableofcontents
+
+
 # Abstract
 ## XML Parser and Social Network analyzer
 
-write here
+Project consists of three main parts:
+- Core: The main algorithms, data structures, data and utility classes and encapsulation are present
+- Console: The Console interface *Front-end* that interfaces with the *Core* part through clean and intuitive interfaces
+- GUI: The Graphical-User Interface implemented using QT, that also interfaces with *Core* part.
+- Tests: A group of seperate tests using vanilla C++ and `CTest`, an attempt was made to use `Google Test` but we didn't proceed to have minimal impact on Team.
+
+Dependencies:
+- QT6 Libraries for GUI
+- Graphviz library for graph visualization and export
+
+Different parts are developed separately and interfaces are agreed on, design patterns were used as much as possible and general clean code was practiced as much as possible.
+
+Also, a fully functional `CMakeLists.txt` is maintained and is used for debuggung, running and compiling.
+
+Variables are needed in the `CMakeLists.txt` to be able to run everything
+
+```shell
+-DCOMPILE_GUI_QT_GCC_64_FOLDER=/home/path/to/Qt/6.8.0/gcc_64 -DCOMPILE_GUI=1 -DCOMPILE_GVC=1 -DGRAPHVIZ_INCLUDE_DIR=/usr/include/graphviz -DGRAPHVIZ_LIBRARIES=/usr/lib64/libgvc.so;/usr/lib64/libcgraph.so
+```
 
 # Core
 
-### Consistency
+## XML Consistency
 
-# tokenizeXML
+### tokenizeXML
 
-## Purpose:
+#### Purpose:
 This function tokenizes an XML string by identifying and extracting tags (enclosed within `<` and `>`) and stores the result in a vector of `Tag` objects.
 
-## Parameters:
+#### Parameters:
 - `string &XML_data`: The XML string to be tokenized.
 - `vector<Tag> &TokenizedXML`: A reference to a vector where the tokenized tags will be stored.
 
-## Process:
-### Initialization:
+#### Process:
+##### Initialization:
 - `name`: A string to hold the tag being processed.
 - `line`: Tracks the current line number (starts at 1).
 - `index`: Tracks the tag index in the `TokenizedXML` vector.
 
-### Iterate Through `XML_data`:
+##### Iterate Through `XML_data`:
 1. For every character:
    - If it is a newline (`'\n'`), increment the `line` counter.
    - If it is a `<`, start extracting the tag:
@@ -33,202 +92,75 @@ This function tokenizes an XML string by identifying and extracting tags (enclos
    - Add it to the `TokenizedXML` vector.
    - Clear the `name` variable for the next tag.
 
-## Return Value:
+#### Return Value:
 The tokenized tags are stored in `TokenizedXML`.
 
 
 - **Time complexity:** \(O(n)\), where \(n\) is the size of `XML_data`.
 
 
-
 ---
 
-# stringToLines
+### stringToLines
 
-## Purpose:
+#### Purpose:
 This function splits an XML string into separate lines, storing each line as an element in a vector.
 
-## Parameters:
+#### Parameters:
 - `string &XML`: The XML string to be split.
 - `vector<string> &LinedXml`: A reference to a vector where the lines will be stored.
 
-## Process:
-### Initialization:
+#### Process:
+##### Initialization:
 - `line_number`: Tracks the current line index (starts at 0).
 - `LinedXml`: Initialized with an empty string for the first line.
 
-### Iterate Through `XML`:
+##### Iterate Through `XML`:
 1. For every character:
    - If it is not a newline (`'\n'`), append it to the current line.
    - If it is a newline:
      - Increment the `line_number`.
      - Start a new line in `LinedXml`.
 
-## Return Value:
+#### Return Value:
 The split lines are stored in `LinedXml`.
 
 - **Time complexity:** \(O(n)\), where \(n\) is the size of `XML`.
 - Processes each character once.
 
-
----
-
-// validateXML - Summary
-
-/*
-Purpose:
-Validates XML tags in a vector, ensuring proper nesting and matching. Flags errors with metadata.
-
-Parameters:
-- vector<Tag> &tags: Contains:
-  - name: Tag name.
-  - opening: True for opening tag, false for closing.
-  - line_to_be_fixed: Stores correction info.
-  - index: Position in the vector.
-
-Process:
-1. Use a stack to track unmatched opening tags.
-2. Validation:
-   - First tag closing: Set `line_to_be_fixed = -3`, return 0.
-   - Empty stack with closing tag: Mark as `-2`, return index.
-   - Consecutive identical tags: Mark as `-5` (closing) or `-6` (opening), return index.
-   - Mismatched tags: Flag error, set `line_to_be_fixed`, return problematic index.
-3. Unclosed tags: Mark as `-4`, return index.
-
-Return:
-- Index of first problematic tag, 0 if invalid start, -1 if valid XML.
-
-Time Complexity:
-- O(n^2) worst case (nested searches), O(n) typical (stack processing).
-*/
-
-
-### Notes:
+#### Notes:
 - The `line_to_be_fixed` attribute is used for corrective suggestions, indicating where fixes should be made in the XML structure.
 
-// fix_error - Summary
-
-/*
-Purpose:
-Corrects an XML error in `lines` based on error details in `tags`.
-
-Parameters:
-1. vector<string> &lines: XML document lines.
-2. vector<Tag> &tags: Contains tag metadata (name, type, line, error info).
-3. int error_index: Index of the problematic tag in `tags`.
-
-Process:
-1. Retrieve the error tag using `error_index`.
-2. Fix based on `line_to_be_fixed`:
-   - `-3`: Fix an incorrect first closing tag.
-   - `-5`: Remove duplicate closing tag.
-   - `-6`: Convert duplicate opening tag to closing.
-   - `-4`: Add missing closing tag.
-   - `-2`: Add missing opening tag.
-   - Positive value: Insert matching opening/closing tag.
-
-Return:
-- void: Updates `lines` directly.
-
-Time Complexity:
-- O(n): Modifications involve a single line or insertion.
-*/
-
 ---
 
-// verify - Summary
+## XML Formatting 
 
-/*
-Purpose:
-Checks the structural validity of an XML string and identifies the line number of the first error, if any.
+### **generateIndentation**
 
-Parameters:
-- string XML: The XML document to validate.
-
-Process:
-1. Tokenize:
-   - Use `tokenizeXML` to parse `XML` into a `vector<Tag>` called `tokens`.
-2. Validate:
-   - Call `validateXML` with `tokens`.
-   - If valid (`index == -1`), return `-1`.
-   - If invalid, get the error index.
-3. Error Line:
-   - Use the error index to find the tag in `tokens` and return its line number.
-
-Return:
-- -1: XML is valid.
-- int: Line number of the first error.
-
-Time Complexity:
-- O(n): Tokenization and validation process each character once.
-*/
-
-
-// fix_file - Summary
-
-/*
-Purpose:
-Recursively corrects structural errors in an XML string until it becomes valid.
-
-Parameters:
-- string XML: The XML document to validate and correct.
-
-Process:
-1. Initialize:
-   - Split `XML` into `lines` (vector<string>).
-   - Parse tags into `tokens` (vector<Tag>) using `tokenizeXML`.
-2. Validate:
-   - Call `validateXML` with `tokens`.
-   - If valid (`index == -1`), return the input `XML`.
-3. Correct Errors:
-   - If invalid (`index != -1`), use `fix_error` to fix the issue in `lines`.
-4. Reconstruct:
-   - Combine `lines` into a corrected XML string (`data`).
-5. Recur:
-   - Call `fix_file` with the corrected XML (`data`) until valid.
-
-Return:
-- string: The corrected XML string.
-
-Time Complexity:
-- O(n * m), where:
-  - n = number of tags in the XML.
-  - m = number of recursive calls (errors to fix).
-*/
-
----
-
-## Format
-Yousef Mahmoud 
-
-### Consistency
-
-# **generateIndentation**
-
-## **Purpose:**
+#### **Purpose:**
 Generates a string containing repeated spaces based on the specified indentation level.
 
-## **Parameters:**
+#### **Parameters:**
 - **`const string& space`**: A reference to a string representing the unit of indentation (e.g., "    " for 4 spaces).
 - **`int level`**: The number of indentation levels.
 
-## **Process:**
+#### **Process:**
 1. Initialize an empty string `result`.
 2. Use a `for` loop that iterates from 0 to `level - 1`.
    - Append the `space` string to `result` in each iteration.
 3. Return the concatenated string.
 
-## **Return Value:**
+#### **Return Value:**
 - A string containing `level` repetitions of the `space` string.
 
-## **Complexity:**
+#### **Complexity:**
 - **Time complexity:** \(O(m . n)\), where \(m\) is the size of `space` and \(n\) is the `level`.
 - **Space complexity:** \(O(m . n)\), for storing the resulting string.
 
 
-
 ---
-## Tree
+
+## Tree Data Structure
 ### **TreeNode Class**
 
 The `TreeNode` class represents the core data structure for storing hierarchical information, such as that found in XML documents. Each `TreeNode` corresponds to an XML element, containing its tag name, value, parent, and children.
@@ -339,6 +271,7 @@ The functionality to convert a `TreeNode` structure into JSON provides a seamles
    -   **Space Complexity**: O(level) , for storing the resulting string of tabs.
    -   **Note**: This function's impact on overall JSON conversion complexity is minimal, as it's called once per indentation level.
 ---
+
 ## Hashtable
 
 This implementation is a generic hash table using string keys and values of type T2. It handles collisions with separate chaining (linked lists) and uses the FNV-1a hash function for hashing.
@@ -369,16 +302,17 @@ Time Complexity Summary:
 
 Space Complexity: O(n) (linked list storage).
 
-
 ---
+
 ## Compression
 
 write here
 
 ---
+
 ## Data
 
-This code defines two classes, **`User`** and **`Post`**, for managing social network users and their posts.
+This code defines two classes, and encapsulates any intuitive functionalities needed, **`User`** and **`Post`**, for managing social network users and their posts.
 
 ---
 
@@ -399,8 +333,45 @@ Represents a post made by a user, with a `body` and associated `topics`. It incl
 
 ---
 ## Graph
+### Brief
 
-write here
+Adjacency List Implementation was chosen, as it was determined that graph would be more sparse than being more dense.
+
+For handling followers and followee a trick was used, we used Undirected graph, but the "tuples" used to define an edge are used in way where `(a, b)` is not like `(b, a)` this way we can exploit this feature, and it was agreed that
+
+```c++
+Edge<User>(User_A, User_B); // Means User A follows --> user B
+```
+
+This way we can access all followers and all followee's of any user in `O(N)` time, where `N` is number of incident relations in that user, *Not the total number of users*, this gives us greater performance.
+
+### Some Functions Time Complexity
+
+#### Graph<T>::Graph(uint32_t capacity)**
+
+*   **Description:** Constructs a new graph with an initial capacity for vertices.
+*   **Time Complexity:** O(1) - Constant time.
+
+#### Graph<T>::add_vertex(T* vertex)**
+
+*   **Description:** Adds a new vertex to the graph and returns its key.
+*   **Time Complexity:**
+    *   Best Case: O(1) - If there is enough space in the underlying array.
+    *   Worst Case: O(n) - If the array needs to be resized to accommodate the new vertex.
+
+#### Graph<T>::get_vertex(graph_key_t key)**
+
+*   **Description:** Retrieves the vertex associated with the given key.
+*   **Time Complexity:** O(1) - Constant time access using the key.
+
+#### Graph<T>::add_edge(Edge<T>* edge)**
+
+*   **Description:** Adds an edge to the graph, connecting the two vertices involved.
+*   **Time Complexity:** O(1) or worst case O(N) number of already present edges in that relation.
+
+
+### Graph Key
+To differentiate graph node id, and user normal id, a "pair" like struct was used called `user_id_graph_key_t` to make sure a compile error is thrown if someone tries to use user id in an operation that needs graph id.
 
 ---
 ## Social Network
@@ -436,13 +407,7 @@ This method ensures that the social network is populated with complete user data
 
 This function works in O(N) where N is the number of users + posts + topics + tags  + followers for this xml file.
 
-### function2
-
-write here
-
-### `suggest_users_to_follow` 
-
-## Functionality
+### `suggest_users_to_follow`
 
 ### Inputs:
 - **`current_user`**: A pointer to the current `User` object for whom we are generating suggestions.
@@ -469,8 +434,8 @@ write here
 ---
 
 
-# Console
-
+# Console Front-end
+## `main` Function
 ### Purpose:
 The `main` function serves as the entry point for the program, which processes XML files and performs various operations on them. It validates XML files, formats them, converts them to JSON, minifies or compresses them, and processes social network operations, such as finding mutual followers, suggesting users, and searching for posts.
 
@@ -517,3 +482,13 @@ The XML editor built with Qt enables users to analyze and visualize data related
 It contains an editor text box and buttons that call the various functions developed throughout this project. It can also handle file read write operations in a visually intuitive way.
 
 Each of the buttons has a slot that corresponds to a function that calls one of the back-end functions.
+
+# Visualization using Graphviz
+
+Graphviz library was used to visualize graph, it is simple had documentation and examples available easily.
+
+A `GraphVisualizationSocialNetworkVisitor` abstract class was made, and it followed **Visitor** design pattern to allow adding functionality to the `SocialNetwork` class without changing the class directly.
+
+`FileExportGraphVisualization` is a concrete Visitor that visits Social Network class and exports into a file directly.
+
+`QImageGraphVisualiztion` is a concrete Visitor that visits Social Network and returns a `QImage` to be used within QT GUI to show the graph.
