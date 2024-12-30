@@ -385,9 +385,9 @@ Template Class: hash_table
 Methods:
 1. Constructor: Initializes an empty table.
 2. Destructor: Cleans up resources.
-3. insert(key, value): Adds or updates a key-value pair. Time: O(1) (avg).
-4. delete_key(key): Removes a key-value pair. Time: O(1) (avg).
-5. operator[]: Accesses/creates value for a key. Time: O(1) (avg).
+3. insert(key, value): Adds or updates a key-value pair. Time: O(1) (avg) | O(n) (worst).
+4. delete_key(key): Removes a key-value pair. Time: O(1) (avg)| O(n) (worst).
+5. operator[]: Accesses/creates value for a key. Time: O(1) (avg)| O(n) (worst).
 6. print(): Displays all key-value pairs. Time: O(n).
 
 Time Complexity Summary:
