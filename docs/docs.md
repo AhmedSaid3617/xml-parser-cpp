@@ -229,14 +229,115 @@ Generates a string containing repeated spaces based on the specified indentation
 
 ---
 ## Tree
+### **TreeNode Class**
 
-Kareem - abdo - shams
+The `TreeNode` class represents the core data structure for storing hierarchical information, such as that found in XML documents. Each `TreeNode` corresponds to an XML element, containing its tag name, value, parent, and children.
 
----
-## Convert XML to Tree
+* * * * *
 
-Kareem - abdo - shams
+#### **TreeNode Class Overview**
 
+1.  **Attributes**:
+
+    -   `std::string tag_name`: Name of the XML tag (e.g., `<tag_name>`).
+    -   `std::string tag_value`: Content inside the tag (e.g., `<tag_name>tag_value</tag_name>`).
+    -   `TreeNode* parent`: Pointer to the parent node.
+    -   `std::vector<TreeNode*> children`: A list of pointers to child nodes.
+2.  **Constructors**:
+
+    -   `TreeNode()`: Initializes an empty node.
+    -   `TreeNode(std::string name, std::string value, TreeNode* parent)`: Initializes a node with a tag name, value, and a pointer to its parent.
+    -   `TreeNode(std::string name, std::string value, TreeNode* parent, std::vector<TreeNode*> children)`: Initializes a node with specified children.
+3.  **Key Functions**:
+
+    -   **`void set_children(std::vector<TreeNode*> children)`**:
+        -   Adds multiple children to the current node.
+    -   **`void add_child(TreeNode* child)`**:
+        -   Adds a single child to the current node.
+    -   **`bool siblings_same_type()`**:
+        -   Checks if all sibling nodes under the same parent share the same tag name.
+4.  **Static Utility Functions**:
+
+    -   **`TreeNode* Parse_XML(const std::string data)`**:
+        -   Parses an XML string and builds a tree structure with `TreeNode` as the root.
+    -   **`void Free_XML(TreeNode* root)`**:
+        -   Recursively deletes all nodes in the tree to free allocated memory.
+
+* * * * *
+
+#### **Use Cases**
+
+-   Represents and manipulates hierarchical structures like XML documents or JSON objects.
+-   Facilitates traversal, querying, and modification of tree structures.
+
+* * * * *
+
+#### **Complexity**
+
+-   **Space Complexity**: O(m) , where m is the number of nodes (each node requires memory for its attributes and children pointers).
+-   **Time Complexity**: Dependent on operations:
+    -   Adding children or checking sibling properties is O(c) , where c is the number of children.
+
+* * * * *
+
+### **Tree to JSON Conversion**
+
+The functionality to convert a `TreeNode` structure into JSON provides a seamless way to represent hierarchical XML data in a widely-used text-based format.
+
+* * * * *
+
+#### **Key Functions**
+
+1.  **`std::string convert_json(TreeNode* node, bool wrap = true)`**:
+
+    -   Recursively converts a `TreeNode` into its JSON representation.
+    -   **Parameters**:
+        -   `TreeNode* node`: Root node of the subtree to convert.
+        -   `bool wrap`: If true, includes the outermost braces (`{}`) for JSON objects.
+    -   **Behavior**:
+        -   Nodes with children:
+            -   If children share the same tag name, they are represented as an array (`[ ]`).
+            -   Otherwise, they are represented as an object with child tag names as keys.
+        -   Nodes without children:
+            -   Represented as a key-value pair where the key is the tag name, and the value is the tag value.
+2.  **`std::string xml_to_json(std::string xml)`**:
+
+    -   Converts an XML string to JSON.
+    -   **Steps**:
+        -   Parses the XML string into a `TreeNode` tree using `XML_To_Tree2::convert()`.
+        -   Converts the tree to JSON using `convert_json(TreeNode*)`.
+        -   Cleans up memory by deleting the tree structure.
+3.  **`std::string insert_taps(int level):`**:
+
+    -   Generates a formatted string of tabs (`\t`) for JSON indentation. It helps create hierarchical, readable JSON by aligning nested structures appropriately.
+    -   **Steps**:
+        - Calculates the indentation depth based on the nesting level.
+        - Returns a string with the appropriate number of tabs for formatting.
+
+* * * * *
+
+#### **Use Cases**
+
+-   Converting XML data into a JSON format for web APIs or data serialization.
+-   Simplifying hierarchical data transformation.
+
+* * * * *
+
+#### **Complexity**
+
+1.  **JSON Conversion**:
+
+    -   **Time Complexity**: O(m) , where m is the number of nodes in the tree (each node is processed once).
+    -   **Space Complexity**: O(m) , for recursion stack and JSON string storage.
+2.  **XML-to-JSON Conversion (`xml_to_json`)**:
+
+    -   **Time Complexity**: O(n+m) , where nnn is the length of the XML string (parsing time) and mmm is the number of nodes (JSON conversion time).
+    -   **Space Complexity**: O(m) , for tree storage and JSON string.
+3. **Json Formatting (`insert_taps`)**:
+
+   -   **Time Complexity**: O(level) , where `level` is the number of indentation levels. This is because the function concatenates `level` number of tab characters (`\t`).
+   -   **Space Complexity**: O(level) , for storing the resulting string of tabs.
+   -   **Note**: This function's impact on overall JSON conversion complexity is minimal, as it's called once per indentation level.
 ---
 ## Hashtable
 
