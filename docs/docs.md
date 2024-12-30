@@ -350,8 +350,8 @@ Generates a string containing repeated spaces based on the specified indentation
 - A string containing `level` repetitions of the `space` string.
 
 ## **Complexity:**
-- **Time complexity:** \(O(m \cdot n)\), where \(m\) is the size of `space` and \(n\) is the `level`.
-- **Space complexity:** \(O(m \cdot n)\), for storing the resulting string.
+- **Time complexity:** \(O(m . n)\), where \(m\) is the size of `space` and \(n\) is the `level`.
+- **Space complexity:** \(O(m . n)\), for storing the resulting string.
 
 
 
