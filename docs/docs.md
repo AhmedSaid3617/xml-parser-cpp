@@ -378,7 +378,24 @@ write here
 ---
 ## Data
 
-write here
+This code defines two classes, **`User`** and **`Post`**, for managing social network users and their posts.
+
+---
+
+#### **`User` Class:**
+Represents a user in the network with an `id`, `name`, and a list of posts. It includes a parameterized constructor for initialization and grants access to its private members to the **`SocialNetwork`** class.
+
+---
+
+#### **`Post` Class:**
+Represents a post made by a user, with a `body` and associated `topics`. It includes a method `contains()` to check if the post body contains a given string. The **`User`** and **`SocialNetwork`** classes have access to its private members.
+
+---
+
+### Key Design Aspects:
+1. **Encapsulation**: Both classes encapsulate data, exposing only necessary methods.
+2. **Friendship**: **`SocialNetwork`** class can access private data to manage relationships and interactions.
+3. **Separation of Concerns**: Clear distinction between user data (`User`) and post data (`Post`), ensuring modularity.
 
 ---
 ## Graph
