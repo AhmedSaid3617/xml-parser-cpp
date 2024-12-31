@@ -373,7 +373,45 @@ Space Complexity: O(n) (linked list storage).
 ---
 ## Compression
 
-write here
+### Project Description: Byte Pair Encoding (BPE) Compression
+
+This C++ program implements **Byte Pair Encoding (BPE)** for compressing and decompressing data, with additional features for file handling and data storage. 
+
+#### **How it Works:**
+
+1. **Compression Process:**
+   - **Minification:** Removes spaces and newlines from the input to reduce size.
+   - **Frequency Calculation:** Identifies the most frequent byte pairs in the text.
+   - **Pair Replacement:** Replaces frequent pairs with unique tokens (starting from ASCII 128).
+   - **Mapping Storage:** Tracks token-to-pair mappings in a hash table for later decompression.
+   - The compression terminates after replacing 150 pairs or when no significant patterns remain.
+
+2. **Decompression Process:**
+   - **Token Replacement:** Iteratively replaces tokens with their corresponding pairs using a stack to ensure reverse-order replacement.
+   - **Reconstruction:** Gradually reconstructs the original text.
+
+3. **File Handling:**
+   - The compressed text, mappings, and tokens are saved into a file.
+   - Loading functions parse these components for decompression or reuse.
+
+4. **Helper Functions:**
+   - `readFile`: Reads input data from a file.
+   - `writeStringToFile`: Saves compressed data to a file.
+   - `loadData`: Parses compressed data into a usable structure.
+
+#### **Time Complexity:**
+- **Compression:** \(O(n^2)\)  
+  Calculating frequencies for \(n\)-length text involves \(O(n)\) per replacement. Multiple replacements depend on pair occurrences.
+- **Decompression:** \(O(n^2)\)  
+  Token replacement checks every substring against mappings.
+
+#### **Space Complexity:**
+- \(O(n + m + t)\), where:
+  - \(n\): Original text size.
+  - \(m\): Mapping size.
+  - \(t\): Stack size.
+
+This efficient BPE implementation is suitable for applications needing lightweight compression, like XML minification or preprocessing large datasets.
 
 ---
 ## Data
