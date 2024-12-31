@@ -33,6 +33,11 @@ header-includes:
 | **Abdel-Rahman Sherif**        | Hashtable Data structure, Social Network Algorithms |
 | **Ahmed Said**                 | GUI Front-end, User and Post encapsulated classes   |
 
+
+[GitHub Repo](https://github.com/AhmedSaid3617/xml-parser-cpp)
+
+[Video](https://drive.google.com/drive/folders/1qTJ10HcB0t2p3L8tXQt3FFvpTsUe8v2H?usp=sharing)
+
 ---
 
 \newpage
@@ -349,6 +354,9 @@ This C++ program implements **Byte Pair Encoding (BPE)** for compressing and dec
   - \(n\): Original text size.
   - \(m\): Mapping size.
   - \(t\): Stack size.
+
+#### Compression Ratio
+When testing on a 15 MB file, the  compressed file was 2.9MB for a total of 80.67% lossless compression.
 
 This efficient BPE implementation is suitable for applications needing lightweight compression, like XML minification or preprocessing large datasets.
 
