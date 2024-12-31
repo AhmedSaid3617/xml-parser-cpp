@@ -34,6 +34,8 @@ header-includes:
 | **Ahmed Said**                 | GUI Front-end, User and Post encapsulated classes   |
 
 
+# GitHub and Video Links
+
 [GitHub Repo](https://github.com/AhmedSaid3617/xml-parser-cpp)
 
 [Video](https://drive.google.com/drive/folders/1qTJ10HcB0t2p3L8tXQt3FFvpTsUe8v2H?usp=sharing)
@@ -355,7 +357,7 @@ This C++ program implements **Byte Pair Encoding (BPE)** for compressing and dec
   - \(m\): Mapping size.
   - \(t\): Stack size.
 
-#### Compression Ratio
+### Compression Ratio
 When testing on a 15 MB file, the  compressed file was 2.9MB for a total of 80.67% lossless compression.
 
 This efficient BPE implementation is suitable for applications needing lightweight compression, like XML minification or preprocessing large datasets.
@@ -487,7 +489,6 @@ This function works in O(N) where N is the number of users + posts + topics + ta
 
 ---
 
-\newpage
 # Console Front-end
 ## `main` Function
 ### Purpose:
@@ -529,7 +530,6 @@ The `main` function serves as the entry point for the program, which processes X
 
 ---
 
-\newpage
 # GUI using QT
 
 The XML editor built with Qt enables users to analyze and visualize data related to social networks. It provides tools to parse and edit XML files, extract relevant social network data, and generate visual representations such as graphs or charts. These visualizations help users interpret relationships, connections, and trends within the data. The application combines XML manipulation with an intuitive user interface and powerful visualization features.
@@ -538,7 +538,6 @@ It contains an editor text box and buttons that call the various functions devel
 
 Each of the buttons has a slot that corresponds to a function that calls one of the back-end functions.
 
-\newpage
 # Visualization using Graphviz
 
 Graphviz library was used to visualize graph, it is simple had documentation and examples available easily.
