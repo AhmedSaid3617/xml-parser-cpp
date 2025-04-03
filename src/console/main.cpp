@@ -5,7 +5,6 @@
 #include "convert/tree_to_json.h"
 #include "graph/SocialNetwork.h"
 #include "data/User.h"
-#define GRAPH_VIZ
 #ifdef GRAPH_VIZ
 #include "graph/FileExportGraphVisualization.h"
 #endif
