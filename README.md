@@ -44,6 +44,7 @@ This project provides both a GUI application built using Qt and a command-line t
 ## Usage
 
 ### GUI Application
+![GUI application](docs/img/gui_sample.png)
 1. Open the application.
 2. Use the menu options to perform the desired operations on your XML/JSON data.
 3. For social network analysis, load the appropriate dataset and select analysis or visualization tools.
